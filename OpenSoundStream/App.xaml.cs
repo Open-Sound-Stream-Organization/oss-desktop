@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using OpenSoundStream.ViewModel;
+using OpenSoundStream.Views;
 
 namespace OpenSoundStream
 {
@@ -13,5 +15,13 @@ namespace OpenSoundStream
 	/// </summary>
 	public partial class App : Application
 	{
+		private void OnStartup(object sender, StartupEventArgs e)
+		{
+			MainWindow mainWindow = new MainWindow(new MainViewModel());
+			mainWindow.ShowDialog();
+
+			Environment.Exit(1);
+
+		}
 	}
 }
