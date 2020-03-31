@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\OpenSoundStream"
+    "\\OpenSoundStream",
+    "\\OpenSoundStream\\Views"
   ],
+  "SelectedNode": "\\OpenSoundStream\\OpenSoundStream.sln",
   "PreviewInSolutionExplorer": false
 }

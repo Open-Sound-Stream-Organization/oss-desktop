@@ -112,5 +112,38 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_skip_previous_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_person_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_audiotrack_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_adjust_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_volume_mute_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_skip_next_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_repeat_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_play_arrow_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_pause_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_play_circle_filled_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Icons\round_album_white_18dp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
