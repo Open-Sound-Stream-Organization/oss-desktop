@@ -17,7 +17,6 @@ namespace OpenSoundStream
         public Musicplayer()
         {
             Mediaplayer.MediaEnded += EndOfTrackReached;
-
         }
 
         public void SetVolume(double volume)
@@ -54,20 +53,31 @@ namespace OpenSoundStream
 
         public void Stop()
         {
-            Mediaplayer.Stop();
-            State = PlayerState.Stop;
+            if (State != PlayerState.Stop)
+            {
+                Mediaplayer.Stop();
+                State = PlayerState.Stop;
+            }
         }
 
         public void Pause()
         {
-            Mediaplayer.Pause();
-            State = PlayerState.Pause;
+            if (State != PlayerState.Pause)
+            {
+                Mediaplayer.Pause();
+                State = PlayerState.Pause;
+            }
         }
 
         public void Play()
         {
-            Mediaplayer.Play();
-            State = PlayerState.Play;
+            if (State != PlayerState.Play)
+            {
+                if (Mediaplayer.HasAudio == false)
+                    throw new Exception("Audio kann nicht abgespielt werden");
+                Mediaplayer.Play();
+                State = PlayerState.Play;
+            }
         }
 
         public void PlayTrack(Track track)
