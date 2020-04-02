@@ -27,7 +27,7 @@
                         <ColumnDefinition Width="53*"/>
                     </Grid.ColumnDefinitions>
                     <Image HorizontalAlignment="Left" Width="35" Source="Icons/round_person_white_18dp.png" Height="40" VerticalAlignment="Bottom" Margin="0,0,0,3" Grid.ColumnSpan="2"/>
-                    <Label Content="Artists" HorizontalAlignment="Left" Margin="29,0,0,0" VerticalAlignment="Top" Height="33" Width="99" Foreground="White" FontSize="18" Grid.Column="1"/>
+                    <Label Content="Artists" HorizontalAlignment="Left" Margin="29,7,-9,0" VerticalAlignment="Top" Height="33" Width="99" Foreground="White" FontSize="18" Grid.Column="1"/>
                 </Grid>
 
                 <Grid MouseDown="Section_MouseDown" x:Name="Albums" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="130" Margin="0,76,0,0">

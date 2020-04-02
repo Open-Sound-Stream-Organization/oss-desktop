@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\OpenSoundStream",
-    "\\OpenSoundStream\\Views"
+    "\\OpenSoundStream"
   ],
-  "SelectedNode": "\\OpenSoundStream\\OpenSoundStream.sln",
+  "SelectedNode": "\\OpenSoundStream\\OpenSoundStream.csproj",
   "PreviewInSolutionExplorer": false
 }

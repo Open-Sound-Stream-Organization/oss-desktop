@@ -70,6 +70,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Code\AppHelper.cs" />
+    <Compile Include="Code\Album.cs" />
+    <Compile Include="Code\Artist.cs" />
+    <Compile Include="Code\DatabaseHandler.cs" />
+    <Compile Include="Code\Musicplayer.cs" />
+    <Compile Include="Code\NetworkHandler.cs" />
+    <Compile Include="Code\OpenSoundStreamManager.cs" />
+    <Compile Include="Code\Playlist.cs" />
+    <Compile Include="Code\Queue.cs" />
+    <Compile Include="Code\QueueHandler.cs" />
+    <Compile Include="Code\Track.cs" />
+    <Compile Include="Code\Metadata.cs" />
+    <Compile Include="Code\PlayerState.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Views\MainWindow.xaml">
@@ -103,6 +116,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
