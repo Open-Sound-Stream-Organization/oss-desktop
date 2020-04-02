@@ -11,10 +11,16 @@ namespace OpenSoundStream
 
         public string Title { get; set; }
 
-        public string FullFileName { get; set; }
-
         public Metadata Metadata { get; set; }
 
         public System.Windows.DependencyProperty Dependency { get; set; }
+
+        public Uri Filepath
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

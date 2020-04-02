@@ -14,34 +14,68 @@ namespace OpenSoundStream
 
         public PlayerState State { get; set; }
 
+        public Musicplayer()
+        {
+            Mediaplayer.MediaEnded += EndOfTrackReached;
+
+        }
+
         public void SetVolume(double volume)
         {
-            throw new System.NotImplementedException();
+            if (volume < 0.0 || volume > 1.0)
+                throw new ArgumentOutOfRangeException();
+
+            Mediaplayer.Volume = volume;
         }
 
         public void NextTrack()
         {
-            throw new System.NotImplementedException();
+            Track nextTrack = Queue.NextTrack;
+            if (nextTrack != null)
+                Mediaplayer.Open(Queue.NextTrack.Filepath);
+        }
+
+        private void EndOfTrackReached(object sender, EventArgs e)
+        {
+            Track nextTrack = Queue.NextTrack;
+            if (nextTrack != null)
+                Mediaplayer.Open(Queue.NextTrack.Filepath);
+            else if(Queue.Repeat)
+            {
+                Queue.Tracks = new LinkedList<Track>(Queue.LastPlayed.Reverse());
+                Mediaplayer.Open(Queue.NextTrack.Filepath);
+            } 
         }
 
         public void PrevTrack()
         {
-            throw new System.NotImplementedException();
+            Mediaplayer.Open(Queue.LastTrack.Filepath);
         }
 
         public void Stop()
         {
-            throw new System.NotImplementedException();
+            Mediaplayer.Stop();
+            State = PlayerState.Stop;
         }
 
         public void Pause()
         {
-            throw new System.NotImplementedException();
+            Mediaplayer.Pause();
+            State = PlayerState.Pause;
         }
 
         public void Play()
         {
-            throw new System.NotImplementedException();
+            Mediaplayer.Play();
+            State = PlayerState.Play;
+        }
+
+        public void PlayTrack(Track track)
+        {
+            Queue.ActiveTrack = track;
+
+            if (State != PlayerState.Play)
+                Play();
         }
 
         public void SetTimelinePosition()
