@@ -7,9 +7,12 @@ namespace OpenSoundStream
 {
     public class Playlist
     {
-        public Playlist()
+        public Playlist(string name)
         {
-            throw new System.NotImplementedException();
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Tracks = new LinkedList<Track>();
+
+            Playlists.Add(this);
         }
 
         ~Playlist()
@@ -17,7 +20,7 @@ namespace OpenSoundStream
             throw new System.NotImplementedException();
         }
 
-        public System.Collections.Generic.Queue<OpenSoundStream.Track> Tracks { get; set; }
+        public System.Collections.Generic.LinkedList<OpenSoundStream.Track> Tracks { get; set; }
 
         public static List<Playlist> Playlists { get; set; }
 

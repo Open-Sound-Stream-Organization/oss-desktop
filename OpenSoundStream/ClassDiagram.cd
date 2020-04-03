@@ -17,7 +17,7 @@
   <Class Name="OpenSoundStream.Musicplayer">
     <Position X="5.5" Y="2.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAgQAAAAAAAAAAABAACAAAAQAAAAACApAAABAAAAAA=</HashCode>
+      <HashCode>AgAgQAAAAAAAAAAABAACIAAAQAAAAECApAAABAAAAAA=</HashCode>
       <FileName>Code\Musicplayer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -25,9 +25,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="OpenSoundStream.MusicQueue">
-    <Position X="5.5" Y="6" Width="1.5" />
+    <Position X="5.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAEAACAAAAAAAAAAAAABAAAAAAAIAAAAAEAA=</HashCode>
+      <HashCode>ACCAAogAAEAAAAgAAAAAAAAAAQAAAAAAAAIAAEACFAA=</HashCode>
       <FileName>Code\Queue.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -37,7 +37,7 @@
   <Class Name="OpenSoundStream.Track">
     <Position X="8.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAABAEAAAEAAAAAAAAAAAAAAAAAAAAAAAQAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAEAAAAAAAAAAAAAAAAAAAAQAAAAEAAA=</HashCode>
       <FileName>Code\Track.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

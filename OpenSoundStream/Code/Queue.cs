@@ -9,7 +9,8 @@ namespace OpenSoundStream
 	{
 		public MusicQueue()
 		{
-			throw new System.NotImplementedException();
+			Tracks = new LinkedList<Track>();
+			LastPlayed = new Stack<Track>();
 		}
 
 		public LinkedList<Track> Tracks { get; set; }
@@ -22,23 +23,18 @@ namespace OpenSoundStream
 
 		public Track ActiveTrack { get; set; }
 
-		public Track NextTrack
+		public Track SelectNextTrack()
 		{
-			get
-			{
-				AddLastTrack();
-				return DequeueNextTrack();
-			}
+			AddLastTrack();
+			ActiveTrack = DequeueNextTrack();
+			return ActiveTrack;
 		}
 
-		public Track LastTrack
+		public Track SelectLastTrack()
 		{
-			get
-			{
-				Track lastTrack = PopLastPlayed();
-				AddTrackToQueueFirstPos(lastTrack);
-				return lastTrack;
-			}
+			ActiveTrack = PopLastPlayed();
+			AddTrackToQueueFirstPos(ActiveTrack);
+			return ActiveTrack;
 		}
 
 		public void AddTrackToQueueFirstPos(Track track)

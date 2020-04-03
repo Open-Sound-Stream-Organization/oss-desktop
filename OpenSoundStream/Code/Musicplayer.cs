@@ -2,95 +2,118 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace OpenSoundStream
 {
-    public class Musicplayer
-    {
+	public class Musicplayer
+	{
 
-        public MusicQueue Queue { get; set; }
+		public MusicQueue Queue { get; set; }
 
-        public System.Windows.Media.MediaPlayer Mediaplayer { get; set; }
+		public System.Windows.Media.MediaPlayer Mediaplayer { get; set; }
 
-        public PlayerState State { get; set; }
+		public PlayerState State { get; set; }
 
-        public Musicplayer()
-        {
-            Mediaplayer.MediaEnded += EndOfTrackReached;
-        }
+		public Musicplayer()
+		{
+			Queue = new MusicQueue();
+			Mediaplayer = new System.Windows.Media.MediaPlayer();
+			State = PlayerState.Stop;
 
-        public void SetVolume(double volume)
-        {
-            if (volume < 0.0 || volume > 1.0)
-                throw new ArgumentOutOfRangeException();
+			Mediaplayer.MediaEnded += NextTrack;
+		}
 
-            Mediaplayer.Volume = volume;
-        }
+		public void SetVolume(double volume)
+		{
+			if (volume < 0.0 || volume > 1.0)
+				throw new ArgumentOutOfRangeException();
 
-        public void NextTrack()
-        {
-            Track nextTrack = Queue.NextTrack;
-            if (nextTrack != null)
-                Mediaplayer.Open(Queue.NextTrack.Filepath);
-        }
+			Mediaplayer.Volume = volume;
+		}
 
-        private void EndOfTrackReached(object sender, EventArgs e)
-        {
-            Track nextTrack = Queue.NextTrack;
-            if (nextTrack != null)
-                Mediaplayer.Open(Queue.NextTrack.Filepath);
-            else if(Queue.Repeat)
-            {
-                Queue.Tracks = new LinkedList<Track>(Queue.LastPlayed.Reverse());
-                Mediaplayer.Open(Queue.NextTrack.Filepath);
-            } 
-        }
+		public void NextTrack(object sender = null, EventArgs e = null)
+		{
+			Queue.SelectNextTrack();
 
-        public void PrevTrack()
-        {
-            Mediaplayer.Open(Queue.LastTrack.Filepath);
-        }
+			if (Queue.ActiveTrack != null)
+			{
+				Mediaplayer.Open(Queue.ActiveTrack.Filepath);
+				if(State == PlayerState.Play)
+					Play();
+			}
+			else if (Queue.Repeat && Queue.LastPlayed.Count > 0)
+			{
+				Queue.Tracks = new LinkedList<Track>(Queue.LastPlayed.Reverse());
+				Mediaplayer.Open(Queue.SelectNextTrack().Filepath);
+				if (State == PlayerState.Play)
+					Play();
+			}
+			else
+			{
+				Stop();
+			}
+		}
 
-        public void Stop()
-        {
-            if (State != PlayerState.Stop)
-            {
-                Mediaplayer.Stop();
-                State = PlayerState.Stop;
-            }
-        }
+		public void PrevTrack()
+		{
+			Queue.SelectLastTrack();
+			if (Queue.ActiveTrack != null)
+			{
+				Mediaplayer.Open(Queue.ActiveTrack.Filepath);
+				if (State == PlayerState.Play)
+					Play();
+			}
+			else
+			{
+				Stop();
+			}
+		}
 
-        public void Pause()
-        {
-            if (State != PlayerState.Pause)
-            {
-                Mediaplayer.Pause();
-                State = PlayerState.Pause;
-            }
-        }
+		public void Stop()
+		{
+			if (State != PlayerState.Stop)
+			{
+				Mediaplayer.Stop();
+				State = PlayerState.Stop;
+			}
+		}
 
-        public void Play()
-        {
-            if (State != PlayerState.Play)
-            {
-                if (Mediaplayer.HasAudio == false)
-                    throw new Exception("Audio kann nicht abgespielt werden");
-                Mediaplayer.Play();
-                State = PlayerState.Play;
-            }
-        }
+		public void Pause()
+		{
+			if (State != PlayerState.Pause)
+			{
+				Mediaplayer.Pause();
+				State = PlayerState.Pause;
+			}
+		}
 
-        public void PlayTrack(Track track)
-        {
-            Queue.ActiveTrack = track;
+		public void Play()
+		{
 
-            if (State != PlayerState.Play)
-                Play();
-        }
+			if (Queue.ActiveTrack == null)
+			{
+				NextTrack();
 
-        public void SetTimelinePosition()
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+				if (Queue.ActiveTrack == null)
+					Stop();
+			}
+
+			Mediaplayer.Play();
+			State = PlayerState.Play;
+		}
+
+		public void PlayTrack(Track track)
+		{
+			Queue.ActiveTrack = track;
+			Mediaplayer.Open(Queue.ActiveTrack.Filepath);
+			Play();
+		}
+
+		public void SetTimelinePosition()
+		{
+			throw new System.NotImplementedException();
+		}
+	}
 }

@@ -76,9 +76,9 @@
         </Grid>
 
         <!--Music Control-->
-        <Image Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="0,27,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.1,0.348" Source="./Icons/round_skip_previous_white_18dp.png"/>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="0,27,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.1,0.348" Source="./Icons/round_skip_previous_white_18dp.png" MouseDown="Image_MouseDown_1"/>
         <Image Grid.Column="2" Name="PlayButtonImage" HorizontalAlignment="Left" Height="45" Margin="5,27,0,0" VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.1,0.348" Source="Icons/round_play_arrow_white_18dp.png" MouseDown="StartPlayer"/>
-        <Image Grid.Column="3" HorizontalAlignment="Left" Height="45" Margin="10,27,0,0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.1,0.348" Source="Icons/round_skip_next_white_18dp.png"/>
+        <Image Grid.Column="3" HorizontalAlignment="Left" Height="45" Margin="10,27,0,0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.1,0.348" Source="Icons/round_skip_next_white_18dp.png" MouseDown="Image_MouseDown"/>
 
         <!--Volum Control-->
         <Grid Grid.Column="4">

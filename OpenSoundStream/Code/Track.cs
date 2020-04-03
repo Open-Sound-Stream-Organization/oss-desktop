@@ -7,20 +7,23 @@ namespace OpenSoundStream
 {
     public class Track
     {
+        public Track(string title, Uri filepath)
+        {
+            Title = title;
+            Filepath = filepath;
+            Metadata = new Metadata();
+
+            Tracks.Add(this);
+        }
+
         public static List<Track> Tracks { get; set; }
 
         public string Title { get; set; }
 
         public Metadata Metadata { get; set; }
 
-        public System.Windows.DependencyProperty Dependency { get; set; }
+        //public System.Windows.DependencyProperty Dependency { get; set; }
 
-        public Uri Filepath
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public Uri Filepath { get; set; }
     }
 }
