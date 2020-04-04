@@ -20,7 +20,7 @@ namespace OpenSoundStream
             throw new System.NotImplementedException();
         }
 
-        public System.Collections.Generic.LinkedList<OpenSoundStream.Track> Tracks { get; set; }
+        public LinkedList<Track> Tracks { get; set; }
 
         public static List<Playlist> Playlists { get; set; }
 
@@ -28,17 +28,17 @@ namespace OpenSoundStream
 
         public void AddTrack(Track track)
         {
-            throw new System.NotImplementedException();
+            this.Tracks.AddLast(track);
         }
 
         public void RemoveTrack(Track track)
         {
-            throw new System.NotImplementedException();
+            this.Tracks.Remove(track);
         }
 
         public void Delete()
         {
-            throw new System.NotImplementedException();
+            Playlists.Remove(this);
         }
     }
 }
