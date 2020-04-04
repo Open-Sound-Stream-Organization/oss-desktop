@@ -18,16 +18,21 @@ namespace OpenSoundStream
 			Playlist.Playlists = new List<Playlist>();
 			Artist.Artists = new List<Artist>();
 
-
-
-
 			//DEBUG
-			Track a = new Track("01 Titelnummer 1", new Uri(@"file:///C:/Users/kaiuw/Music/Cello/Celloschule/01 Titelnummer 1.wav"));
-			Track b = new Track("02 Titelnummer 2", new Uri(@"file:///C:/Users/kaiuw/Music/Cello/Celloschule/02 Titelnummer 2.wav"));
-			Track c = new Track("03 Titelnummer 3", new Uri(@"file:///C:/Users/kaiuw/Music/Cello/Celloschule/03 Titelnummer 3.wav"));
-			Musicplayer.Queue.AddTrackToQueueLastPos(a);
-			Musicplayer.Queue.AddTrackToQueueLastPos(b);
-			Musicplayer.Queue.AddTrackToQueueLastPos(c);
+			Track a = new Track("01 Titelnummer 1", new Uri(@"file:///C:/Users/cpfro/Music/Track1.mp3"));
+			Track b = new Track("02 Titelnummer 2", new Uri(@"file:///C:/Users/cpfro/Music/Track2.mp3"));
+
+			AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track1.mp3");
+			AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music");
+
+			Playlist pl = new Playlist("Party");
+			pl.AddTrack(a);
+			pl.AddTrack(b);
+
+			Musicplayer.Queue.Tracks = pl.Tracks;
+
+			//Musicplayer.Queue.AddTrackToQueueLastPos(a);
+			//Musicplayer.Queue.AddTrackToQueueLastPos(b);
 		}
 
 
