@@ -15,7 +15,7 @@ namespace OpenSoundStream
 
 		public LinkedList<Track> Tracks { get; set; }
 
-		public Stack<Track> LastPlayed { get; private set; }
+		public Stack<Track> LastPlayed { get; set; }
 
 		public bool Shuffle { get; set; }
 

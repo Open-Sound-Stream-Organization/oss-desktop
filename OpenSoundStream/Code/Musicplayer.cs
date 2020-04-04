@@ -9,7 +9,6 @@ namespace OpenSoundStream
 {
 	public class Musicplayer
 	{
-
 		public MusicQueue Queue { get; set; }
 
 		public System.Windows.Media.MediaPlayer Mediaplayer { get; set; }
@@ -46,6 +45,7 @@ namespace OpenSoundStream
 			else if (Queue.Repeat && Queue.LastPlayed.Count > 0)
 			{
 				Queue.Tracks = new LinkedList<Track>(Queue.LastPlayed.Reverse());
+				Queue.LastPlayed = new Stack<Track>();
 				Mediaplayer.Open(Queue.SelectNextTrack().Filepath);
 				if (State == PlayerState.Play)
 					Play();
