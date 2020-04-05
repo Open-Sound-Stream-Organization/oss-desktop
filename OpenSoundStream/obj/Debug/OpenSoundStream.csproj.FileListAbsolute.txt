@@ -68,17 +68,44 @@ C:\Users\kaiuw\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSound
 C:\Users\kaiuw\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\kaiuw\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.ValueTuple.xml
 C:\Users\kaiuw\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\OpenSoundStream.csproj.CoreCompileInputs.cache
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\DynamicData.dll
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\ReactiveUI.dll
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\Splat.dll
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Reactive.dll
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Threading.Tasks.Extensions.dll
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.ValueTuple.dll
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\DynamicData.xml
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\ReactiveUI.xml
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\Splat.xml
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Reactive.xml
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Threading.Tasks.Extensions.xml
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.ValueTuple.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\OpenSoundStream.exe.config
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\OpenSoundStream.exe
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\OpenSoundStream.pdb
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\CommonServiceLocator.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\DynamicData.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\ReactiveUI.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\Splat.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.Reactive.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.ValueTuple.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\DynamicData.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.pdb
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\ReactiveUI.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\Splat.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.Reactive.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\bin\Debug\System.ValueTuple.xml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.csprojAssemblyReference.cache
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\Views\MainWindow.g.cs
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\App.g.cs
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream_MarkupCompile.cache
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream_MarkupCompile.lref
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\App.baml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\Views\MainWindow.baml
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.g.resources
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.Properties.Resources.resources
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.csproj.GenerateResource.cache
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.csproj.CopyComplete
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.exe
+C:\Users\cpfro\OneDrive\Dokumente\DHBW Studium\4.Semester\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.pdb

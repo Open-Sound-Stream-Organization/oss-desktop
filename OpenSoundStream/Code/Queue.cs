@@ -15,7 +15,7 @@ namespace OpenSoundStream
 
 		public LinkedList<Track> Tracks { get; set; }
 
-		public Stack<Track> LastPlayed { get; set; }
+		public Stack<Track> LastPlayed { get; private set; }
 
 		public bool Shuffle { get; set; }
 
@@ -68,10 +68,24 @@ namespace OpenSoundStream
 
 		public Track DequeueNextTrack()
 		{
-			//TODO Nullprüfung einbauen
-			Track nextTrack = Tracks.First.Value;
-			Tracks.RemoveFirst();
-			return nextTrack;
+			if(Tracks.First == null)
+			{
+				foreach (var item in LastPlayed)
+				{
+					Tracks.AddFirst(item);
+				}
+				// Remove null from Stack
+				Tracks.RemoveFirst();
+				LastPlayed.Clear();
+
+				return null;
+			}
+			else
+			{
+				Track nextTrack = Tracks.First.Value;
+				Tracks.RemoveFirst();
+				return nextTrack;
+			}
 		}
 	}
 }

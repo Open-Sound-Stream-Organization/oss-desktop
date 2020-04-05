@@ -15,10 +15,10 @@ namespace OpenSoundStream
             Playlists.Add(this);
         }
 
-        ~Playlist()
-        {
-            throw new System.NotImplementedException();
-        }
+        //~Playlist()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
         public LinkedList<Track> Tracks { get; set; }
 
@@ -29,6 +29,12 @@ namespace OpenSoundStream
         public void AddTrack(Track track)
         {
             this.Tracks.AddLast(track);
+        }
+
+        public void AddTrackAfterTrack(Track newTrack, Track existingTrack)
+        {
+            LinkedListNode<Track> node = Tracks.Find(existingTrack);
+            this.Tracks.AddAfter(node, newTrack);
         }
 
         public void RemoveTrack(Track track)
