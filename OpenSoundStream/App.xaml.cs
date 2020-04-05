@@ -17,7 +17,7 @@ namespace OpenSoundStream
 	{
 		private void OnStartup(object sender, StartupEventArgs e)
 		{
-			MainWindow mainWindow = new MainWindow(new MainViewModel());
+			MainWindow mainWindow = new MainWindow(new ViewModel.MainViewModel());
 			mainWindow.ShowDialog();
 
 			Environment.Exit(1);
