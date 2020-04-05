@@ -7,8 +7,7 @@ namespace OpenSoundStream.ViewModel
 
     public class MainViewModel : ViewModelBase
     {
-        private static bool playing = false;
-        private Musicplayer musicplayer = new Musicplayer();
+        private Musicplayer musicplayer = OpenSoundStreamManager.Musicplayer;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         public RelayCommand StartPlayerCommand { get; private set; }
@@ -104,17 +103,15 @@ namespace OpenSoundStream.ViewModel
 
         private void StartPlayer()
         {
-            if (playing)
+            if (musicplayer.State == PlayerState.Play)
             {
                 musicplayer.Pause();
                 PauseOrPlay = "./Icons/round_pause_white_18dp.png";
-                playing = false;
             }
             else
             {
                 PauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
                 musicplayer.Play();
-                playing = true;
             }
         }
         private void PlayPrevious()
@@ -127,6 +124,7 @@ namespace OpenSoundStream.ViewModel
         }
         private void SetPlayerMode()
         {
+
         }
         private void createBigPlayerView()
         {
@@ -148,7 +146,7 @@ namespace OpenSoundStream.ViewModel
 
         private void SetTitleInformation()
         {
-            
+
         }
     }
 }

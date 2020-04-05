@@ -41,20 +41,24 @@ namespace OpenSoundStream
             }
         }
 
-        public static void LocalImportPlaylist(string sourcePath)
+        public static void LocalImportPlaylist(string sourcePath, Playlist pl)
         {
             Directory.CreateDirectory(DataPath + "\\Playlists");
             string path = DataPath + "\\Playlists" + "\\" +  Path.GetFileName(sourcePath);
             string[] files = System.IO.Directory.GetFiles(sourcePath);
+
 
             Directory.CreateDirectory(path);
 
             // Copy the files and overwrite destination files if they already exist.
             foreach (string s in files)
             {
+                //TODO File Extension check (only move .mp3, .wav, ...)
                 string fileName = System.IO.Path.GetFileName(s);
                 string destFile = System.IO.Path.Combine(path, fileName);
                 System.IO.File.Copy(s, destFile, true);
+
+                pl.AddTrack(new Track(fileName.Split('.')[0], new Uri(destFile)));
             }
         }
 
@@ -68,6 +72,7 @@ namespace OpenSoundStream
 
             foreach (string s in files)
             {
+                //TODO File Extension check (only move .mp3, .wav, ...)
                 string fileName = System.IO.Path.GetFileName(s);
                 string destFile = System.IO.Path.Combine(path, fileName);
                 System.IO.File.Copy(s, destFile, true);

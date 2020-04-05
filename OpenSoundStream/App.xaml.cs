@@ -18,6 +18,7 @@ namespace OpenSoundStream
 		private void OnStartup(object sender, StartupEventArgs e)
 		{
 			AppHelper.CheckDataPath();
+			new OpenSoundStreamManager();
 			MainWindow mainWindow = new MainWindow(new MainViewModel());
 			mainWindow.ShowDialog();
 

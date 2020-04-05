@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="OpenSoundStream.DatabaseHandler">
-    <Position X="0.75" Y="2" Width="1.5" />
+    <Position X="0.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Code\DatabaseHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenSoundStream.NetworkHandler">
-    <Position X="0.75" Y="3.5" Width="1.5" />
+    <Position X="0.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Code\NetworkHandler.cs</FileName>
@@ -17,21 +17,21 @@
   <Class Name="OpenSoundStream.Musicplayer">
     <Position X="5.5" Y="2.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAgQAAAAAAAAAAABAACIAAAQAAAAACApAAABAAAAAA=</HashCode>
+      <HashCode>AAAgQAAAAAACAAAABAACIAAAAAAAAACApAAABAAAAAA=</HashCode>
       <FileName>Code\Musicplayer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Queue" />
+      <Property Name="Musicqueue" />
     </ShowAsAssociation>
   </Class>
   <Class Name="OpenSoundStream.MusicQueue">
-    <Position X="5.5" Y="6.25" Width="1.5" />
+    <Position X="5" Y="6.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>ACCAAogAAEAAAAAgAAAAAAAAAQAAAAAAAAIAAEAAHAA=</HashCode>
+      <HashCode>ACCAAogAAAAAAAAgAAAAAAAAQAAAAAAAAAIAAEAAGAA=</HashCode>
       <FileName>Code\Queue.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Tracks" />
+      <Property Name="Queue" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="OpenSoundStream.Track">
@@ -57,7 +57,7 @@
   <Class Name="OpenSoundStream.Playlist">
     <Position X="11.25" Y="4.25" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAEAACAAAAAAAAAQAAAFAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQAAAAAEAACAAAACAAAAQAAAFAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Code\Playlist.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -89,7 +89,7 @@
   <Class Name="OpenSoundStream.AppHelper">
     <Position X="0.5" Y="5.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAQAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAAAAAAAAgAAEAAAAQAAAAIAAAEAAAACA=</HashCode>
       <FileName>Code\AppHelper.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace OpenSoundStream
 {
-	public static class OpenSoundStreamManager
+	public class OpenSoundStreamManager
 	{
-		static OpenSoundStreamManager()
+		public OpenSoundStreamManager()
 		{
 			DatabaseHandler = new DatabaseHandler();
 			NetworkHandler = new NetworkHandler();
@@ -19,18 +19,24 @@ namespace OpenSoundStream
 			Artist.Artists = new List<Artist>();
 
 			//DEBUG
-			Track a = new Track("01 Titelnummer 1", new Uri(@"file:///C:/Users/cpfro/Music/Track1.mp3"));
-			Track b = new Track("02 Titelnummer 2", new Uri(@"file:///C:/Users/cpfro/Music/Track2.mp3"));
+			Track a = new Track("01 Titelnummer 1", new Uri(@"file:///C:/Users/kaiuw/Music/Test1.wav"));
+			Track b = new Track("02 Titelnummer 2", new Uri(@"file:///C:/Users/kaiuw/Music/Test2.wav"));
+			Track c = new Track("Test", new Uri(@"file:///C:/Users/kaiuw/Music/Test3.wav.opensound"));
 
-			AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track1.mp3");
-			AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music");
+			Playlist p1 = new Playlist("Celloschule");
+			Playlist p2 = new Playlist("Test");
 
-			Playlist pl = new Playlist("Party");
-			pl.AddTrack(a);
-			pl.AddTrack(b);
+			AppHelper.LocalImportTrack(@"C:/Users/kaiuw/Music/Test1.wav");
+			AppHelper.LocalImportPlaylist(@"C:/Users/kaiuw/Music/Cello/Celloschule", p1);
 
-			Musicplayer.Queue.Tracks = pl.Tracks;
 
+			p2.AddTrack(a);
+			p2.AddTrack(b);
+			p2.AddTrack(c);
+
+			Musicplayer.Musicqueue.LoadPlaylistInQueue(p1);
+
+			
 			//Musicplayer.Queue.AddTrackToQueueLastPos(a);
 			//Musicplayer.Queue.AddTrackToQueueLastPos(b);
 		}

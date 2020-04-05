@@ -9,7 +9,7 @@ namespace OpenSoundStream
 {
 	public class Musicplayer
 	{
-		public MusicQueue Queue { get; set; }
+		public MusicQueue Musicqueue { get; set; }
 
 		public System.Windows.Media.MediaPlayer Mediaplayer { get; set; }
 
@@ -17,7 +17,7 @@ namespace OpenSoundStream
 
 		public Musicplayer()
 		{
-			Queue = new MusicQueue();
+			Musicqueue = new MusicQueue();
 			Mediaplayer = new System.Windows.Media.MediaPlayer();
 			State = PlayerState.Stop;
 
@@ -34,19 +34,19 @@ namespace OpenSoundStream
 
 		public void NextTrack(object sender = null, EventArgs e = null)
 		{
-			Queue.SelectNextTrack();
+			Musicqueue.SelectNextTrack();
 
-			if (Queue.ActiveTrack != null)
+			if (Musicqueue.ActiveTrack != null)
 			{
-				Mediaplayer.Open(Queue.ActiveTrack.Filepath);
+				Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
 				if(State == PlayerState.Play)
 					Play();
 			}
-			else if (Queue.Repeat && Queue.LastPlayed.Count > 0)
+			else if (Musicqueue.Repeat && Musicqueue.LastPlayed.Count > 0)
 			{
-				Queue.Tracks = new LinkedList<Track>(Queue.LastPlayed.Reverse());
-				Queue.LastPlayed = new Stack<Track>();
-				Mediaplayer.Open(Queue.SelectNextTrack().Filepath);
+				Musicqueue.Queue = new LinkedList<Track>(Musicqueue.LastPlayed.Reverse());
+				Musicqueue.LastPlayed = new Stack<Track>();
+				Mediaplayer.Open(Musicqueue.SelectNextTrack().Filepath);
 				if (State == PlayerState.Play)
 					Play();
 			}
@@ -58,10 +58,10 @@ namespace OpenSoundStream
 
 		public void PrevTrack()
 		{
-			Queue.SelectLastTrack();
-			if (Queue.ActiveTrack != null)
+			Musicqueue.SelectLastTrack();
+			if (Musicqueue.ActiveTrack != null)
 			{
-				Mediaplayer.Open(Queue.ActiveTrack.Filepath);
+				Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
 				if (State == PlayerState.Play)
 					Play();
 			}
@@ -92,11 +92,11 @@ namespace OpenSoundStream
 		public void Play()
 		{
 
-			if (Queue.ActiveTrack == null)
+			if (Musicqueue.ActiveTrack == null)
 			{
 				NextTrack();
 
-				if (Queue.ActiveTrack == null)
+				if (Musicqueue.ActiveTrack == null)
 					Stop();
 			}
 
@@ -106,8 +106,8 @@ namespace OpenSoundStream
 
 		public void PlayTrack(Track track)
 		{
-			Queue.ActiveTrack = track;
-			Mediaplayer.Open(Queue.ActiveTrack.Filepath);
+			Musicqueue.ActiveTrack = track;
+			Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
 			Play();
 		}
 

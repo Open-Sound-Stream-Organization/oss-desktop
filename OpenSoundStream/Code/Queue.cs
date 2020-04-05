@@ -9,13 +9,13 @@ namespace OpenSoundStream
 	{
 		public MusicQueue()
 		{
-			Tracks = new LinkedList<Track>();
+			Queue = new LinkedList<Track>();
 			LastPlayed = new Stack<Track>();
 		}
 
-		public LinkedList<Track> Tracks { get; set; }
+		public LinkedList<Track> Queue { get; set; }
 
-		public Stack<Track> LastPlayed { get; private set; }
+		public Stack<Track> LastPlayed { get; set; }
 
 		public bool Shuffle { get; set; }
 
@@ -25,66 +25,69 @@ namespace OpenSoundStream
 
 		public Track SelectNextTrack()
 		{
-			AddLastTrack();
+			if (ActiveTrack != null)
+				LastPlayed.Push(ActiveTrack);
 			ActiveTrack = DequeueNextTrack();
 			return ActiveTrack;
 		}
 
 		public Track SelectLastTrack()
 		{
-			ActiveTrack = PopLastPlayed();
-			AddTrackToQueueFirstPos(ActiveTrack);
-			return ActiveTrack;
+			if (ActiveTrack != null)
+			{
+				Queue.AddFirst(ActiveTrack);
+			}
+			if(LastPlayed.Count >0)
+			{
+				ActiveTrack = LastPlayed.Pop();
+				AddTrackToQueueFirstPos(ActiveTrack);
+				return ActiveTrack;
+			}
+			return null;
 		}
 
 		public void AddTrackToQueueFirstPos(Track track)
 		{
-			Tracks.AddFirst(track);
+			Queue.AddFirst(track);
 		}
 
 		public void AddTrackToQueueLastPos(Track track)
 		{
-			Tracks.AddLast(track);
+			Queue.AddLast(track);
 		}
 
 		public void RemoveTrackFromQueue(Track track)
 		{
-			Tracks.Remove(track);
+			Queue.Remove(track);
 		}
 
-		public void AddLastTrack()
+		private Track DequeueNextTrack()
 		{
-			LastPlayed.Push(ActiveTrack);
-		}
-
-		public Track PopLastPlayed()
-		{
-			if(ActiveTrack != null)
-			{
-				Tracks.AddFirst(ActiveTrack);
-			}
-			return LastPlayed.Pop();
-		}
-
-		public Track DequeueNextTrack()
-		{
-			if(Tracks.First == null)
+			if (Queue.First == null)
 			{
 				foreach (var item in LastPlayed)
 				{
-					Tracks.AddFirst(item);
+					Queue.AddFirst(item);
 				}
 				// Remove null from Stack
-				Tracks.RemoveFirst();
+				Queue.RemoveFirst();
 				LastPlayed.Clear();
 
-				return null;
+				return Queue.First.Value;
 			}
 			else
 			{
-				Track nextTrack = Tracks.First.Value;
-				Tracks.RemoveFirst();
+				Track nextTrack = Queue.First.Value;
+				Queue.RemoveFirst();
 				return nextTrack;
+			}
+		}
+
+		public void LoadPlaylistInQueue(Playlist playlist)
+		{
+			foreach (Track track in playlist.Tracks)
+			{
+				Queue.AddLast(track);
 			}
 		}
 	}

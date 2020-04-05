@@ -5,162 +5,138 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OpenSoundStream"
         mc:Ignorable="d"
-        Height="500" Width="800" ResizeMode="CanResize" Background="#3A3A3A">
+        Height="460" Width="900" ResizeMode="CanResize" Background="#3A3A3A" MinWidth="840" MinHeight="300">
 
 
 
-    <Grid>
+	<Grid>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="123.5"/>
-            <ColumnDefinition Width="Auto" MinWidth="671.5"/>
-        </Grid.ColumnDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="165"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,670,0.5">
+		<Grid Grid.Column="0" Margin="0,0,3,1">
 
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+			<Grid Grid.Column="0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="45" />
+					<RowDefinition Height="45" />
+					<RowDefinition Height="45" />
+					<RowDefinition Height="45" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
 
-                <Grid Grid.Row="0">
+				<Grid Grid.Row="0">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" HorizontalAlignment="Left" Width="30"  Height="32" VerticalAlignment="Bottom" Margin="0,0,0,2.5" Grid.ColumnSpan="2" Style="{StaticResource CostumButton}" Command="{Binding BigPlayerCommand}">
-                        <Image Source="./Icons/round_play_circle_filled_white_18dp.png"/>
-                    </Button>
+					<Button Grid.Column="0" HorizontalAlignment="Left" Width="30"  Height="32" VerticalAlignment="Bottom" Margin="0,0,0,2.5" Grid.ColumnSpan="2" Style="{StaticResource CostumButton}" Command="{Binding BigPlayerCommand}">
+						<Image Source="./Icons/round_play_circle_filled_white_18dp.png"/>
+					</Button>
 
-                    <Button Grid.Column="1" Content="Big Player" Margin="49.5,10,-11.5,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="18" Style="{StaticResource CostumButton}" Command="{Binding BigPlayerCommand}"/>
-                </Grid>
+					<Button Grid.Column="1" Content="Big Player" Margin="49.5,10,-11.5,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="18" Style="{StaticResource CostumButton}" Command="{Binding BigPlayerCommand}"/>
+				</Grid>
 
-                <Grid Grid.Row="1">
+				<Grid Grid.Row="1">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" HorizontalAlignment="Left" Width="30"  Height="32" VerticalAlignment="Bottom" Margin="0,0,0,2.5" Grid.ColumnSpan="2" Style="{StaticResource CostumButton}" Command="{Binding ArtistsCommand}">
-                        <Image Source="./Icons/round_person_white_18dp.png"/>
-                    </Button>
+					<Button Grid.Column="0" HorizontalAlignment="Left" Width="30"  Height="32" VerticalAlignment="Bottom" Margin="0,0,0,2.5" Grid.ColumnSpan="2" Style="{StaticResource CostumButton}" Command="{Binding ArtistsCommand}">
+						<Image Source="./Icons/round_person_white_18dp.png"/>
+					</Button>
 
-                    <Button Grid.Column="1" Content="Artists" Margin="49.5,10,-11.5,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="18" Style="{StaticResource CostumButton}" Command="{Binding ArtistCommand}"/>
-                </Grid>
+					<Button Grid.Column="1" Content="Artists" Margin="49.5,10,-11.5,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="18" Style="{StaticResource CostumButton}" Command="{Binding ArtistCommand}"/>
+				</Grid>
 
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="96" />
-                        <ColumnDefinition Width="2.5"/>
-                    </Grid.ColumnDefinitions>
+				<Grid Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="96" />
+						<ColumnDefinition Width="2.5"/>
+					</Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" HorizontalAlignment="Left" Width="30"  Height="32" VerticalAlignment="Bottom" Margin="0,0,0,2.5" Grid.ColumnSpan="2" Style="{StaticResource CostumButton}" Command="{Binding AlbumsCommand}">
-                        <Image Source="./Icons/round_album_white_18dp.png"/>
-                    </Button>
+					<Button Grid.Column="0" HorizontalAlignment="Left" Width="30"  Height="32" VerticalAlignment="Bottom" Margin="0,0,0,2.5" Grid.ColumnSpan="2" Style="{StaticResource CostumButton}" Command="{Binding AlbumsCommand}">
+						<Image Source="./Icons/round_album_white_18dp.png"/>
+					</Button>
 
-                    <Button Grid.Column="1" Content="Albums" Margin="49.5,10,-11,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="18" Style="{StaticResource CostumButton}" Command="{Binding AlbumsCommand}" Grid.ColumnSpan="2"/>
-                </Grid>
+					<Button Grid.Column="1" Content="Albums" Margin="49.5,10,-11,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="18" Style="{StaticResource CostumButton}" Command="{Binding AlbumsCommand}" Grid.ColumnSpan="2"/>
+				</Grid>
 
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+				<Grid Grid.Row="3">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" HorizontalAlignment="Left" Width="30"  Height="32" VerticalAlignment="Bottom" Margin="0,0,0,2.5" Grid.ColumnSpan="2" Style="{StaticResource CostumButton}" Command="{Binding TracksCommand}">
-                        <Image Source="./Icons/round_audiotrack_white_18dp.png"/>
-                    </Button>
+					<Button Grid.Column="0" HorizontalAlignment="Left" Width="30"  Height="32" VerticalAlignment="Bottom" Margin="0,0,0,2.5" Grid.ColumnSpan="2" Style="{StaticResource CostumButton}" Command="{Binding TracksCommand}">
+						<Image Source="./Icons/round_audiotrack_white_18dp.png"/>
+					</Button>
 
-                    <Button Grid.Column="1" Content="Tracks" Margin="49.5,10,-11.5,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="18" Style="{StaticResource CostumButton}" Command="{Binding TracksCommand}"/>
-                </Grid>
-            </Grid>
+					<Button Grid.Column="1" Content="Tracks" Margin="49.5,10,-11.5,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="18" Style="{StaticResource CostumButton}" Command="{Binding TracksCommand}"/>
+				</Grid>
+			</Grid>
 
 
-        </Grid>
+		</Grid>
 
-        <Grid Grid.Column="1" Margin="36.5,0,0,0.5">
+		<Grid Grid.Column="1" Margin="10,0,0,1">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="80" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55*" />
-                    <ColumnDefinition Width="59*" />
-                    <ColumnDefinition Width="66*" />
-                    <ColumnDefinition Width="133*" />
-                    <ColumnDefinition Width="89*" />
-                    <ColumnDefinition Width="49*" />
-                    <ColumnDefinition Width="194*" />
-                </Grid.ColumnDefinitions>
+			<Grid Grid.Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="60*" />
+					<ColumnDefinition Width="60*" />
+					<ColumnDefinition Width="60*" />
+					<ColumnDefinition Width="120*" />
+					<ColumnDefinition Width="100*" />
+					<ColumnDefinition Width="60*" />
+					<ColumnDefinition Width="60*" />
+					<ColumnDefinition Width="120*"/>
+				</Grid.ColumnDefinitions>
 
-                <!--Music Control-->
-                <Button Background="Transparent" Grid.Column="0" HorizontalAlignment="Left" Height="45" Margin="0,27,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.1,0.348" Command="{Binding PlayPreviousCommand}" Style="{StaticResource CostumButton}">
-                    <Image Source="./Icons/round_skip_previous_white_18dp.png" />
-                </Button>
-                <Button Background="Transparent" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="5,27,0,0" VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.1,0.348"  Command="{Binding StartPlayerCommand}" Style="{StaticResource CostumButton}">
-                    <Image Source="{Binding PauseOrPlay, Mode=TwoWay}"/>
-                </Button>
-                <Button Background="Transparent" Grid.Column="2" HorizontalAlignment="Left" Height="45" Margin="10,27,0,0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.1,0.348" Command="{Binding PlayNextCommand}" Style="{StaticResource CostumButton}">
-                    <Image Source="Icons/round_skip_next_white_18dp.png" />
-                </Button>
+				<!--Music Control-->
+				<Button Background="Transparent" Grid.Column="0" Height="50" Margin="8,16,8,15" Width="50" RenderTransformOrigin="0.1,0.348" Command="{Binding PlayPreviousCommand}" Style="{StaticResource CostumButton}">
+					<Image Source="./Icons/round_skip_previous_white_18dp.png" />
+				</Button>
+				<Button Background="Transparent" Grid.Column="1" Height="50" Margin="8,16,8,15" Width="50" RenderTransformOrigin="0.1,0.348"  Command="{Binding StartPlayerCommand}" Style="{StaticResource CostumButton}">
+					<Image Source="{Binding PauseOrPlay, Mode=TwoWay}"/>
+				</Button>
+				<Button Background="Transparent" Grid.Column="2" Height="50" Margin="8,16,8,15" Width="50" RenderTransformOrigin="0.1,0.348" Command="{Binding PlayNextCommand}" Style="{StaticResource CostumButton}">
+					<Image Source="Icons/round_skip_next_white_18dp.png" />
+				</Button>
 
-                <!--Volum Control-->
-                <Grid Grid.Column="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+				<!--Volum Control-->
 
-                    <Slider Grid.Row="1" HorizontalAlignment="Left" Margin="0,22.5,0,-39" Width="133" Value="{Binding TrackTime}"/>
-                    <Label Grid.Row="0" Name="CurrentTrackTime" Content="{Binding TrackTimeField}" HorizontalAlignment="Left" Foreground="White" Height="26" VerticalAlignment="Top" Margin="0,9,0,0" Grid.RowSpan="2"/>
-                </Grid>
+				<!--Curren Title and Artist-->
 
-                <!--Curren Title and Artist-->
-                <Grid Grid.Column="4">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+				<!--Shuffel-->
+				<Button Background="Transparent" Grid.Column="5" Height="50" Margin="8,16,8,15" Width="50" RenderTransformOrigin="0.1,0.348" Command="{Binding PlayerSettingCommand}"  Style="{StaticResource CostumButton}">
+					<Image Source="Icons/round_repeat_white_18dp.png" Height="35" />
+				</Button>
+				<Image Grid.Column="6" Height="50" Margin="1" Width="50" RenderTransformOrigin="0.1,0.348" Source="Icons/round_volume_mute_white_18dp.png"/>
+				<Slider x:Name="VolumSlider" Margin="10,1" Height="20" Value="{Binding Volumn}" Grid.Column="7"/>
+				<Slider Margin="10,30,10,31" Value="{Binding TrackTime}" Height="20" Grid.Column="3"/>
+				<Label x:Name="CurrentTrackName" Content="{Binding CurrentTrack}" Margin="10" Width="68" Foreground="#FFFBFBFB" FontSize="20" Grid.Column="4"/>
 
-                    <Label Grid.Row="1" Name="CurrentTrackArtist" Content="{Binding CurrentArtist}" HorizontalAlignment="Left" Margin="21,39.5,0,-38" VerticalAlignment="Top" Foreground="White" FontSize="13" RenderTransformOrigin="0.506,1.873"/>
-                    <Label Grid.Row="1" Name="CurrentTrackName" Content="{Binding CurrentTrack}" HorizontalAlignment="Left" Margin="21,6.5,0,-18" Width="68" Foreground="#FFFBFBFB" FontSize="20"/>
-                </Grid>
+				<!--Volum Control-->
+			</Grid>
 
-                <!--Shuffel-->
-                <Button Background="Transparent" Grid.Column="5" HorizontalAlignment="Left" Height="45" Margin="4,21,0,0" VerticalAlignment="Top" Width="45" RenderTransformOrigin="0.1,0.348" Command="{Binding PlayerSettingCommand}"  Style="{StaticResource CostumButton}">
-                    <Image Source="Icons/round_repeat_white_18dp.png" Height="35" />
-                </Button>
+			<Grid Grid.Row="1"/>
 
-                <!--Volum Control-->
-                <Grid Grid.Column="6" Margin="18,0,10,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Image Grid.Column="0" HorizontalAlignment="Left" Height="44" Margin="0,28,0,0" VerticalAlignment="Top" Width="45" RenderTransformOrigin="0.1,0.348" Source="Icons/round_volume_mute_white_18dp.png"/>
-                    <Slider x:Name="VolumSlider" HorizontalAlignment="Left" Margin="50,44,0,0" VerticalAlignment="Top" Height="18" Width="106" Value="{Binding Volumn}" Grid.ColumnSpan="2"/>
-                </Grid>
-            </Grid>
-
-            <Grid Grid.Row="1">
-
-            </Grid>
-
-        </Grid>
-    </Grid>
+		</Grid>
+	</Grid>
 
 </Window>
     
