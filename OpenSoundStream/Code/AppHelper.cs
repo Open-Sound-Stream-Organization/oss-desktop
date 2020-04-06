@@ -33,36 +33,40 @@ namespace OpenSoundStream
             string destFile = Path.Combine(DataPath + "\\Tracks", fileName);
             if (Directory.Exists(destFile))
             {
-
             }
             else
             {
                 File.Copy(sourcePath, destFile, true);
+                Track track = new Track(fileName.Split('.')[0], new Uri(@"file:///" + sourcePath));
             }
         }
 
         public static void LocalImportPlaylist(string sourcePath, Playlist pl)
         {
             Directory.CreateDirectory(DataPath + "\\Playlists");
-            string path = DataPath + "\\Playlists" + "\\" +  Path.GetFileName(sourcePath);
+            string path = DataPath + "\\Playlists" + "\\" + Path.GetFileName(sourcePath);
             string[] files = System.IO.Directory.GetFiles(sourcePath);
-
 
             Directory.CreateDirectory(path);
 
             // Copy the files and overwrite destination files if they already exist.
             foreach (string s in files)
             {
-                //TODO File Extension check (only move .mp3, .wav, ...)
                 string fileName = System.IO.Path.GetFileName(s);
-                string destFile = System.IO.Path.Combine(path, fileName);
-                System.IO.File.Copy(s, destFile, true);
+                //File Extension check (only move .mp3, .wav, ...)
+                string format = fileName.Split('.')[fileName.Split('.').Length - 1];
+                if (format == "mp3" || format == "wav")
+                {
+                    string destFile = System.IO.Path.Combine(path, fileName);
+                    System.IO.File.Copy(s, destFile, true);
 
-                pl.AddTrack(new Track(fileName.Split('.')[0], new Uri(destFile)));
+                    pl.AddTrack(new Track(fileName.Split('.')[0], new Uri(destFile)));
+                }
+
             }
         }
 
-        public static void LocalImportAlbum(string sourcePath)
+        public static void LocalImportAlbum(string sourcePath, Album album)
         {
             Directory.CreateDirectory(DataPath + "\\Albums");
             string path = DataPath + "\\Albums" + "\\" + Path.GetFileName(sourcePath);
@@ -72,10 +76,14 @@ namespace OpenSoundStream
 
             foreach (string s in files)
             {
-                //TODO File Extension check (only move .mp3, .wav, ...)
                 string fileName = System.IO.Path.GetFileName(s);
-                string destFile = System.IO.Path.Combine(path, fileName);
-                System.IO.File.Copy(s, destFile, true);
+                //File Extension check (only move .mp3, .wav, ...)
+                string format = fileName.Split('.')[fileName.Split('.').Length - 1];
+                if (format == "mp3" || format == "wav")
+                {
+                    string destFile = System.IO.Path.Combine(path, fileName);
+                    System.IO.File.Copy(s, destFile, true);
+                }
             }
         }
 
