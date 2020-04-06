@@ -69,8 +69,6 @@ namespace OpenSoundStream
 				{
 					Queue.AddFirst(item);
 				}
-				// Remove null from Stack
-				Queue.RemoveFirst();
 				LastPlayed.Clear();
 
 				return Queue.First.Value;
