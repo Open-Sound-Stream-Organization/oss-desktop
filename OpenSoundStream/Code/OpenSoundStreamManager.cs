@@ -18,16 +18,27 @@ namespace OpenSoundStream
 			Playlist.Playlists = new List<Playlist>();
 			Artist.Artists = new List<Artist>();
 
+			////DEBUG
+			//Track a = new Track("01 Titelnummer 1", new Uri(@"file:///C:/Users/kaiuw/Music/Test1.wav"));
+			//Track b = new Track("02 Titelnummer 2", new Uri(@"file:///C:/Users/kaiuw/Music/Test2.wav"));
+			//Track c = new Track("Test", new Uri(@"file:///C:/Users/kaiuw/Music/Test3.wav.opensound"));
+
+			//Playlist p1 = new Playlist("Celloschule");
+			//Playlist p2 = new Playlist("Test");
+
+			//AppHelper.LocalImportTrack(@"C:/Users/kaiuw/Music/Test1.wav");
+			//AppHelper.LocalImportPlaylist(@"C:/Users/kaiuw/Music/Cello/Celloschule", p1);
+
 			//DEBUG
-			Track a = new Track("01 Titelnummer 1", new Uri(@"file:///C:/Users/kaiuw/Music/Test1.wav"));
-			Track b = new Track("02 Titelnummer 2", new Uri(@"file:///C:/Users/kaiuw/Music/Test2.wav"));
-			Track c = new Track("Test", new Uri(@"file:///C:/Users/kaiuw/Music/Test3.wav.opensound"));
+			Track a = new Track("01 Titelnummer 1", new Uri(@"file:///C:/Users/menac/Music/Test1.wav"));
+			Track b = new Track("02 Titelnummer 2", new Uri(@"file:///C:/Users/menac/Music/Test1.wav"));
+			Track c = new Track("Test", new Uri(@"file:///C:/Users/menac/Music/Test1.wav.opensound"));
 
 			Playlist p1 = new Playlist("Celloschule");
 			Playlist p2 = new Playlist("Test");
 
-			AppHelper.LocalImportTrack(@"C:/Users/kaiuw/Music/Test1.wav");
-			AppHelper.LocalImportPlaylist(@"C:/Users/kaiuw/Music/Cello/Celloschule", p1);
+			AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
+			AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Celloschule", p1);
 
 
 			p2.AddTrack(a);
