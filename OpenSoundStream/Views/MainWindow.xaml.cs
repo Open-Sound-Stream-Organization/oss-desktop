@@ -11,7 +11,6 @@ namespace OpenSoundStream.Views
 
 	public partial class MainWindow : Window
 	{
-
 		public MainWindow(MainViewModel t_mainWindowModel)
 		{
 			DataContext = t_mainWindowModel;

@@ -33,11 +33,20 @@ namespace OpenSoundStream
             string destFile = Path.Combine(DataPath + "\\Tracks", fileName);
             if (Directory.Exists(destFile))
             {
+                //TODO Hash abgleich
             }
             else
             {
-                File.Copy(sourcePath, destFile, true);
-                Track track = new Track(fileName.Split('.')[0], new Uri(@"file:///" + sourcePath));
+                try
+                {
+                    File.Copy(sourcePath, destFile, true);
+                    new Track(fileName.Split('.')[0], new Uri(@"file:///" + sourcePath));
+                }
+                catch (Exception ex)
+                {
+                    //TODO Fehlermanagement
+                    throw ex;
+                }
             }
         }
 

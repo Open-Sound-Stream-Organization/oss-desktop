@@ -29,27 +29,43 @@ namespace OpenSoundStream
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public Track SelectNextTrack()
+		public void NextTrack()
 		{
-			if (ActiveTrack != null)
-				LastPlayed.Push(ActiveTrack);
-			ActiveTrack = DequeueNextTrack();
-			return ActiveTrack;
+			Track currentTrack = ActiveTrack;
+			Track nextTrack = Queue.First.Value;
+
+			if (currentTrack != null)
+				LastPlayed.Push(currentTrack);
+
+			if (nextTrack != null)
+			{
+				ActiveTrack = nextTrack;
+				Queue.RemoveFirst();
+			}
 		}
 
-		public Track SelectLastTrack()
+		public void PrevTrack()
 		{
-			if (ActiveTrack != null)
+			Track currentTrack = ActiveTrack;
+			Track lastTrack = null;
+
+			if (currentTrack == null)
+				return;
+
+			try
 			{
-				Queue.AddFirst(ActiveTrack);
+				lastTrack = LastPlayed.Pop();
 			}
-			if (LastPlayed.Count > 0)
+			catch (Exception ex)
 			{
-				ActiveTrack = LastPlayed.Pop();
-				AddTrackToQueueFirstPos(ActiveTrack);
-				return ActiveTrack;
+				//TODO Fehlermanagement
 			}
-			return null;
+
+			if (lastTrack != null)
+			{
+				ActiveTrack = lastTrack;
+				Queue.AddFirst(currentTrack);
+			}
 		}
 
 		public void AddTrackToQueueFirstPos(Track track)
@@ -65,26 +81,6 @@ namespace OpenSoundStream
 		public void RemoveTrackFromQueue(Track track)
 		{
 			Queue.Remove(track);
-		}
-
-		private Track DequeueNextTrack()
-		{
-			if (Queue.First == null)
-			{
-				foreach (var item in LastPlayed)
-				{
-					Queue.AddFirst(item);
-				}
-				LastPlayed.Clear();
-
-				return Queue.First.Value;
-			}
-			else
-			{
-				Track nextTrack = Queue.First.Value;
-				Queue.RemoveFirst();
-				return nextTrack;
-			}
 		}
 
 		public void LoadPlaylistInQueue(Playlist playlist)

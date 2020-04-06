@@ -1,13 +1,16 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OpenSoundStream
 {
-	public class Musicplayer
+	public class Musicplayer : ReactiveObject
 	{
 		public MusicQueue Musicqueue { get; set; }
 
@@ -34,7 +37,7 @@ namespace OpenSoundStream
 
 		public void NextTrack(object sender = null, EventArgs e = null)
 		{
-			Musicqueue.SelectNextTrack();
+			Musicqueue.NextTrack();
 
 			if (Musicqueue.ActiveTrack != null)
 			{
@@ -46,9 +49,8 @@ namespace OpenSoundStream
 			{
 				Musicqueue.Queue = new LinkedList<Track>(Musicqueue.LastPlayed.Reverse());
 				Musicqueue.LastPlayed = new Stack<Track>();
-				Mediaplayer.Open(Musicqueue.SelectNextTrack().Filepath);
-				if (State == PlayerState.Play)
-					Play();
+
+				NextTrack();
 			}
 			else
 			{
@@ -58,7 +60,7 @@ namespace OpenSoundStream
 
 		public void PrevTrack()
 		{
-			Musicqueue.SelectLastTrack();
+			Musicqueue.PrevTrack();
 			if (Musicqueue.ActiveTrack != null)
 			{
 				Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
@@ -109,11 +111,6 @@ namespace OpenSoundStream
 			Musicqueue.ActiveTrack = track;
 			Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
 			Play();
-		}
-
-		public void SetTimelinePosition()
-		{
-			throw new System.NotImplementedException();
 		}
 	}
 }

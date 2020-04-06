@@ -123,3 +123,4 @@ C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSound
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.ValueTuple.xml
+C:\Users\kaiuw\Source\Repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\GeneratedInternalTypeHelper.g.cs
