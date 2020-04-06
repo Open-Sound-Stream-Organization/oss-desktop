@@ -25,5 +25,9 @@ namespace OpenSoundStream
         //public System.Windows.DependencyProperty Dependency { get; set; }
 
         public Uri Filepath { get; set; }
+
+        public Album Album { get; set; }
+
+        public Artist Artist { get; set; }
     }
 }

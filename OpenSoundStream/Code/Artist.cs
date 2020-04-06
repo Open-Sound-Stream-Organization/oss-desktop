@@ -15,9 +15,9 @@ namespace OpenSoundStream
             Artists.Add(this);
         }
 
-        public List<Album> Albums { get; set; }
-
         public static List<Artist> Artists { get; set; }
+
+        public List<Album> Albums { get; set; }
 
         public string Name { get; set; }
     }

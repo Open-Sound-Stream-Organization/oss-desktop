@@ -27,17 +27,18 @@
   <Class Name="OpenSoundStream.MusicQueue">
     <Position X="5" Y="6.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>ACCAAogAAAAAAAAgAAAAAAAAQAAAAAAAAAIAAEAAGAA=</HashCode>
+      <HashCode>ACCAAogAAAAAAAAgKAAAAIAAwAAAAAAAAAIAAEAAGAA=</HashCode>
       <FileName>Code\Queue.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Queue" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="OpenSoundStream.Track">
-    <Position X="8.5" Y="6.5" Width="1.5" />
+    <Position X="8.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAEAAAAAAAAAAAAAAAAAAAAQAAAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAEAAAAAAAAAAAIAAAAAAAAQACAAEAAA=</HashCode>
       <FileName>Code\Track.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -47,7 +48,7 @@
   <Class Name="OpenSoundStream.Album">
     <Position X="8.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAQAAIAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Code\Album.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -94,7 +95,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="OpenSoundStream.Metadata">
-    <Position X="8.5" Y="8.75" Width="1.5" />
+    <Position X="8.5" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAIAAAAAAQAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Code\Metadata.cs</FileName>

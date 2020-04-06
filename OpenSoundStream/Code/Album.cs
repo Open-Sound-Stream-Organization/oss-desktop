@@ -20,5 +20,7 @@ namespace OpenSoundStream
         public List<Track> Tracks { get; set; }
 
         public string Name { get; set; }
+
+        public Artist Artist { get; set; }
     }
 }

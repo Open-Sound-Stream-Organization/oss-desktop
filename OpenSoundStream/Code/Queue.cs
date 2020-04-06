@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace OpenSoundStream
 {
-	public class MusicQueue
+	public class MusicQueue : INotifyPropertyChanged
 	{
+		private Track activeTrack;
+
 		public MusicQueue()
 		{
 			Queue = new LinkedList<Track>();
@@ -21,7 +25,9 @@ namespace OpenSoundStream
 
 		public bool Repeat { get; set; }
 
-		public Track ActiveTrack { get; set; }
+		public Track ActiveTrack { get => activeTrack; set { activeTrack = value; OnPropertyChanged(); } }
+
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public Track SelectNextTrack()
 		{
@@ -37,7 +43,7 @@ namespace OpenSoundStream
 			{
 				Queue.AddFirst(ActiveTrack);
 			}
-			if(LastPlayed.Count >0)
+			if (LastPlayed.Count > 0)
 			{
 				ActiveTrack = LastPlayed.Pop();
 				AddTrackToQueueFirstPos(ActiveTrack);
@@ -87,6 +93,13 @@ namespace OpenSoundStream
 			{
 				Queue.AddLast(track);
 			}
+		}
+
+		// Create the OnPropertyChanged method to raise the event
+		// The calling member's name will be used as the parameter.
+		protected void OnPropertyChanged([CallerMemberName] string name = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 	}
 }
