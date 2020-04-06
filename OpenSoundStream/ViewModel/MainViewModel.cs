@@ -1,14 +1,18 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Timers;
 
 namespace OpenSoundStream.ViewModel
 {
 
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        private Musicplayer musicplayer = OpenSoundStreamManager.Musicplayer;
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public static Musicplayer musicplayer = OpenSoundStreamManager.Musicplayer;
+        public static MainViewModel mainViewModel;
 
         public RelayCommand StartPlayerCommand { get; private set; }
         public RelayCommand PlayPreviousCommand { get; private set; }
@@ -22,40 +26,40 @@ namespace OpenSoundStream.ViewModel
         private string _pauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
         private string _currentArtist = "";
         private string _currentTrack = "";
-        private double _volumn;
+        private double _volumn = musicplayer.Mediaplayer.Volume * 100;
         private double _trackTime;
         private string _trackTimeField = "0:00";
+        ObservableCollection<TrackClass> tracks = new ObservableCollection<TrackClass>();
 
+        public ObservableCollection<TrackClass> Tracks { get { return tracks; } }
         public string PauseOrPlay
         {
             get { return _pauseOrPlay; }
             set
             {
                 _pauseOrPlay = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(PauseOrPlay)));
+                RaisePropertyChanged("PauseOrPlay");
+                
             }
         }
-
         public string CurrentTrack
         {
             get { return _currentTrack; }
             set
             {
                 _currentTrack = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(CurrentTrack)));
+                RaisePropertyChanged("CurrentTrack");
             }
         }
-
         public string CurrentArtist
         {
             get { return _currentArtist; }
             set
             {
                 _currentArtist = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(CurrentArtist)));
+                RaisePropertyChanged("CurrentArtist");
             }
         }
-
         public double Volumn
         {
             get { return _volumn; }
@@ -63,10 +67,9 @@ namespace OpenSoundStream.ViewModel
             {
                 _volumn = value;
                 musicplayer.SetVolume(_volumn / 100);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Volumn)));
+                RaisePropertyChanged("Volumn");
             }
         }
-
         public double TrackTime
         {
             get { return _trackTime; }
@@ -74,23 +77,24 @@ namespace OpenSoundStream.ViewModel
             {
                 // Eventuell Tick oder Timer der den selder Setzt?
                 _trackTime = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(TrackTime)));
+                //PropertyChanged(this, new PropertyChangedEventArgs(nameof(TrackTime)));
             }
         }
-
         public string TrackTimeField
         {
             get { return _trackTimeField; }
             set
             {
-                // Eventuell mit Ticker/Timer Verbunden oder MediaPlayer Event?
                 _trackTimeField = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(TrackTimeField)));
+                RaisePropertyChanged("TrackTimeField");
             }
         }
 
         public MainViewModel()
         {
+            musicplayer.Mediaplayer.Changed += Mediaplayer_Changed;
+            setTime();
+
             this.StartPlayerCommand = new RelayCommand(this.StartPlayer);
             this.PlayPreviousCommand = new RelayCommand(this.PlayPrevious);
             this.PlayNextCommand = new RelayCommand(this.PlayNext);
@@ -101,17 +105,37 @@ namespace OpenSoundStream.ViewModel
             this.TracksCommand = new RelayCommand(this.createTracksView);
         }
 
+        private void Mediaplayer_Changed(object sender, System.EventArgs e)
+        {
+            try
+            {
+                CurrentTrack = musicplayer.Musicqueue.ActiveTrack.Title;
+            }
+            catch (Exception)
+            {
+
+            }
+        }
         private void StartPlayer()
         {
             if (musicplayer.State == PlayerState.Play)
             {
                 musicplayer.Pause();
-                PauseOrPlay = "./Icons/round_pause_white_18dp.png";
+                _pauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
             }
             else
             {
-                PauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
+                _pauseOrPlay = "./Icons/round_pause_white_18dp.png";
                 musicplayer.Play();
+                try
+                {
+                    CurrentTrack = musicplayer.Musicqueue.ActiveTrack.Title;
+                    CurrentArtist = "Current Artist";
+                }
+                catch (Exception)
+                {
+
+                }
             }
         }
         private void PlayPrevious()
@@ -138,15 +162,45 @@ namespace OpenSoundStream.ViewModel
         {
 
         }
+        private void setTime()
+        {
+            Timer timer = new Timer(1000);
+            // Hook up the Elapsed event for the timer. 
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+        }
         private void createTracksView()
         {
+            List<Track> trackList = Track.Tracks;
 
+            foreach (Track track in trackList)
+            {
+                Tracks.Add(new TrackClass { Title = track.Title, Genre = track.Metadata.Genre});
+                
+            }
         }
 
-
-        private void SetTitleInformation()
+        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
+            try
+            {
+                mainViewModel.TrackTimeField = musicplayer.Mediaplayer.Position.ToString();
 
+            }
+            catch (Exception)
+            {
+            }
         }
+    }
+
+    public class TrackClass
+    {
+        public string Title { get; set; }
+        public string Artist { get; set; }
+        public string Album { get; set; }
+        public string Length { get; set; }
+        public string Genre { get; set; }
+        public int Year { get; set; }
     }
 }
