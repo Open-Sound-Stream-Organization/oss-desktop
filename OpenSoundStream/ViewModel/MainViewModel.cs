@@ -34,6 +34,9 @@ namespace OpenSoundStream.ViewModel
 		private string _trackTimeField = "0:00";
 		private bool userIsDraggingSlider = false;
 		ObservableCollection<TrackClass> tracks = new ObservableCollection<TrackClass>();
+		private string _currentPositionText;
+		private double _currentPosition;
+		private double _maxLength;
 
 		public ObservableCollection<TrackClass> Tracks { get { return tracks; } }
 		public string PauseOrPlay
@@ -93,16 +96,39 @@ namespace OpenSoundStream.ViewModel
 				RaisePropertyChanged("TrackTimeField");
 			}
 		}
-
-		public string CurrentPositionText { get; set; }
-		public double CurrentPosition { get; set; }
-		public double MaxLength { get; set; }
+		public string CurrentPositionText
+		{
+			get { return _currentPositionText; }
+			set
+			{
+				_currentPositionText = value;
+				RaisePropertyChanged("CurrentPositionText");
+			}
+		}
+		public double CurrentPosition
+		{
+			get { return _currentPosition; }
+			set
+			{
+				_currentPosition = value;
+				musicplayer.Mediaplayer.Position = TimeSpan.FromSeconds(_currentPosition);
+				RaisePropertyChanged("CurrentPosition");
+			}
+		}
+		public double MaxLength
+		{
+			get { return _maxLength; }
+			set
+			{
+				_maxLength = value;
+				RaisePropertyChanged("MaxLength");
+			}
+		}
 
 
 		public MainViewModel()
 		{
 			musicplayer.Musicqueue.PropertyChanged += Mediaplayer_Changed;
-			//setTime();
 
 			this.StartPlayerCommand = new RelayCommand(this.StartPlayer);
 			this.PlayPreviousCommand = new RelayCommand(this.PlayPrevious);
@@ -178,14 +204,6 @@ namespace OpenSoundStream.ViewModel
 		{
 
 		}
-		//private void setTime()
-		//{
-		//    Timer timer = new Timer(1000);
-		//    // Hook up the Elapsed event for the timer. 
-		//    timer.Elapsed += OnTimedEvent;
-		//    timer.AutoReset = true;
-		//    timer.Enabled = true;
-		//}
 		private void createTracksView()
 		{
 			List<Track> trackList = Track.Tracks;
@@ -214,6 +232,7 @@ namespace OpenSoundStream.ViewModel
 			{
 				MaxLength = musicplayer.Mediaplayer.NaturalDuration.TimeSpan.TotalSeconds;
 				CurrentPosition = musicplayer.Mediaplayer.Position.TotalSeconds;
+				CurrentPositionText = TimeSpan.FromSeconds(CurrentPosition).ToString(@"hh\:mm\:ss");
 			}
 		}
 
