@@ -108,9 +108,16 @@ namespace OpenSoundStream
 
 		public void PlayTrack(Track track)
 		{
-			Musicqueue.ActiveTrack = track;
-			Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
+			Musicqueue.AddTrackToQueueFirstPos(track);
+			Musicqueue.NextTrack();
 			Play();
 		}
+
+		public void SetActiveTrack(Track track)
+		{
+			Musicqueue.ActiveTrack = track;
+			Mediaplayer.Open(track.Filepath);
+		}
+
 	}
 }

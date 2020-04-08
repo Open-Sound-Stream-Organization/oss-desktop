@@ -19,13 +19,13 @@ namespace OpenSoundStream
 			Artist.Artists = new List<Artist>();
 
 			//DEBUG
-			Playlist p1 = new Playlist("Party");
+			Playlist p1 = new Playlist("Cello");
 
-			AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
+			//AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
 			//AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav.opensound");
-			AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
+			AppHelper.LocalImportPlaylist(@"C:/Users/kaiuw/Music/Cello/Spielbuch", p1);
 
-			Musicplayer.Musicqueue.LoadPlaylistInQueue(p1);
+			//Musicplayer.Musicqueue.LoadPlaylistInQueue(p1);
 
 			
 			//Musicplayer.Queue.AddTrackToQueueLastPos(a);

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace OpenSoundStream
 {
-    public class Playlist
+    public class Playlist : PlayableContainer
     {
-        public Playlist(string name)
+        public Playlist(string name) : base()
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Tracks = new LinkedList<Track>();
@@ -20,11 +20,7 @@ namespace OpenSoundStream
         //    throw new System.NotImplementedException();
         //}
 
-        public LinkedList<Track> Tracks { get; set; }
-
         public static List<Playlist> Playlists { get; set; }
-
-        public string Name { get; set; }
 
         public void AddTrack(Track track)
         {

@@ -22,7 +22,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAgQAAAAAACAAAAAAACIAAAAAAAAACApAAABAAAAAA=</HashCode>
+      <HashCode>AAAgQAAAAAACAAAAIAACIAAAAAAAAACApAAABAAAAAA=</HashCode>
       <FileName>Code\Musicplayer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -37,11 +37,12 @@
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Queue" />
+      <Property Name="LastPlayed" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="OpenSoundStream.Track">
-    <Position X="8.5" Y="6.75" Width="1.5" />
+    <Position X="8.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAEAAAAAAAAAAAIAAAAAAAAQACAAEAAA=</HashCode>
       <FileName>Code\Track.cs</FileName>
@@ -51,27 +52,21 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="OpenSoundStream.Album">
-    <Position X="8.5" Y="4.25" Width="1.5" />
+    <Position X="11.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAAAAAAAAAAQAAIAAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Code\Album.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Tracks" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="OpenSoundStream.Playlist">
-    <Position X="11.25" Y="4.25" Width="2.75" />
+    <Position X="8.5" Y="2.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAEAACAAAACAAAAQAAAFAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQAAAAAAAACAAAACAAAAAAAAFAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Code\Playlist.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Tracks" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="OpenSoundStream.Artist">
-    <Position X="8.5" Y="2" Width="1.5" />
+    <Position X="13.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAEAACAAAAAA=</HashCode>
       <FileName>Code\Artist.cs</FileName>
@@ -100,14 +95,39 @@
     </TypeIdentifier>
   </Class>
   <Class Name="OpenSoundStream.Metadata">
-    <Position X="8.5" Y="9.5" Width="1.5" />
+    <Position X="11" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAIAAAAAAQAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Code\Metadata.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="OpenSoundStream.ViewModel.MainViewModel">
+    <Position X="0.5" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ASQcAwEBhVICCACAJCgCAAEJACgIAjngECMQEAgUQRA=</HashCode>
+      <FileName>ViewModel\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSoundStream.ViewModel.TrackClass">
+    <Position X="4" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAEAAAAIAAABAAIAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>ViewModel\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSoundStream.PlayableContainer">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlayableContainer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tracks" />
+    </ShowAsCollectionAssociation>
+  </Class>
   <Enum Name="OpenSoundStream.PlayerState">
-    <Position X="11.75" Y="0.75" Width="1.75" />
+    <Position X="5.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAA=</HashCode>
       <FileName>Code\PlayerState.cs</FileName>

@@ -28,7 +28,7 @@ namespace OpenSoundStream.ViewModel
 		public RelayCommand TracksCommand { get; private set; }
 		public RelayCommand<TrackClass> ListViewCommand { get; private set; }
 		public RelayCommand<string> PlaylistCommand { get; private set; }
-	
+
 
 		private string _pauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
 		private string _currentArtist = "";
@@ -147,7 +147,7 @@ namespace OpenSoundStream.ViewModel
 		{
 			musicplayer.Musicqueue.PropertyChanged += Mediaplayer_Changed;
 
-			this.StartPlayerCommand = new RelayCommand(this.StartPlayer);
+			this.StartPlayerCommand = new RelayCommand(this.ChangePlayerState);
 			this.PlayPreviousCommand = new RelayCommand(this.PlayPrevious);
 			this.PlayNextCommand = new RelayCommand(this.PlayNext);
 			this.PlayerSettingCommand = new RelayCommand(this.SetPlayerMode);
@@ -157,7 +157,7 @@ namespace OpenSoundStream.ViewModel
 			this.TracksCommand = new RelayCommand(this.createTracksView);
 			this.ListViewCommand = new RelayCommand<TrackClass>((item) => this.selectedTitle(item));
 			this.PlaylistCommand = new RelayCommand<string>((item) => this.selectedPlaylist(item));
-	
+
 
 			_volumn = musicplayer.Mediaplayer.Volume;
 
@@ -174,12 +174,15 @@ namespace OpenSoundStream.ViewModel
 
 		private void selectedTitle(TrackClass parameter)
 		{
-			musicplayer.PlayTrack(Track.Tracks.Find(x => x.Title == parameter.Title));
+			musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == parameter.Title));
+			PlayMusic();
 		}
 
 		private void selectedPlaylist(string parameter)
 		{
-			//
+			musicplayer.Musicqueue.Queue = new LinkedList<Track>();
+			musicplayer.Musicqueue.LoadPlaylistInQueue(Playlist.Playlists.Find(x => x.Name == parameter));
+			PlayMusic();
 		}
 
 		private void Mediaplayer_Changed(object sender, System.EventArgs e)
@@ -193,27 +196,43 @@ namespace OpenSoundStream.ViewModel
 
 			}
 		}
-		private void StartPlayer()
+		private void ChangePlayerState()
 		{
 			if (musicplayer.State == PlayerState.Play)
 			{
 				musicplayer.Pause();
-				PauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
+				SelectPlayerIcon();
 			}
 			else
 			{
-				PauseOrPlay = "./Icons/round_pause_white_18dp.png";
-				musicplayer.Play();
-				try
-				{
-					CurrentTrack = musicplayer.Musicqueue.ActiveTrack.Title;
-					CurrentArtist = "Current Artist";
-				}
-				catch (Exception)
-				{
-
-				}
+				PlayMusic();
 			}
+		}
+		private void SelectPlayerIcon()
+		{
+			if (musicplayer.State == PlayerState.Play)
+			{
+				PauseOrPlay = "./Icons/round_pause_white_18dp.png";
+			}
+			else
+			{
+				PauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
+			}
+		}
+		private void PlayMusic()
+		{
+			musicplayer.Play();
+
+			Track activeTrack = musicplayer.Musicqueue.ActiveTrack;
+			if (activeTrack == null)
+				return;
+
+
+			Artist artist = activeTrack.Artist;
+			CurrentTrack = activeTrack.Title;
+			CurrentArtist = artist != null ? artist.Name : "Unknown Artist";
+
+			SelectPlayerIcon();
 		}
 		private void PlayPrevious()
 		{

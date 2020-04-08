@@ -106,6 +106,7 @@
     <Compile Include="Code\Track.cs" />
     <Compile Include="Code\Metadata.cs" />
     <Compile Include="Code\PlayerState.cs" />
+    <Compile Include="PlayableContainer.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Views\MainWindow.xaml">

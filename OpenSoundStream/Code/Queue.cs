@@ -32,14 +32,14 @@ namespace OpenSoundStream
 		public void NextTrack()
 		{
 			Track currentTrack = ActiveTrack;
-			Track nextTrack = Queue.First.Value;
-
-			if (currentTrack != null)
-				LastPlayed.Push(currentTrack);
+			LinkedListNode<Track> nextTrack = Queue.First;
 
 			if (nextTrack != null)
 			{
-				ActiveTrack = nextTrack;
+				if (currentTrack != null)
+					LastPlayed.Push(currentTrack);
+
+				ActiveTrack = nextTrack.Value;
 				Queue.RemoveFirst();
 			}
 		}
