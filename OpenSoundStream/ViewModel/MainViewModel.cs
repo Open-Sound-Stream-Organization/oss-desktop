@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 
@@ -25,6 +26,9 @@ namespace OpenSoundStream.ViewModel
 		public RelayCommand ArtistsCommand { get; private set; }
 		public RelayCommand AlbumsCommand { get; private set; }
 		public RelayCommand TracksCommand { get; private set; }
+		public RelayCommand<TrackClass> ListViewCommand { get; private set; }
+		public RelayCommand<string> PlaylistCommand { get; private set; }
+	
 
 		private string _pauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
 		private string _currentArtist = "";
@@ -33,12 +37,16 @@ namespace OpenSoundStream.ViewModel
 		private double _trackTime;
 		private string _trackTimeField = "0:00";
 		private bool userIsDraggingSlider = false;
-		ObservableCollection<TrackClass> tracks = new ObservableCollection<TrackClass>();
+		private bool shuffle = false;
+		ObservableCollection<TrackClass> _tracks = new ObservableCollection<TrackClass>();
+		ObservableCollection<string> _playlists = new ObservableCollection<string>();
 		private string _currentPositionText;
 		private double _currentPosition;
 		private double _maxLength;
+		private string _playerMode = "./Icons/round_repeat_white_18dp.png";
 
-		public ObservableCollection<TrackClass> Tracks { get { return tracks; } }
+		public ObservableCollection<TrackClass> Tracks { get { return _tracks; } }
+		public ObservableCollection<string> Playlists { get { return _playlists; } }
 		public string PauseOrPlay
 		{
 			get { return _pauseOrPlay; }
@@ -124,7 +132,16 @@ namespace OpenSoundStream.ViewModel
 				RaisePropertyChanged("MaxLength");
 			}
 		}
+		public string PlayerMode
+		{
+			get { return _playerMode; }
+			set
+			{
+				_playerMode = value;
+				RaisePropertyChanged("PlayerMode");
 
+			}
+		}
 
 		public MainViewModel()
 		{
@@ -138,13 +155,31 @@ namespace OpenSoundStream.ViewModel
 			this.ArtistsCommand = new RelayCommand(this.createArtistsView);
 			this.AlbumsCommand = new RelayCommand(this.createAlbumsView);
 			this.TracksCommand = new RelayCommand(this.createTracksView);
+			this.ListViewCommand = new RelayCommand<TrackClass>((item) => this.selectedTitle(item));
+			this.PlaylistCommand = new RelayCommand<string>((item) => this.selectedPlaylist(item));
+	
 
 			_volumn = musicplayer.Mediaplayer.Volume;
+
+			foreach (Playlist playlist in Playlist.Playlists)
+			{
+				Playlists.Add(playlist.Name);
+			}
 
 			DispatcherTimer timer = new DispatcherTimer();
 			timer.Interval = TimeSpan.FromSeconds(1);
 			timer.Tick += timer_Tick;
 			timer.Start();
+		}
+
+		private void selectedTitle(TrackClass parameter)
+		{
+			musicplayer.PlayTrack(Track.Tracks.Find(x => x.Title == parameter.Title));
+		}
+
+		private void selectedPlaylist(string parameter)
+		{
+			//
 		}
 
 		private void Mediaplayer_Changed(object sender, System.EventArgs e)
@@ -190,6 +225,18 @@ namespace OpenSoundStream.ViewModel
 		}
 		private void SetPlayerMode()
 		{
+			if (shuffle)
+			{
+				PlayerMode = "./Icons/round_shuffle_white_18dp.png";
+				musicplayer.Musicqueue.Shuffle = true;
+				shuffle = true;
+			}
+			else
+			{
+				PlayerMode = "./Icons/round_repeat_white_18dp.png";
+				musicplayer.Musicqueue.Repeat = true;
+				shuffle = false;
+			}
 
 		}
 		private void createBigPlayerView()
@@ -252,6 +299,7 @@ namespace OpenSoundStream.ViewModel
 			CurrentPositionText = TimeSpan.FromSeconds(CurrentPosition).ToString(@"hh\:mm\:ss");
 		}
 
+
 	}
 
 	public class TrackClass
@@ -261,6 +309,6 @@ namespace OpenSoundStream.ViewModel
 		public string Album { get; set; }
 		public string Length { get; set; }
 		public string Genre { get; set; }
-		public int Year { get; set; }
+		public string Year { get; set; }
 	}
 }

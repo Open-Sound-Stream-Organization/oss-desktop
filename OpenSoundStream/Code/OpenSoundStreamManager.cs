@@ -21,9 +21,9 @@ namespace OpenSoundStream
 			//DEBUG
 			Playlist p1 = new Playlist("Party");
 
-			AppHelper.LocalImportTrack(@"C:/Users/kaiuw/Music/Test1.wav");
-			AppHelper.LocalImportTrack(@"C:/Users/kaiuw/Music/Test3.wav.opensound");
-			AppHelper.LocalImportPlaylist(@"C:/Users/kaiuw/Music/Cello/Spielbuch", p1);
+			AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
+			//AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav.opensound");
+			AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
 
 			Musicplayer.Musicqueue.LoadPlaylistInQueue(p1);
 
