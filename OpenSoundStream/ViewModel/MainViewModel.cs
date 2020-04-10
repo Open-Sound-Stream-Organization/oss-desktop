@@ -18,19 +18,9 @@ namespace OpenSoundStream.ViewModel
 		public static MainViewModel mainViewModel;
 		public Musicplayer musicplayer { get; private set; } = OpenSoundStreamManager.Musicplayer;
 
-		public RelayCommand StartPlayerCommand { get; private set; }
-		public RelayCommand PlayPreviousCommand { get; private set; }
-		public RelayCommand PlayNextCommand { get; private set; }
-		public RelayCommand PlayerSettingCommand { get; private set; }
-		public RelayCommand BigPlayerCommand { get; private set; }
-		public RelayCommand ArtistsCommand { get; private set; }
-		public RelayCommand AlbumsCommand { get; private set; }
-		public RelayCommand TracksCommand { get; private set; }
-		public RelayCommand<TrackClass> ListViewCommand { get; private set; }
-		public RelayCommand<string> PlaylistCommand { get; private set; }
+        #region Binding Variables
 
-
-		private string _pauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
+        private string _pauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
 		private string _currentArtist = "";
 		private string _currentTrack = "";
 		private double _volumn;
@@ -38,14 +28,28 @@ namespace OpenSoundStream.ViewModel
 		private string _trackTimeField = "0:00";
 		private bool userIsDraggingSlider = false;
 		private bool shuffle = false;
-		ObservableCollection<TrackClass> _tracks = new ObservableCollection<TrackClass>();
-		ObservableCollection<string> _playlists = new ObservableCollection<string>();
+		private ObservableCollection<TrackMetadata> _tracks = new ObservableCollection<TrackMetadata>();
+		private ObservableCollection<string> _playlists = new ObservableCollection<string>();
 		private string _currentPositionText;
 		private double _currentPosition;
 		private double _maxLength;
 		private string _playerMode = "./Icons/round_repeat_white_18dp.png";
 
-		public ObservableCollection<TrackClass> Tracks { get { return _tracks; } }
+        #endregion
+
+        #region Binding Properties
+
+        public RelayCommand StartPlayerCommand { get; private set; }
+		public RelayCommand PlayPreviousCommand { get; private set; }
+		public RelayCommand PlayNextCommand { get; private set; }
+		public RelayCommand PlayerSettingCommand { get; private set; }
+		public RelayCommand BigPlayerCommand { get; private set; }
+		public RelayCommand ArtistsCommand { get; private set; }
+		public RelayCommand AlbumsCommand { get; private set; }
+		public RelayCommand TracksCommand { get; private set; }
+		public RelayCommand<TrackMetadata> ListViewCommand { get; private set; }
+		public RelayCommand<string> PlaylistCommand { get; private set; }
+		public ObservableCollection<TrackMetadata> Tracks { get { return _tracks; } }
 		public ObservableCollection<string> Playlists { get { return _playlists; } }
 		public string PauseOrPlay
 		{
@@ -143,22 +147,27 @@ namespace OpenSoundStream.ViewModel
 			}
 		}
 
-		public MainViewModel()
-		{
-			musicplayer.Musicqueue.PropertyChanged += Mediaplayer_Changed;
+        #endregion
 
-			this.StartPlayerCommand = new RelayCommand(this.ChangePlayerState);
-			this.PlayPreviousCommand = new RelayCommand(this.PlayPrevious);
-			this.PlayNextCommand = new RelayCommand(this.PlayNext);
-			this.PlayerSettingCommand = new RelayCommand(this.SetPlayerMode);
+        #region Constructor
+
+        public MainViewModel()
+		{
+			musicplayer.Musicqueue.PropertyChanged += TrackChanged;
+
+			// Subscribes to all View Commands
+			this.StartPlayerCommand = new RelayCommand(this.changePlayerState);
+			this.PlayPreviousCommand = new RelayCommand(this.playPrevious);
+			this.PlayNextCommand = new RelayCommand(this.playNext);
+			this.PlayerSettingCommand = new RelayCommand(this.setRenderingModeIcon);
 			this.BigPlayerCommand = new RelayCommand(this.createBigPlayerView);
 			this.ArtistsCommand = new RelayCommand(this.createArtistsView);
 			this.AlbumsCommand = new RelayCommand(this.createAlbumsView);
 			this.TracksCommand = new RelayCommand(this.createTracksView);
-			this.ListViewCommand = new RelayCommand<TrackClass>((item) => this.selectedTitle(item));
-			this.PlaylistCommand = new RelayCommand<string>((item) => this.selectedPlaylist(item));
+			this.ListViewCommand = new RelayCommand<TrackMetadata>((item) => this.playSelectedTrack(item));
+			this.PlaylistCommand = new RelayCommand<string>((item) => this.playSelectedPlaylist(item));
 
-
+			// Set inital values
 			_volumn = musicplayer.Mediaplayer.Volume;
 
 			foreach (Playlist playlist in Playlist.Playlists)
@@ -172,43 +181,51 @@ namespace OpenSoundStream.ViewModel
 			timer.Start();
 		}
 
-		private void selectedTitle(TrackClass parameter)
+        #endregion
+
+        #region Methods
+
+		/// <summary>
+		/// Plays a selected track from ListView
+		/// </summary>
+		/// <param name="selectedTrack"></param>
+        private void playSelectedTrack(TrackMetadata selectedTrack)
 		{
-			musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == parameter.Title));
-			PlayMusic();
+			musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == selectedTrack.Title));
+			playMusic();
 		}
 
-		private void selectedPlaylist(string parameter)
+		/// <summary>
+		/// Plays a selected playlist from ListView
+		/// </summary>
+		/// <param name="selectedPlaylist"></param>
+		private void playSelectedPlaylist(string selectedPlaylist)
 		{
 			musicplayer.Musicqueue.Queue = new LinkedList<Track>();
-			musicplayer.Musicqueue.LoadPlaylistInQueue(Playlist.Playlists.Find(x => x.Name == parameter));
-			PlayMusic();
+			musicplayer.Musicqueue.LoadPlaylistInQueue(Playlist.Playlists.Find(x => x.Name == selectedPlaylist));
+			playMusic();
 		}
 
-		private void Mediaplayer_Changed(object sender, System.EventArgs e)
-		{
-			try
-			{
-				CurrentTrack = musicplayer.Musicqueue.ActiveTrack.Title;
-			}
-			catch (Exception)
-			{
-
-			}
-		}
-		private void ChangePlayerState()
+		/// <summary>
+		/// Tracks the current player state
+		/// </summary>
+		private void changePlayerState()
 		{
 			if (musicplayer.State == PlayerState.Play)
 			{
 				musicplayer.Pause();
-				SelectPlayerIcon();
+				changePlayerStateIcon();
 			}
 			else
 			{
-				PlayMusic();
+				playMusic();
 			}
 		}
-		private void SelectPlayerIcon()
+
+		/// <summary>
+		/// Changes play/pause button icon according to the state of the player
+		/// </summary>
+		private void changePlayerStateIcon()
 		{
 			if (musicplayer.State == PlayerState.Play)
 			{
@@ -219,30 +236,46 @@ namespace OpenSoundStream.ViewModel
 				PauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
 			}
 		}
-		private void PlayMusic()
+
+		/// <summary>
+		/// Plays tracks in mediaplayer and sets related informations in the view 
+		/// </summary>
+		private void playMusic()
 		{
 			musicplayer.Play();
 
 			Track activeTrack = musicplayer.Musicqueue.ActiveTrack;
+
 			if (activeTrack == null)
 				return;
-
 
 			Artist artist = activeTrack.Artist;
 			CurrentTrack = activeTrack.Title;
 			CurrentArtist = artist != null ? artist.Name : "Unknown Artist";
 
-			SelectPlayerIcon();
+			changePlayerStateIcon();
 		}
-		private void PlayPrevious()
+
+		/// <summary>
+		/// Plays last track from queue
+		/// </summary>
+		private void playPrevious()
 		{
 			musicplayer.PrevTrack();
 		}
-		private void PlayNext()
+
+		/// <summary>
+		/// Plays next track from queue
+		/// </summary>
+		private void playNext()
 		{
 			musicplayer.NextTrack();
 		}
-		private void SetPlayerMode()
+
+		/// <summary>
+		/// Changes rendering mode button icon according to the state of the player
+		/// </summary>
+		private void setRenderingModeIcon()
 		{
 			if (shuffle)
 			{
@@ -258,29 +291,62 @@ namespace OpenSoundStream.ViewModel
 			}
 
 		}
+
 		private void createBigPlayerView()
 		{
 
 		}
+
 		private void createArtistsView()
 		{
 
 		}
+
 		private void createAlbumsView()
 		{
 
 		}
+
+		/// <summary>
+		/// Gives data from all tracks to View
+		/// </summary>
 		private void createTracksView()
 		{
 			List<Track> trackList = Track.Tracks;
 
 			foreach (Track track in trackList)
 			{
-				Tracks.Add(new TrackClass { Title = track.Title, Genre = track.Metadata.Genre });
+				Tracks.Add(new TrackMetadata { Title = track.Title, Genre = track.Metadata.Genre });
 
 			}
 		}
 
+		#endregion
+
+		#region EventHandler
+
+		/// <summary>
+		/// Notifies View if active track changed 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void TrackChanged(object sender, System.EventArgs e)
+		{
+			try
+			{
+				CurrentTrack = musicplayer.Musicqueue.ActiveTrack.Title;
+			}
+			catch (Exception)
+			{
+
+			}
+		}
+
+		/// <summary>
+		/// Notifies View if played time of a track was updated
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="e"></param>
 		private static void OnTimedEvent(Object source, ElapsedEventArgs e)
 		{
 			try
@@ -292,6 +358,11 @@ namespace OpenSoundStream.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Notifies View if played time of a track was updated
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void timer_Tick(object sender, EventArgs e)
 		{
 			if ((musicplayer.Mediaplayer.Source != null) && (musicplayer.Mediaplayer.NaturalDuration.HasTimeSpan) && (!userIsDraggingSlider))
@@ -318,10 +389,10 @@ namespace OpenSoundStream.ViewModel
 			CurrentPositionText = TimeSpan.FromSeconds(CurrentPosition).ToString(@"hh\:mm\:ss");
 		}
 
-
+		#endregion
 	}
 
-	public class TrackClass
+    public class TrackMetadata
 	{
 		public string Title { get; set; }
 		public string Artist { get; set; }

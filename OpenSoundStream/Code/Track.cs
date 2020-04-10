@@ -29,5 +29,6 @@ namespace OpenSoundStream
         public Album Album { get; set; }
 
         public Artist Artist { get; set; }
+
     }
 }
