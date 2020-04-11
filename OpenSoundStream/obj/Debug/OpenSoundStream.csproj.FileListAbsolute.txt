@@ -123,4 +123,8 @@ C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSound
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.ValueTuple.xml
-C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\MaterialDesignColors.dll
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\MaterialDesignColors.pdb
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\MaterialDesignThemes.Wpf.xml

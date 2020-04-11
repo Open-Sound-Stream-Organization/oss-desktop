@@ -23,7 +23,7 @@ namespace OpenSoundStream
 
 			//AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
 			//AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav.opensound");
-			AppHelper.LocalImportPlaylist(@"C:/Users/kaiuw/Music/Cello/Spielbuch", p1);
+			AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
 
 			//Musicplayer.Musicqueue.LoadPlaylistInQueue(p1);
 

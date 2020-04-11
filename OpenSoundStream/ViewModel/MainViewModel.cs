@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
+using MaterialDesignThemes.Wpf;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -20,7 +21,7 @@ namespace OpenSoundStream.ViewModel
 
         #region Binding Variables
 
-        private string _pauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
+        private PackIcon _pauseOrPlay = new PackIcon { Kind = PackIconKind.Play };
 		private string _currentArtist = "";
 		private string _currentTrack = "";
 		private double _volumn;
@@ -33,13 +34,13 @@ namespace OpenSoundStream.ViewModel
 		private string _currentPositionText;
 		private double _currentPosition;
 		private double _maxLength;
-		private string _playerMode = "./Icons/round_repeat_white_18dp.png";
+		private PackIcon _playerMode = new PackIcon { Kind = PackIconKind.Repeat };
 
-        #endregion
+		#endregion
 
-        #region Binding Properties
+		#region Binding Properties
 
-        public RelayCommand StartPlayerCommand { get; private set; }
+		public RelayCommand StartPlayerCommand { get; private set; }
 		public RelayCommand PlayPreviousCommand { get; private set; }
 		public RelayCommand PlayNextCommand { get; private set; }
 		public RelayCommand PlayerSettingCommand { get; private set; }
@@ -51,7 +52,7 @@ namespace OpenSoundStream.ViewModel
 		public RelayCommand<string> PlaylistCommand { get; private set; }
 		public ObservableCollection<TrackMetadata> Tracks { get { return _tracks; } }
 		public ObservableCollection<string> Playlists { get { return _playlists; } }
-		public string PauseOrPlay
+		public PackIcon PauseOrPlay
 		{
 			get { return _pauseOrPlay; }
 			set
@@ -136,7 +137,7 @@ namespace OpenSoundStream.ViewModel
 				RaisePropertyChanged("MaxLength");
 			}
 		}
-		public string PlayerMode
+		public PackIcon PlayerMode
 		{
 			get { return _playerMode; }
 			set
@@ -229,11 +230,11 @@ namespace OpenSoundStream.ViewModel
 		{
 			if (musicplayer.State == PlayerState.Play)
 			{
-				PauseOrPlay = "./Icons/round_pause_white_18dp.png";
+				PauseOrPlay = new PackIcon { Kind = PackIconKind.Pause };
 			}
 			else
 			{
-				PauseOrPlay = "./Icons/round_play_arrow_white_18dp.png";
+				PauseOrPlay = new PackIcon { Kind = PackIconKind.Play };
 			}
 		}
 
@@ -277,15 +278,15 @@ namespace OpenSoundStream.ViewModel
 		/// </summary>
 		private void setRenderingModeIcon()
 		{
-			if (shuffle)
+			if (!shuffle)
 			{
-				PlayerMode = "./Icons/round_shuffle_white_18dp.png";
+				PlayerMode = new PackIcon { Kind = PackIconKind.Shuffle };
 				musicplayer.Musicqueue.Shuffle = true;
 				shuffle = true;
 			}
 			else
 			{
-				PlayerMode = "./Icons/round_repeat_white_18dp.png";
+				PlayerMode = new PackIcon { Kind = PackIconKind.Repeat };
 				musicplayer.Musicqueue.Repeat = true;
 				shuffle = false;
 			}
