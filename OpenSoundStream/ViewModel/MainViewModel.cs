@@ -203,7 +203,7 @@ namespace OpenSoundStream.ViewModel
 		private void playSelectedPlaylist(string selectedPlaylist)
 		{
 			musicplayer.Musicqueue.Queue = new LinkedList<Track>();
-			musicplayer.Musicqueue.LoadPlaylistInQueue(Playlist.Playlists.Find(x => x.Name == selectedPlaylist));
+			musicplayer.Musicqueue.LoadPlayableContainerInQueue(Playlist.Playlists.Find(x => x.Name == selectedPlaylist));
 			playMusic();
 		}
 
