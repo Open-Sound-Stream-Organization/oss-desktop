@@ -202,9 +202,18 @@ namespace OpenSoundStream.ViewModel
 		/// <param name="selectedPlaylist"></param>
 		private void playSelectedPlaylist(string selectedPlaylist)
 		{
+			Playlist currentPlaylist = Playlist.Playlists.Find(x => x.Name == selectedPlaylist);
 			musicplayer.Musicqueue.Queue = new LinkedList<Track>();
-			musicplayer.Musicqueue.LoadPlaylistInQueue(Playlist.Playlists.Find(x => x.Name == selectedPlaylist));
+			musicplayer.Musicqueue.LoadPlaylistInQueue(currentPlaylist);
 			playMusic();
+
+			Tracks.Clear();
+
+
+			foreach (Track track in currentPlaylist.Tracks)
+			{
+				Tracks.Add(new TrackMetadata { Title = track.Title }) ;
+			}
 		}
 
 		/// <summary>
@@ -313,9 +322,9 @@ namespace OpenSoundStream.ViewModel
 		/// </summary>
 		private void createTracksView()
 		{
-			List<Track> trackList = Track.Tracks;
+			Tracks.Clear();
 
-			foreach (Track track in trackList)
+			foreach (Track track in Track.Tracks)
 			{
 				Tracks.Add(new TrackMetadata { Title = track.Title, Genre = track.Metadata.Genre });
 
