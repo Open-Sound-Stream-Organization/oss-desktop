@@ -45,11 +45,9 @@ namespace OpenSoundStream
 				if(State == PlayerState.Play)
 					Play();
 			}
-			else if (Musicqueue.Repeat && Musicqueue.LastPlayed.Count > 0)
+			else if (Musicqueue.Repeat && Musicqueue.ActiveNode == Musicqueue.Queue.Last)
 			{
-				Musicqueue.Queue = new LinkedList<Track>(Musicqueue.LastPlayed.Reverse());
-				Musicqueue.LastPlayed = new Stack<Track>();
-
+				Musicqueue.ActiveNode = Musicqueue.Queue.First;
 				NextTrack();
 			}
 			else
@@ -93,7 +91,6 @@ namespace OpenSoundStream
 
 		public void Play()
 		{
-
 			if (Musicqueue.ActiveTrack == null)
 			{
 				NextTrack();
@@ -113,8 +110,22 @@ namespace OpenSoundStream
 			Play();
 		}
 
+		public void SetActiveTrackInPlayableContainer(Track track, PlayableContainer pc)
+		{
+			Musicqueue.SelectTrackInQueue(track, pc);
+			Mediaplayer.Open(track.Filepath);
+		}
+
 		public void SetActiveTrack(Track track)
 		{
+			PlayableContainer tracks = new Playlist("All Tracks");
+			foreach (Track item in Track.Tracks)
+			{
+				tracks.Tracks.AddLast(item);
+			}
+			Musicqueue.LoadPlayableContainerInQueue(tracks);
+
+			Musicqueue.ActiveNode = Musicqueue.Queue.Find(track);
 			Musicqueue.ActiveTrack = track;
 			Mediaplayer.Open(track.Filepath);
 		}

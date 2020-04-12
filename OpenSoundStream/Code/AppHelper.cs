@@ -31,16 +31,23 @@ namespace OpenSoundStream
 
             string fileName = Path.GetFileName(sourcePath);
             string destFile = Path.Combine(DataPath + "\\Tracks", fileName);
-            if (Directory.Exists(destFile))
+            if (File.Exists(destFile))
             {
                 //TODO Hash abgleich
+                if (Track.Tracks.Find(e => e.Title == fileName.Split('.')[0]) == null)
+                {
+                    new Track(fileName.Split('.')[0], new Uri(@"file:///" + destFile));
+                }
             }
             else
             {
                 try
                 {
-                    File.Copy(sourcePath, destFile, true);
-                    new Track(fileName.Split('.')[0], new Uri(@"file:///" + sourcePath));
+                    if(Track.Tracks.Find(e => e.Title == fileName.Split('.')[0] ) == null)
+                    {
+                        File.Copy(sourcePath, destFile, true);
+                        new Track(fileName.Split('.')[0], new Uri(@"file:///" + destFile));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -55,7 +62,6 @@ namespace OpenSoundStream
             Directory.CreateDirectory(DataPath + "\\Playlists");
             string path = DataPath + "\\Playlists" + "\\" + Path.GetFileName(sourcePath);
             string[] files = System.IO.Directory.GetFiles(sourcePath);
-
             Directory.CreateDirectory(path);
 
             // Copy the files and overwrite destination files if they already exist.
@@ -69,7 +75,14 @@ namespace OpenSoundStream
                     string destFile = System.IO.Path.Combine(path, fileName);
                     System.IO.File.Copy(s, destFile, true);
 
-                    pl.AddTrack(new Track(fileName.Split('.')[0], new Uri(destFile)));
+                    if (Track.Tracks.Find(e => e.Title == fileName.Split('.')[0]) == null)
+                    {
+                        pl.AddTrack(new Track(fileName.Split('.')[0], new Uri(destFile)));
+                    }
+                    else
+                    {
+                        pl.AddTrack(Track.Tracks.Find(e => e.Title == fileName.Split('.')[0]));
+                    }
                 }
 
             }

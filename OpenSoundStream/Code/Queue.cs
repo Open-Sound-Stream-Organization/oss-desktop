@@ -10,20 +10,22 @@ namespace OpenSoundStream
 	public class MusicQueue : INotifyPropertyChanged
 	{
 		private Track activeTrack;
+		private LinkedListNode<Track> activeNode;
 
 		public MusicQueue()
 		{
 			Queue = new LinkedList<Track>();
-			LastPlayed = new Stack<Track>();
+			PriorityQueue = new LinkedList<Track>();
 		}
-
 		public LinkedList<Track> Queue { get; set; }
 
-		public Stack<Track> LastPlayed { get; set; }
+		public LinkedList<Track> PriorityQueue { get; set; }
 
 		public bool Shuffle { get; set; }
 
 		public bool Repeat { get; set; }
+
+		public LinkedListNode<Track> ActiveNode { get => activeNode; set { activeNode = value; OnPropertyChanged(); } }
 
 		public Track ActiveTrack { get => activeTrack; set { activeTrack = value; OnPropertyChanged(); } }
 
@@ -31,46 +33,60 @@ namespace OpenSoundStream
 
 		public void NextTrack()
 		{
-			Track currentTrack = ActiveTrack;
-			LinkedListNode<Track> nextTrack = Queue.First;
+			LinkedListNode<Track> currentTrack = ActiveNode;
+			LinkedListNode<Track> nextTrack = null;
 
-			if (nextTrack != null)
+			if(currentTrack == null)
 			{
-				if (currentTrack != null)
-					LastPlayed.Push(currentTrack);
+				nextTrack = Queue.First;
+			}
+			else
+			{
+				nextTrack = currentTrack.Next;
+			}
 
-				ActiveTrack = nextTrack.Value;
-				Queue.RemoveFirst();
+			if (PriorityQueue.Count() == 0)
+			{
+				if (nextTrack != null)
+				{
+					ActiveNode = nextTrack;
+					ActiveTrack = ActiveNode.Value;
+				}
+				else
+				{
+					ActiveNode = null;
+					ActiveTrack = null;
+				}
+			}
+			else
+			{
+				nextTrack = PriorityQueue.First;
+				if (nextTrack != null)
+				{
+					ActiveTrack = nextTrack.Value;
+					PriorityQueue.RemoveFirst();
+				}
 			}
 		}
 
 		public void PrevTrack()
 		{
-			Track currentTrack = ActiveTrack;
-			Track lastTrack = null;
+			LinkedListNode<Track> currentTrack = ActiveNode;
 
 			if (currentTrack == null)
 				return;
 
-			try
+			ActiveNode = ActiveNode.Previous;
+			if(ActiveNode == null)
 			{
-				lastTrack = LastPlayed.Pop();
+				ActiveNode = Queue.First;
 			}
-			catch (Exception ex)
-			{
-				//TODO Fehlermanagement
-			}
-
-			if (lastTrack != null)
-			{
-				ActiveTrack = lastTrack;
-				Queue.AddFirst(currentTrack);
-			}
+			ActiveTrack = ActiveNode.Value;
 		}
 
 		public void AddTrackToQueueFirstPos(Track track)
 		{
-			Queue.AddFirst(track);
+			PriorityQueue.AddLast(track);
 		}
 
 		public void AddTrackToQueueLastPos(Track track)
@@ -83,12 +99,41 @@ namespace OpenSoundStream
 			Queue.Remove(track);
 		}
 
-		public void LoadPlaylistInQueue(Playlist playlist)
+		public void LoadPlayableContainerInQueue(PlayableContainer pc)
 		{
-			foreach (Track track in playlist.Tracks)
+			Queue = new LinkedList<Track>();
+			foreach (Track track in pc.Tracks)
 			{
 				Queue.AddLast(track);
 			}
+		}
+
+		public void LoadArtistInQueue(Artist artist) 
+		{
+			Queue = new LinkedList<Track>();
+			foreach (Album album in artist.Albums)
+			{
+				foreach (Track track in album.Tracks)
+				{
+					Queue.AddLast(track);
+				}
+			}
+		}
+
+		public void SelectTrackInQueue(Track track, PlayableContainer pc)
+		{
+			Queue = pc.Tracks;
+
+			try
+			{
+				ActiveNode = Queue.Find(track);
+			}
+			catch(Exception e)
+			{
+				throw e;
+			}
+
+			ActiveTrack = ActiveNode.Value;
 		}
 
 		// Create the OnPropertyChanged method to raise the event
