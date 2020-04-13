@@ -18,6 +18,7 @@ namespace OpenSoundStream.ViewModel
 	{
 		public static MainViewModel mainViewModel;
 		public Musicplayer musicplayer { get; private set; } = OpenSoundStreamManager.Musicplayer;
+		private bool SelectAllTracks { get; set; }
 
         #region Binding Variables
 
@@ -192,8 +193,18 @@ namespace OpenSoundStream.ViewModel
 		/// <param name="selectedTrack"></param>
         private void playSelectedTrack(TrackMetadata selectedTrack)
 		{
-			musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == selectedTrack.Title));
-			playMusic();
+			if (SelectAllTracks != true)
+			{
+				musicplayer.SetActiveTrackInPlayableContainer(Track.Tracks.Find(x => x.Title == selectedTrack.Title));
+				playMusic();
+			}
+			else
+			{
+				musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == selectedTrack.Title));
+				playMusic();
+				SelectAllTracks = false;
+			}
+
 		}
 
 		/// <summary>
@@ -203,12 +214,13 @@ namespace OpenSoundStream.ViewModel
 		private void playSelectedPlaylist(string selectedPlaylist)
 		{
 			Playlist currentPlaylist = Playlist.Playlists.Find(x => x.Name == selectedPlaylist);
-			musicplayer.Musicqueue.Queue = new LinkedList<Track>();
-			musicplayer.Musicqueue.LoadPlaylistInQueue(currentPlaylist);
+			musicplayer.Musicqueue.LoadPlayableContainerInQueue(currentPlaylist);
+			//To decide between all Tracks and a PLaylist
+			SelectAllTracks = false;
+			musicplayer.NextTrack();
 			playMusic();
 
 			Tracks.Clear();
-
 
 			foreach (Track track in currentPlaylist.Tracks)
 			{
@@ -296,7 +308,7 @@ namespace OpenSoundStream.ViewModel
 			else
 			{
 				PlayerMode = new PackIcon { Kind = PackIconKind.Repeat };
-				musicplayer.Musicqueue.Repeat = true;
+				musicplayer.Musicqueue.RepeatQueue = true;
 				shuffle = false;
 			}
 
@@ -329,6 +341,8 @@ namespace OpenSoundStream.ViewModel
 				Tracks.Add(new TrackMetadata { Title = track.Title, Genre = track.Metadata.Genre });
 
 			}
+
+			SelectAllTracks = true;
 		}
 
 		#endregion
