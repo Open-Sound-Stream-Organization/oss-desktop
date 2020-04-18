@@ -120,6 +120,11 @@
     <Compile Include="Code\Album.cs" />
     <Compile Include="Code\Artist.cs" />
     <Compile Include="Code\DatabaseHandler.cs" />
+    <Compile Include="Code\DataManager\AlbumsManager.cs" />
+    <Compile Include="Code\DataManager\ArtistsManager.cs" />
+    <Compile Include="Code\DataManager\MetadataManager.cs" />
+    <Compile Include="Code\DataManager\PlaylistsManager.cs" />
+    <Compile Include="Code\DataManager\TracksManager.cs" />
     <Compile Include="Code\Musicplayer.cs" />
     <Compile Include="Code\NetworkHandler.cs" />
     <Compile Include="Code\OpenSoundStreamManager.cs" />
@@ -230,6 +235,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

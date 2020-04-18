@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenSoundStream.Code.DataManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +39,11 @@ namespace OpenSoundStream
 			//Musicplayer.Musicqueue.LoadPlayableContainerInQueue(p1);
 			//Musicplayer.Musicqueue.AddTrackToQueueFirstPos(a);
 
+			Artist artist = new Artist("Topic");
+
+			ArtistsManager.db_Update_Record(1, artist);
+
+			ArtistsManager.db_Delete_Record(1);
 
 			//Musicplayer.Musicqueue.AddTrackToQueueLastPos(a);
 			//Musicplayer.Musicqueue.AddTrackToQueueLastPos(b);
