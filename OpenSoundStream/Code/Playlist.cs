@@ -8,6 +8,8 @@ namespace OpenSoundStream
     public class Playlist : PlayableContainer
     {
         public int? id { get; set; } 
+        public Uri resource_uri { get; set; }
+        public string[] tags { get; set; }
         public Playlist(string Name) : base()
         {
             name = Name ?? throw new ArgumentNullException(nameof(Name));

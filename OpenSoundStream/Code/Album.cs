@@ -20,5 +20,13 @@ namespace OpenSoundStream
         public Artist[] Artist { get; set; }
 
         public int? id { get; set; }
+        public string[] artists { get; set; }
+        public string cover_file { get; set; }
+        public string cover_url { get; set; }
+        public int? mbid { get; set; }
+        public DateTime? release { get; set; }
+        public string resource_uri { get; set; }
+        public string[] songs { get; set; }
+        public string[] tags { get; set; }
     }
 }

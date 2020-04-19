@@ -29,8 +29,11 @@ namespace OpenSoundStream
         public Uri Filepath { get; set; }
 
         public string album { get; set; }
-
         public string[] artists { get; set; }
+        public string audio { get; set; }
+        public int? mbid { get; set; }
+        public Uri resource_uri { get; set; }
+        public string[] tags { get; set; }
 
     }
 }

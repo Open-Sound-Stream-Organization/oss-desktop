@@ -20,7 +20,15 @@ namespace OpenSoundStream
         public List<Album> Albums { get; set; }
 
         public int? id { get; set; }
-
         public string name { get; set; }
+        public DateTime? begin { get; set; }
+        public DateTime? end { get; set; }
+        public int? mbid { get; set; }
+        public string[] albums { get; set; }
+        public string resource_uri { get; set; }
+        public string[] songs { get; set; }
+        public string[] tags { get; set; }
+        public string type { get; set; }
+
     }
 }
