@@ -7,9 +7,9 @@ namespace OpenSoundStream
 {
     public class Album : PlayableContainer
     {
-        public Album(string name) : base()
+        public Album(string Name) : base()
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            name = Name ?? throw new ArgumentNullException(nameof(Name));
             Tracks = new LinkedList<Track>();
 
             Albums.Add(this);
@@ -17,6 +17,8 @@ namespace OpenSoundStream
 
         public static List<Album> Albums { get; set; }
 
-        public Artist Artist { get; set; }
+        public Artist[] Artist { get; set; }
+
+        public int? id { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenSoundStream.Code.DataManager;
+using OpenSoundStream.Code.NetworkManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,12 +42,23 @@ namespace OpenSoundStream
 
 			Artist artist = new Artist("Topic");
 
-			ArtistsManager.db_Update_Record(1, artist);
+			//ArtistsManager.db_Update_Record(1, artist);
 
-			ArtistsManager.db_Delete_Record(1);
+			//ArtistsManager.db_Delete_Record(1);
 
 			//Musicplayer.Musicqueue.AddTrackToQueueLastPos(a);
 			//Musicplayer.Musicqueue.AddTrackToQueueLastPos(b);
+
+			//Track track = new Track("Superlonely", new Uri(@"file:///C:/Users/cpfro/Music/Track3.mp3"));
+			//track.album = "/api/v1/album/1/";
+			//track.artists = new string[] {"/api/v1/artist/2/" };
+			//track.id = 17;
+
+			//TracksNwManager.GetTrack(15);
+			//TracksNwManager.PostTrack(track);
+			//TracksNwManager.PutTrack(track);
+			//TracksNwManager.DeleteTrack(track.id);
+
 		}
 
 

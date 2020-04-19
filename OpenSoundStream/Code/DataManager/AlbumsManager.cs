@@ -12,10 +12,10 @@ namespace OpenSoundStream.Code.DataManager
         public static void db_Add_Record(Album album, int artistId)
         {
             //< correct>
-            album.Name = album.Name.Replace("'", "''");
+            album.name = album.name.Replace("'", "''");
             //</ correct>
 
-            string sql_Add = "INSERT INTO Artists ([name], [artistId]) VALUES('" + album.Name + "','" + artistId + "')";
+            string sql_Add = "INSERT INTO Artists ([name], [artistId]) VALUES('" + album.name + "','" + artistId + "')";
             DatabaseHandler.Execute_SQL(sql_Add);
 
         }
@@ -23,10 +23,10 @@ namespace OpenSoundStream.Code.DataManager
         public static void db_Update_Record(int id, Album album, int artistId)
         {
             //< correct>
-            album.Name = album.Name.Replace("'", "''");
+            album.name = album.name.Replace("'", "''");
             //</ correct>
 
-            string sql_Update = "UPDATE Artists SET [name] = '" + album.Name + "', [artistId] = '" + artistId + "' WHERE Id = " + id;
+            string sql_Update = "UPDATE Artists SET [name] = '" + album.name + "', [artistId] = '" + artistId + "' WHERE Id = " + id;
             DatabaseHandler.Execute_SQL(sql_Update);
         }
 

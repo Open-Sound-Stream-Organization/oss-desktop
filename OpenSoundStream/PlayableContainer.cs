@@ -7,7 +7,7 @@ namespace OpenSoundStream
 {
 	public abstract class PlayableContainer
 	{
-		public string Name { get; set; }
+		public string name { get; set; }
 
 		public LinkedList<Track> Tracks { get; set; }
 	}

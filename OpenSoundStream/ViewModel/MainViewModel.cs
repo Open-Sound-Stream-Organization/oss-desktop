@@ -174,7 +174,7 @@ namespace OpenSoundStream.ViewModel
 
 			foreach (Playlist playlist in Playlist.Playlists)
 			{
-				Playlists.Add(playlist.Name);
+				Playlists.Add(playlist.name);
 			}
 
 			DispatcherTimer timer = new DispatcherTimer();
@@ -195,12 +195,12 @@ namespace OpenSoundStream.ViewModel
 		{
 			if (SelectAllTracks != true)
 			{
-				musicplayer.SetActiveTrackInPlayableContainer(Track.Tracks.Find(x => x.Title == selectedTrack.Title));
+				musicplayer.SetActiveTrackInPlayableContainer(Track.Tracks.Find(x => x.title == selectedTrack.Title));
 				playMusic();
 			}
 			else
 			{
-				musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == selectedTrack.Title));
+				musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.title == selectedTrack.Title));
 				playMusic();
 				SelectAllTracks = false;
 			}
@@ -213,7 +213,7 @@ namespace OpenSoundStream.ViewModel
 		/// <param name="selectedPlaylist"></param>
 		private void playSelectedPlaylist(string selectedPlaylist)
 		{
-			Playlist currentPlaylist = Playlist.Playlists.Find(x => x.Name == selectedPlaylist);
+			Playlist currentPlaylist = Playlist.Playlists.Find(x => x.name == selectedPlaylist);
 			musicplayer.Musicqueue.LoadPlayableContainerInQueue(currentPlaylist);
 			//To decide between all Tracks and a PLaylist
 			SelectAllTracks = false;
@@ -224,7 +224,7 @@ namespace OpenSoundStream.ViewModel
 
 			foreach (Track track in currentPlaylist.Tracks)
 			{
-				Tracks.Add(new TrackMetadata { Title = track.Title }) ;
+				Tracks.Add(new TrackMetadata { Title = track.title }) ;
 			}
 		}
 
@@ -271,9 +271,10 @@ namespace OpenSoundStream.ViewModel
 			if (activeTrack == null)
 				return;
 
-			Artist artist = activeTrack.Artist;
-			CurrentTrack = activeTrack.Title;
-			CurrentArtist = artist != null ? artist.Name : "Unknown Artist";
+			Artist artist = new Artist("muss geändert werden");
+			//Artist artist = activeTrack.artists;
+			CurrentTrack = activeTrack.title;
+			CurrentArtist = artist != null ? artist.name : "Unknown Artist";
 
 			changePlayerStateIcon();
 		}
@@ -338,7 +339,7 @@ namespace OpenSoundStream.ViewModel
 
 			foreach (Track track in Track.Tracks)
 			{
-				Tracks.Add(new TrackMetadata { Title = track.Title, Genre = track.Metadata.Genre });
+				Tracks.Add(new TrackMetadata { Title = track.title, Genre = track.Metadata.Genre });
 
 			}
 
@@ -358,7 +359,7 @@ namespace OpenSoundStream.ViewModel
 		{
 			try
 			{
-				CurrentTrack = musicplayer.Musicqueue.ActiveTrack.Title;
+				CurrentTrack = musicplayer.Musicqueue.ActiveTrack.title;
 			}
 			catch (Exception)
 			{

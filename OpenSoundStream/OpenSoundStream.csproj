@@ -73,6 +73,9 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=3.1.0.1244, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MaterialDesignThemes.3.1.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ReactiveUI, Version=11.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ReactiveUI.11.3.1\lib\net461\ReactiveUI.dll</HintPath>
     </Reference>
@@ -81,6 +84,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Json, Version=2.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\System.Json.4.7.0\lib\netstandard2.0\System.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Reactive, Version=4.3.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>packages\System.Reactive.4.3.2\lib\net46\System.Reactive.dll</HintPath>
     </Reference>
@@ -127,6 +136,10 @@
     <Compile Include="Code\DataManager\TracksManager.cs" />
     <Compile Include="Code\Musicplayer.cs" />
     <Compile Include="Code\NetworkHandler.cs" />
+    <Compile Include="Code\NetworkManager\AlbumsNwManager.cs" />
+    <Compile Include="Code\NetworkManager\ArtistsNwManager.cs" />
+    <Compile Include="Code\NetworkManager\PlaylistsNwManager.cs" />
+    <Compile Include="Code\NetworkManager\TracksNwManager.cs" />
     <Compile Include="Code\OpenSoundStreamManager.cs" />
     <Compile Include="Code\Playlist.cs" />
     <Compile Include="Code\Queue.cs" />
