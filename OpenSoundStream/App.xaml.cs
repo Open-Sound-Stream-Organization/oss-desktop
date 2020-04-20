@@ -13,7 +13,7 @@ namespace OpenSoundStream
 	/// <summary>
 	/// Interaktionslogik für "App.xaml"
 	/// </summary>
-	public partial class App : Application
+	public partial class Application : System.Windows.Application
 	{
 		private void OnStartup(object sender, StartupEventArgs e)
 		{

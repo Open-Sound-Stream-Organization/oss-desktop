@@ -16,6 +16,8 @@ namespace OpenSoundStream.Views
 			DataContext = t_mainWindowModel;
 			MainViewModel.mainViewModel = t_mainWindowModel;
 			InitializeComponent();
+
+			MainViewModel.mainWindow = this;
 		}
 	}
 }

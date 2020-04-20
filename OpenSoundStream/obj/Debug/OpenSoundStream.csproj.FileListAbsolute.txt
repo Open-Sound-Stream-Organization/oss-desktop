@@ -179,3 +179,11 @@ C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.csproj.Generate
 C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.csproj.CopyComplete
 C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.exe
 C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\OpenSoundStream.pdb
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\TitleView.g.cs
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\TitleView.baml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\AlbumView.g.cs
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\AlbumView.baml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\ArtistView.g.cs
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\BigPlayerView.g.cs
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\ArtistView.baml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\BigPlayerView.baml
