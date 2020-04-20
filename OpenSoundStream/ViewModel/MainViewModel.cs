@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
+using OpenSoundStream.Views;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -17,7 +18,9 @@ namespace OpenSoundStream.ViewModel
 	public class MainViewModel : ViewModelBase, INotifyPropertyChanged
 	{
 		public static MainViewModel mainViewModel;
-		public Musicplayer musicplayer { get; private set; } = OpenSoundStreamManager.Musicplayer;
+		public static MainWindow mainWindow;
+		public static Musicplayer musicplayer { get; private set; } = OpenSoundStreamManager.Musicplayer;
+		public static BigPlayerView bigPlayerWindow;
 		private bool SelectAllTracks { get; set; }
 
         #region Binding Variables
@@ -36,6 +39,7 @@ namespace OpenSoundStream.ViewModel
 		private double _currentPosition;
 		private double _maxLength;
 		private PackIcon _playerMode = new PackIcon { Kind = PackIconKind.Repeat };
+		private string _currentFrame;
 
 		#endregion
 
@@ -49,6 +53,7 @@ namespace OpenSoundStream.ViewModel
 		public RelayCommand ArtistsCommand { get; private set; }
 		public RelayCommand AlbumsCommand { get; private set; }
 		public RelayCommand TracksCommand { get; private set; }
+		public RelayCommand ChangeViewCommand { get; private set; }
 		public RelayCommand<TrackMetadata> ListViewCommand { get; private set; }
 		public RelayCommand<string> PlaylistCommand { get; private set; }
 		public ObservableCollection<TrackMetadata> Tracks { get { return _tracks; } }
@@ -149,11 +154,21 @@ namespace OpenSoundStream.ViewModel
 			}
 		}
 
-        #endregion
+		public string CurrentFrame
+		{
+			get { return _currentFrame; }
+			set
+			{
+				_currentFrame = value;
+				RaisePropertyChanged("CurrentFrame");
+			}
+		}
 
-        #region Constructor
+		#endregion
 
-        public MainViewModel()
+		#region Constructor
+
+		public MainViewModel()
 		{
 			musicplayer.Musicqueue.PropertyChanged += TrackChanged;
 
@@ -168,6 +183,7 @@ namespace OpenSoundStream.ViewModel
 			this.TracksCommand = new RelayCommand(this.createTracksView);
 			this.ListViewCommand = new RelayCommand<TrackMetadata>((item) => this.playSelectedTrack(item));
 			this.PlaylistCommand = new RelayCommand<string>((item) => this.playSelectedPlaylist(item));
+			this.ChangeViewCommand = new RelayCommand(this.changeView);
 
 			// Set inital values
 			_volumn = musicplayer.Mediaplayer.Volume;
@@ -222,6 +238,8 @@ namespace OpenSoundStream.ViewModel
 
 			Tracks.Clear();
 
+			CurrentFrame = "TitleView.xaml";
+
 			foreach (Track track in currentPlaylist.Tracks)
 			{
 				Tracks.Add(new TrackMetadata { Title = track.title }) ;
@@ -262,7 +280,7 @@ namespace OpenSoundStream.ViewModel
 		/// <summary>
 		/// Plays tracks in mediaplayer and sets related informations in the view 
 		/// </summary>
-		private void playMusic()
+		public void playMusic()
 		{
 			musicplayer.Play();
 
@@ -317,17 +335,21 @@ namespace OpenSoundStream.ViewModel
 
 		private void createBigPlayerView()
 		{
+			mainWindow.Hide();
 
+			BigPlayerView bigPlayerViewCreated = new BigPlayerView();
+			bigPlayerViewCreated.ShowDialog();
+			//bigPlayerWindow.Show();
 		}
 
 		private void createArtistsView()
 		{
-
+			CurrentFrame = "ArtistView.xaml";
 		}
 
 		private void createAlbumsView()
 		{
-
+			CurrentFrame = "AlbumView.xaml";
 		}
 
 		/// <summary>
@@ -335,7 +357,7 @@ namespace OpenSoundStream.ViewModel
 		/// </summary>
 		private void createTracksView()
 		{
-			Tracks.Clear();
+			TitleViewModel.Tracks.Clear();
 
 			foreach (Track track in Track.Tracks)
 			{
@@ -344,8 +366,14 @@ namespace OpenSoundStream.ViewModel
 			}
 
 			SelectAllTracks = true;
+			CurrentFrame = "TitleView.xaml";
 		}
 
+		public void changeView()
+		{
+			bigPlayerWindow.Hide();
+			mainWindow.ShowDialog();
+		}
 		#endregion
 
 		#region EventHandler
@@ -417,13 +445,4 @@ namespace OpenSoundStream.ViewModel
 		#endregion
 	}
 
-    public class TrackMetadata
-	{
-		public string Title { get; set; }
-		public string Artist { get; set; }
-		public string Album { get; set; }
-		public string Length { get; set; }
-		public string Genre { get; set; }
-		public string Year { get; set; }
-	}
 }
