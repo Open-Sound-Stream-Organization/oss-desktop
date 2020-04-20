@@ -34,7 +34,7 @@ namespace OpenSoundStream
             if (File.Exists(destFile))
             {
                 //TODO Hash abgleich
-                if (Track.Tracks.Find(e => e.Title == fileName.Split('.')[0]) == null)
+                if (Track.Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
                 {
                     new Track(fileName.Split('.')[0], new Uri(@"file:///" + destFile));
                 }
@@ -43,7 +43,7 @@ namespace OpenSoundStream
             {
                 try
                 {
-                    if(Track.Tracks.Find(e => e.Title == fileName.Split('.')[0] ) == null)
+                    if(Track.Tracks.Find(e => e.title == fileName.Split('.')[0] ) == null)
                     {
                         File.Copy(sourcePath, destFile, true);
                         new Track(fileName.Split('.')[0], new Uri(@"file:///" + destFile));
@@ -75,13 +75,13 @@ namespace OpenSoundStream
                     string destFile = System.IO.Path.Combine(path, fileName);
                     System.IO.File.Copy(s, destFile, true);
 
-                    if (Track.Tracks.Find(e => e.Title == fileName.Split('.')[0]) == null)
+                    if (Track.Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
                     {
                         pl.AddTrack(new Track(fileName.Split('.')[0], new Uri(destFile)));
                     }
                     else
                     {
-                        pl.AddTrack(Track.Tracks.Find(e => e.Title == fileName.Split('.')[0]));
+                        pl.AddTrack(Track.Tracks.Find(e => e.title == fileName.Split('.')[0]));
                     }
                 }
 
@@ -111,14 +111,14 @@ namespace OpenSoundStream
 
         public static void SaveToDrive(Playlist playlist, string path)
         {
-            Directory.CreateDirectory(DataPath + playlist.Name);
+            Directory.CreateDirectory(DataPath + playlist.name);
 
             throw new System.NotImplementedException();
         }
 
         public static void SaveToDrive(Album album, string path)
         {
-            Directory.CreateDirectory(DataPath + album.Name);
+            Directory.CreateDirectory(DataPath + album.name);
             throw new System.NotImplementedException();
         }
 

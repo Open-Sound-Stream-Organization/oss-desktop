@@ -7,9 +7,12 @@ namespace OpenSoundStream
 {
     public class Playlist : PlayableContainer
     {
-        public Playlist(string name) : base()
+        public int? id { get; set; } 
+        public Uri resource_uri { get; set; }
+        public string[] tags { get; set; }
+        public Playlist(string Name) : base()
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            name = Name ?? throw new ArgumentNullException(nameof(Name));
             Tracks = new LinkedList<Track>();
 
             Playlists.Add(this);

@@ -7,9 +7,9 @@ namespace OpenSoundStream
 {
     public class Artist
     {
-        public Artist(string name)
+        public Artist(string Name)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            name = Name ?? throw new ArgumentNullException(nameof(Name));
             Albums = new List<Album>();
 
             Artists.Add(this);
@@ -19,6 +19,16 @@ namespace OpenSoundStream
 
         public List<Album> Albums { get; set; }
 
-        public string Name { get; set; }
+        public int? id { get; set; }
+        public string name { get; set; }
+        public DateTime? begin { get; set; }
+        public DateTime? end { get; set; }
+        public int? mbid { get; set; }
+        public string[] albums { get; set; }
+        public string resource_uri { get; set; }
+        public string[] songs { get; set; }
+        public string[] tags { get; set; }
+        public string type { get; set; }
+
     }
 }

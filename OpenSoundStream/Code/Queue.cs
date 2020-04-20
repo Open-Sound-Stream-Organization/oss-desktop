@@ -23,7 +23,9 @@ namespace OpenSoundStream
 
 		public bool Shuffle { get; set; }
 
-		public bool Repeat { get; set; }
+		public bool RepeatQueue { get; set; }
+
+		public bool RepeatTrack { get; set; }
 
 		public LinkedListNode<Track> ActiveNode { get => activeNode; set { activeNode = value; OnPropertyChanged(); } }
 
@@ -106,6 +108,7 @@ namespace OpenSoundStream
 			{
 				Queue.AddLast(track);
 			}
+			ActiveNode = null;
 		}
 
 		public void LoadArtistInQueue(Artist artist) 

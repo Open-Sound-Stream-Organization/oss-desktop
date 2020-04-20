@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/controls.customsilder.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("_data/localdb_oss.mdf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("_data/localdb_oss_log.ldf")]
 
 
