@@ -323,12 +323,14 @@ namespace OpenSoundStream.ViewModel
 				PlayerMode = new PackIcon { Kind = PackIconKind.Shuffle };
 				musicplayer.Musicqueue.Shuffle = true;
 				shuffle = true;
+				musicplayer.Musicqueue.ShuffleQueue();
 			}
 			else
 			{
 				PlayerMode = new PackIcon { Kind = PackIconKind.Repeat };
 				musicplayer.Musicqueue.RepeatQueue = true;
 				shuffle = false;
+				musicplayer.Musicqueue.UnshuffleQueue();
 			}
 
 		}

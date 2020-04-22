@@ -16,8 +16,10 @@ namespace OpenSoundStream
 		{
 			Queue = new LinkedList<Track>();
 			PriorityQueue = new LinkedList<Track>();
+			ActivePlayableContainer = new LinkedList<Track>();
 		}
 		public LinkedList<Track> Queue { get; set; }
+		public LinkedList<Track> ActivePlayableContainer { get; set; }
 
 		public LinkedList<Track> PriorityQueue { get; set; }
 
@@ -136,6 +138,41 @@ namespace OpenSoundStream
 				throw e;
 			}
 
+			ActiveTrack = ActiveNode.Value;
+		}
+
+		private static Random rng = new Random();
+
+		public void ShuffleQueue()
+		{
+			if(Queue.Count() == 0)
+			{
+				return;
+			}
+			int n = Queue.Count;
+			ActivePlayableContainer = Queue;
+			List<Track> list = Queue.ToList<Track>();
+			while (n > 1)
+			{
+				n--;
+				int k = rng.Next(n + 1);
+				Track value = list[k];
+				list[k] = list[n];
+				list[n] = value;
+			}
+
+			Queue = new LinkedList<Track>(list);
+			ActiveNode = Queue.Find(ActiveNode.Value);
+			ActiveTrack = ActiveNode.Value;
+		}
+		public void UnshuffleQueue()
+		{
+			if(ActivePlayableContainer.Count() == 0)
+			{
+				return;
+			}
+			Queue = ActivePlayableContainer;
+			ActiveNode = Queue.Find(ActiveNode.Value);
 			ActiveTrack = ActiveNode.Value;
 		}
 

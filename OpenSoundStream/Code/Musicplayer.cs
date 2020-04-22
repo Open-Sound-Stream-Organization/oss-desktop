@@ -55,10 +55,6 @@ namespace OpenSoundStream
 				Musicqueue.ActiveNode = Musicqueue.ActiveNode.Previous;
 				NextTrack();
 			}
-			else if (Musicqueue.Shuffle)
-			{
-
-			}
 			else
 			{
 				Stop();

@@ -21,9 +21,9 @@ namespace OpenSoundStream
 			Artist.Artists = new List<Artist>();
 
 			//DEBUG
-			Playlist p1 = new Playlist("Cello");
+			//Playlist p1 = new Playlist("Cello");
 
-			//Playlist p1 = new Playlist("Good Vibes");
+			Playlist p1 = new Playlist("Good Vibes");
 			//Playlist p2 = new Playlist("Chill");
 
 			//AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
@@ -34,7 +34,7 @@ namespace OpenSoundStream
 			//AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track2.mp3");
 			//AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track3.mp3");
 			//AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Party/Bad child.mp3");
-			//AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Party", p1);
+			AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Party", p1);
 			//AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Chill", p2);
 
 			//Musicplayer.Musicqueue.LoadPlayableContainerInQueue(p1);
