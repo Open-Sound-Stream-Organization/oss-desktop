@@ -147,6 +147,7 @@
     <Compile Include="Code\Track.cs" />
     <Compile Include="Code\Metadata.cs" />
     <Compile Include="Code\PlayerState.cs" />
+    <Compile Include="Code\User.cs" />
     <Compile Include="PlayableContainer.cs" />
     <Compile Include="ViewModel\AlbumViewModel.cs" />
     <Compile Include="ViewModel\ArtistViewModel.cs" />

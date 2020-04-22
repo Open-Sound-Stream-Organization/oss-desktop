@@ -194,3 +194,11 @@ C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSound
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\BigPlayerView.g.cs
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\TitleView.g.cs
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\OpenSoundStream_Content.g.cs
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\AlbumView.g.cs
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\ArtistView.g.cs
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\BigPlayerView.g.cs
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\TitleView.g.cs
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\AlbumView.baml
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\ArtistView.baml
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\BigPlayerView.baml
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\TitleView.baml

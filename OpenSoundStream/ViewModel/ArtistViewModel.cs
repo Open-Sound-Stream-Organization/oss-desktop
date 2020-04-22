@@ -63,14 +63,14 @@ namespace OpenSoundStream.ViewModel
 
         private void showSelectedArtist(string artistName)
         {
-            Artist currentArtist = Artist.Artists.Find(x => x.Name == artistName);
+            Artist currentArtist = Artist.Artists.Find(x => x.name == artistName);
 
 
             foreach (Album album in currentArtist.Albums)
             {
                 foreach (Track track in album.Tracks)
                 {
-                    TrackList.Add(new TrackMetadata { Title = track.Title, Album = track.Album.Name, Genre = track.Metadata.Genre, Year = (track.Metadata.Year).ToString() });
+                    TrackList.Add(new TrackMetadata { Title = track.title, Album = track.Album.name, Genre = track.Metadata.Genre, Year = (track.Metadata.Year).ToString() });
                 }
             }
             ListVisi = Visibility.Visible;
@@ -81,13 +81,13 @@ namespace OpenSoundStream.ViewModel
         {
             foreach (Artist artist in Artist.Artists)
             {
-                ArtistNames.Add(artist.Name);
+                ArtistNames.Add(artist.name);
             }
         }
 
         private void playSelectedTitle(TrackMetadata track)
         {
-            MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == track.Title));
+            MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.title == track.Title));
             mainViewModel.playMusic();
         }
 

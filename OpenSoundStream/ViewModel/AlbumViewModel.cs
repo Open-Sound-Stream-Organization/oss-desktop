@@ -86,13 +86,13 @@ namespace OpenSoundStream.ViewModel
 
         private void showSelectedAlbum(string albumName)
         {
-            Album currentAlbum = Album.Albums.Find(x => x.Name == albumName);
+            Album currentAlbum = Album.Albums.Find(x => x.name == albumName);
 
-            AlbumName = currentAlbum.Name;
+            AlbumName = currentAlbum.name;
 
             foreach (Track track in currentAlbum.Tracks)
             {
-                TrackList.Add(new TrackMetadata { Title = track.Title });
+                TrackList.Add(new TrackMetadata { Title = track.title });
             }
             ListVisi = Visibility.Visible;
 
@@ -102,13 +102,13 @@ namespace OpenSoundStream.ViewModel
         {
             foreach (Album album in Album.Albums)
             {
-                AlbumNames.Add(album.Name);
+                AlbumNames.Add(album.name);
             }
         }
 
         private void playSelectedTitle(TrackMetadata track)
         {
-            MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == track.Title));
+            MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.title == track.Title));
             mainViewModel.playMusic();
         }
 

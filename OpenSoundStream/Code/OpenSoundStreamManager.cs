@@ -28,7 +28,7 @@ namespace OpenSoundStream
 
 			//AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
 			//AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav.opensound");
-			AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
+			//AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
 
 			//AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track1.mp3");
 			//AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track2.mp3");
@@ -39,8 +39,6 @@ namespace OpenSoundStream
 
 			//Musicplayer.Musicqueue.LoadPlayableContainerInQueue(p1);
 			//Musicplayer.Musicqueue.AddTrackToQueueFirstPos(a);
-
-			Artist artist = new Artist("Topic");
 
 			//ArtistsManager.db_Update_Record(1, artist);
 
@@ -58,9 +56,14 @@ namespace OpenSoundStream
 			//TracksNwManager.PostTrack(track);
 			//TracksNwManager.PutTrack(track);
 			//TracksNwManager.DeleteTrack(track.id);
+			//TracksNwManager.GetTrack(15);
 
-			TracksNwManager.GetTrack(15);
-
+			//Artist a1 = ArtistsNwManager.GetArtist(564);
+			//ArtistsManager.db_Add_Record(a1);
+			Artist a1 = ArtistsNwManager.GetArtist(564);
+			Artist a2 = ArtistsNwManager.GetArtist(16);
+			ArtistsManager.db_Add_Update_Record(a1);
+			ArtistsManager.db_Add_Update_Record(a2);
 		}
 
 

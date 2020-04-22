@@ -33,7 +33,7 @@ namespace OpenSoundStream.ViewModel
 		/// <param name="selectedTrack"></param>
 		private void playSelectedTrack(TrackMetadata selectedTrack)
 		{
-			MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.Title == selectedTrack.Title));
+			MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.title == selectedTrack.Title));
 			mainViewModel.playMusic();
 		}
 

@@ -16,6 +16,7 @@ namespace OpenSoundStream
             Tracks.Add(this);
         }
 
+        public Album Album { get; set; }
         public static List<Track> Tracks { get; set; }
 
         public int? id { get; set; }
@@ -32,7 +33,7 @@ namespace OpenSoundStream
         public string[] artists { get; set; }
         public string audio { get; set; }
         public int? mbid { get; set; }
-        public Uri resource_uri { get; set; }
+        public string resource_uri { get; set; }
         public string[] tags { get; set; }
 
     }
