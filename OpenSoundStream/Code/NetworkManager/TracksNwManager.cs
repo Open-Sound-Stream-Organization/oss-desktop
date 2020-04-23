@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -10,6 +11,25 @@ namespace OpenSoundStream.Code.NetworkManager
     class TracksNwManager
     {
         private static HttpClient client = NetworkHandler.GetClient();
+
+        public static List<Track> GetTracks()
+        {
+            var responseTask = client.GetAsync("track");
+            responseTask.Wait();
+
+            var result = responseTask.Result;
+            IDictionary<string, dynamic> json = null;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<IDictionary<string, dynamic>>();
+                readTask.Wait();
+                json = readTask.Result;
+            }
+            List<Track> tracks = JsonConvert.DeserializeObject<List<Track>>(json["objects"].ToString());
+
+            return tracks;
+        }
 
         public static Track GetTrack(int id)
         {
@@ -26,6 +46,7 @@ namespace OpenSoundStream.Code.NetworkManager
 
                 track = readTask.Result;
             }
+
             return track;
         }
 

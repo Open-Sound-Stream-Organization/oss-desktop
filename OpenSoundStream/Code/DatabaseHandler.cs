@@ -48,13 +48,14 @@ namespace OpenSoundStream
             cmd_Command.ExecuteNonQuery();
 
             //</ get Table >
+
+            Close_DB_Connection(cn_connection);
         }
 
 
-        public static void Close_DB_Connection()
+        public static void Close_DB_Connection(SqlConnection cn_connection)
         {
             string cn_String = Properties.Settings.Default.connection_string;
-            SqlConnection cn_connection = new SqlConnection(cn_String);
             if (cn_connection.State != ConnectionState.Closed) cn_connection.Close();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -10,6 +11,37 @@ namespace OpenSoundStream.Code.NetworkManager
     class ArtistsNwManager
     {
         private static HttpClient client = NetworkHandler.GetClient();
+
+        public static List<Artist> GetArtists()
+        {
+            var responseTask = client.GetAsync("artist");
+            responseTask.Wait();
+
+            var result = responseTask.Result;
+            IDictionary<string, dynamic> json = null;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<IDictionary<string, dynamic>>();
+                readTask.Wait();
+                json = readTask.Result;
+            }
+            List<Artist> artists = JsonConvert.DeserializeObject<List<Artist>>(json["objects"].ToString());
+
+            foreach (var artist in artists)
+            {
+                for (int i = 0; i < artist.songs.Length; i++)
+                {
+                    artist.songs[i] = artist.songs[i].Split('/')[artist.songs[i].Split('/').Length - 1];
+                }
+                for (int i = 0; i < artist.albums.Length; i++)
+                {
+                    artist.albums[i] = artist.albums[i].Split('/')[artist.albums[i].Split('/').Length - 1];
+                }
+            }
+
+            return artists;
+        }
 
         public static Artist GetArtist(int id)
         {
@@ -26,6 +58,12 @@ namespace OpenSoundStream.Code.NetworkManager
 
                 artist = readTask.Result;
             }
+
+            for (int i = 0; i < artist.songs.Length; i++)
+            {
+                artist.songs[i] = artist.songs[i].Split('/')[artist.songs[i].Split('/').Length - 1];
+            }
+
             return artist;
         }
 

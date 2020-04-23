@@ -26,19 +26,19 @@ namespace OpenSoundStream.Code.DataManager
 
             if (tbl.Rows.Count == 0)
             {
-                string sql_Add = "INSERT INTO Albums ([name], [resource_uri]) VALUES('" + pl.name + "','" + pl.resource_uri + "')";
+                string sql_Add = "INSERT INTO Playlists ([id], [name], [resource_uri]) VALUES('" + pl.id + "','" + pl.name + "','" + pl.resource_uri + "')";
                 DatabaseHandler.Execute_SQL(sql_Add);
             }
             else
             {
-                string sql_Update = "UPDATE Albums SET [name] = '" + pl.name + "', [resource_uri] = '" + pl.resource_uri + "' WHERE Id = " + pl.id;
+                string sql_Update = "UPDATE Playlists SET [name] = '" + pl.name + "', [resource_uri] = '" + pl.resource_uri + "' WHERE Id = " + pl.id;
                 DatabaseHandler.Execute_SQL(sql_Update);
             }
         }
 
         public static DataTable db_Get_Record(int? id)
         {
-            string sSQL = "SELECT TOP 1 * FROM Albums WHERE [Id] Like '" + id + "'";
+            string sSQL = "SELECT TOP 1 * FROM Playlists WHERE [Id] Like '" + id + "'";
             DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
 
             return tbl;
@@ -46,7 +46,7 @@ namespace OpenSoundStream.Code.DataManager
 
         public static void db_Delete_Record(int id)
         {
-            string sSQL = "Delete FROM Albums WHERE [Id] Like '" + id + "'";
+            string sSQL = "Delete FROM Playlists WHERE [Id] Like '" + id + "'";
             DatabaseHandler.Execute_SQL(sSQL);
         }
     }

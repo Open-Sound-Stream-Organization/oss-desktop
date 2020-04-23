@@ -60,10 +60,13 @@ namespace OpenSoundStream
 
 			//Artist a1 = ArtistsNwManager.GetArtist(564);
 			//ArtistsManager.db_Add_Record(a1);
-			Artist a1 = ArtistsNwManager.GetArtist(564);
-			Artist a2 = ArtistsNwManager.GetArtist(16);
-			ArtistsManager.db_Add_Update_Record(a1);
-			ArtistsManager.db_Add_Update_Record(a2);
+			//Artist a1 = ArtistsNwManager.GetArtist(564);
+			//Artist a2 = ArtistsNwManager.GetArtist(16);
+			//ArtistsManager.db_Add_Update_Record(a1);
+			//ArtistsManager.db_Add_Update_Record(a2);
+
+			//NetworkHandler.SyncLocalDbWithServerDb();
+			TrackInPlaylistNwManager.GetTrackInPlaylist(7);
 		}
 
 

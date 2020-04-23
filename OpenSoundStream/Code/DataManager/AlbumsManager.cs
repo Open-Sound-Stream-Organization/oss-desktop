@@ -13,9 +13,18 @@ namespace OpenSoundStream.Code.DataManager
         {
             //< correct>
             album.name = album.name.Replace("'", "''");
-            album.cover_file = album.cover_file.Replace("'", "''");
-            album.cover_url = album.cover_url.Replace("'", "''");
-            album.resource_uri = album.resource_uri.Replace("'", "''");
+            if(album.cover_file != null)
+            {
+                album.cover_file = album.cover_file.Replace("'", "''");
+            }
+            if (album.cover_url != null)
+            {
+                album.cover_url = album.cover_url.Replace("'", "''");
+            }
+            if (album.resource_uri != null)
+            {
+                album.resource_uri = album.resource_uri.Replace("'", "''");
+            }
             string sqlFormattedDateRelease = null;
             if (album.release != null)
             {
@@ -34,12 +43,20 @@ namespace OpenSoundStream.Code.DataManager
 
             if (tbl.Rows.Count == 0)
             {
-                string sql_Add = "INSERT INTO Albums ([name], [cover_file], [cover_url], [mbid], [release], [resource_uri]) VALUES('" + album.name + "','" + album.cover_file + "','" + album.cover_url + "','" + album.mbid + "','" + album.release + "','" + album.resource_uri + "')";
+                string sql_Add = null;
+                if(sqlFormattedDateRelease == null)
+                {
+                    sql_Add = "INSERT INTO Albums ([id], [name], [cover_file], [cover_url], [mbid], [resource_uri]) VALUES('" + album.id + "','" + album.name + "','" + album.cover_file + "','" + album.cover_url + "','" + album.mbid + "','" + album.resource_uri + "')";
+                }
+                else
+                {
+                    sql_Add = "INSERT INTO Albums ([id], [name], [cover_file], [cover_url], [mbid], [release], [resource_uri]) VALUES('" + album.id + "','" + album.name + "','" + album.cover_file + "','" + album.cover_url + "','" + album.mbid + "','" + sqlFormattedDateRelease + "','" + album.resource_uri + "')";
+                }
                 DatabaseHandler.Execute_SQL(sql_Add);
             }
             else
             {
-                string sql_Update = "UPDATE Albums SET [name] = '" + album.name + "', [cover_file] = '" + album.cover_file + "', [cover_url] = '" + album.cover_url + "', [mbid] = '" + album.mbid + "', [release] = '" + album.release + "', [resource_uri] = '" + album.resource_uri + "' WHERE Id = " + album.id;
+                string sql_Update = "UPDATE Albums SET [name] = '" + album.name + "', [cover_file] = '" + album.cover_file + "', [cover_url] = '" + album.cover_url + "', [mbid] = '" + album.mbid + "', [release] = '" + sqlFormattedDateRelease + "', [resource_uri] = '" + album.resource_uri + "' WHERE Id = " + album.id;
                 DatabaseHandler.Execute_SQL(sql_Update);
             }
         }
