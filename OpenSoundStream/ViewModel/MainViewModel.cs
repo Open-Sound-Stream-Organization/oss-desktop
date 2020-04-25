@@ -363,8 +363,7 @@ namespace OpenSoundStream.ViewModel
 
 			foreach (Track track in Track.Tracks)
 			{
-				Tracks.Add(new TrackMetadata { Title = track.title, Genre = track.Metadata.Genre });
-
+				TitleViewModel.Tracks.Add(new TrackMetadata { Title = track.title, Genre = track.Metadata.Genre });
 			}
 
 			SelectAllTracks = true;

@@ -17,7 +17,11 @@ namespace OpenSoundStream
     {
         static HttpClient client = new HttpClient();
 
+        static HttpClient DownloadClient = new HttpClient();
+
         private static String baseUrl = "https://de0.win/api/v1/";
+
+        private static String dlBaseUrl = "https://oss.anjomro.de/repertoire/";
 
         public NetworkHandler()
         {
@@ -26,11 +30,21 @@ namespace OpenSoundStream
             System.Text.ASCIIEncoding.ASCII.GetBytes(
                $"{"testuser"}:{"testuser"}")));
             client.BaseAddress = new Uri(baseUrl);
+
+            DownloadClient.DefaultRequestHeaders.Add("Authorization", "Test-API-Key");
+            DownloadClient.BaseAddress = new Uri(dlBaseUrl);
+            DownloadClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
         }
 
         public static HttpClient GetClient()
         {
             return client;
+        }
+
+        public static HttpClient GetDlClient()
+        {
+            return DownloadClient;
         }
 
         public static string GetBaseUrl()

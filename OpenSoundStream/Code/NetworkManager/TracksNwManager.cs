@@ -1,16 +1,23 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace OpenSoundStream.Code.NetworkManager
 {
     class TracksNwManager
     {
         private static HttpClient client = NetworkHandler.GetClient();
+
+        private static HttpClient dlClient = NetworkHandler.GetDlClient();
 
         public static List<Track> GetTracks()
         {
@@ -33,7 +40,7 @@ namespace OpenSoundStream.Code.NetworkManager
 
         public static Track GetTrack(int id)
         {
-            var responseTask = client.GetAsync("track/" + id + "/");
+            var responseTask = client.GetAsync("song/" + id + "/");
             responseTask.Wait();
 
             var result = responseTask.Result;
@@ -46,6 +53,26 @@ namespace OpenSoundStream.Code.NetworkManager
 
                 track = readTask.Result;
             }
+
+            var httpResponseMessage = dlClient.GetAsync("song_file/" + id + "/");
+            httpResponseMessage.Wait();
+
+            var resp = httpResponseMessage.Result;
+            if (resp.IsSuccessStatusCode)
+            {
+                System.Net.Http.HttpContent content = resp.Content;
+                Stream contentStream = content.ReadAsStreamAsync().Result; // get the actual content stream
+
+                string path = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "/Data/Tracks/" + track.title + ".mp3";
+
+                using (FileStream fileStream = File.Create(path))
+                {
+                    contentStream.Seek(0, SeekOrigin.Begin);
+                    contentStream.CopyTo(fileStream);
+                    track.audio = path;
+                }
+            }
+
 
             return track;
         }
