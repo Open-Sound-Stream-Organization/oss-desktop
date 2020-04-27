@@ -11,11 +11,7 @@ namespace OpenSoundStream
         {
             name = Name ?? throw new ArgumentNullException(nameof(Name));
             Albums = new List<Album>();
-
-            Artists.Add(this);
         }
-
-        public static List<Artist> Artists { get; set; }
 
         public List<Album> Albums { get; set; }
 

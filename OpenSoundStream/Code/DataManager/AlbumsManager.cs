@@ -34,14 +34,14 @@ namespace OpenSoundStream.Code.DataManager
             //</ correct>
 
             //< find record >
-            DataTable tbl = new DataTable();
+            Album dbRecord = null;
             if (album.id != null)
             {
-                tbl = db_Get_Record(album.id);
+                dbRecord = db_Get_Record(album.id);
             }
             //</ find record >
 
-            if (tbl.Rows.Count == 0)
+            if (dbRecord == null)
             {
                 string sql_Add = null;
                 if(sqlFormattedDateRelease == null)
@@ -61,12 +61,62 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
-        public static DataTable db_Get_Record(int? id)
+        public static List<Album> db_GetAllAlbums()
+        {
+            string sSQL = "SELECT * FROM Albums";
+            DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
+
+            if (tbl.Rows.Count > 0)
+            {
+                List<Album> albums = new List<Album>();
+                foreach (DataRow row in tbl.Rows)
+                {
+                    Album album = new Album(row["name"].ToString());
+                    album.id = Convert.ToInt32(row["id"].ToString());
+                    if(row["mbid"].ToString() != "")
+                    {
+                        album.mbid = Convert.ToInt32(row["mbid"].ToString());
+                    }
+
+                    if (row["release"].ToString() != "")
+                    {
+                        album.release = Convert.ToDateTime(row["release"].ToString());
+                    }
+                    album.resource_uri = row["resource_uri"].ToString();
+                    album.cover_file = row["cover_file"].ToString();
+                    album.cover_url = row["cover_url"].ToString();
+                    albums.Add(album);
+                }
+
+                return albums;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Album db_Get_Record(int? id)
         {
             string sSQL = "SELECT TOP 1 * FROM Albums WHERE [Id] Like '" + id + "'";
             DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
 
-            return tbl;
+            if (tbl.Rows.Count == 1)
+            {
+                DataRow row = tbl.Rows[0];
+                Album album = new Album(row["name"].ToString());
+                album.id = Convert.ToInt32(row["id"].ToString());
+                album.mbid = Convert.ToInt32(row["mbid"].ToString());
+                album.release = Convert.ToDateTime(row["release"].ToString());
+                album.resource_uri = row["resource_uri"].ToString();
+                album.cover_file = row["cover_file"].ToString();
+                album.cover_url = row["cover_url"].ToString();
+                return album;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static void db_Delete_Record(int id)

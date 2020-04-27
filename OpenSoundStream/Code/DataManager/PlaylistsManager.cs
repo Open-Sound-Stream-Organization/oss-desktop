@@ -17,14 +17,14 @@ namespace OpenSoundStream.Code.DataManager
             //</ correct>
 
             //< find record >
-            DataTable tbl = new DataTable();
+            Playlist dbRecord = null;
             if(pl.id != null)
             {
-                tbl = db_Get_Record(pl.id);
+                dbRecord = db_Get_Record(pl.id);
             }
             //</ find record >
 
-            if (tbl.Rows.Count == 0)
+            if (dbRecord == null)
             {
                 string sql_Add = "INSERT INTO Playlists ([id], [name], [resource_uri]) VALUES('" + pl.id + "','" + pl.name + "','" + pl.resource_uri + "')";
                 DatabaseHandler.Execute_SQL(sql_Add);
@@ -36,12 +36,49 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
-        public static DataTable db_Get_Record(int? id)
+        public static List<Playlist> db_GetAllPlaylists()
+        {
+            string sSQL = "SELECT * FROM Playlists";
+            DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
+
+            if (tbl.Rows.Count > 0)
+            {
+                List<Playlist> playlists = new List<Playlist>();
+                foreach (DataRow row in tbl.Rows)
+                {
+                    Playlist playlist = new Playlist(row["name"].ToString());
+                    playlist.id = Convert.ToInt32(row["id"].ToString());
+                    playlist.resource_uri = row["resource_uri"].ToString();
+                    playlist.Tracks = TrackInPlaylistManager.GetTracksFromPlaylist(playlist.id);
+                    
+                    playlists.Add(playlist);
+                }
+
+                return playlists;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Playlist db_Get_Record(int? id)
         {
             string sSQL = "SELECT TOP 1 * FROM Playlists WHERE [Id] Like '" + id + "'";
             DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
 
-            return tbl;
+            if (tbl.Rows.Count == 1)
+            {
+                DataRow row = tbl.Rows[0];
+                Playlist playlist = new Playlist(row["name"].ToString());
+                playlist.id = Convert.ToInt32(row["id"].ToString());
+                playlist.resource_uri = row["resource_uri"].ToString();
+                return playlist;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static void db_Delete_Record(int id)

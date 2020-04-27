@@ -1,6 +1,8 @@
-﻿using ReactiveUI;
+﻿using OpenSoundStream.Code.DataManager;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Text;
@@ -17,6 +19,8 @@ namespace OpenSoundStream
 		public System.Windows.Media.MediaPlayer Mediaplayer { get; set; }
 
 		public PlayerState State { get; set; }
+
+		public List<Track> Tracks = TracksManager.db_GetAllTracks();
 
 		public Musicplayer()
 		{
@@ -125,7 +129,7 @@ namespace OpenSoundStream
 		public void SetActiveTrack(Track track)
 		{
 			PlayableContainer tracks = new Playlist("All Tracks");
-			foreach (Track item in Track.Tracks)
+			foreach (Track item in Tracks)
 			{
 				tracks.Tracks.AddLast(item);
 			}
