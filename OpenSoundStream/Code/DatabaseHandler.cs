@@ -4,6 +4,8 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Reflection;
 
 namespace OpenSoundStream
 {
@@ -11,7 +13,7 @@ namespace OpenSoundStream
     {
         public static SqlConnection Get_DB_Connection()
         {
-            string cn_String = Properties.Settings.Default.connection_string;
+            string cn_String = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "\\_Data" + "\\localdb_OSS.mdf;Integrated Security=True";
             SqlConnection cn_connection = new SqlConnection(cn_String);
             if (cn_connection.State != ConnectionState.Open) cn_connection.Open();
 
@@ -55,7 +57,6 @@ namespace OpenSoundStream
 
         public static void Close_DB_Connection(SqlConnection cn_connection)
         {
-            string cn_String = Properties.Settings.Default.connection_string;
             if (cn_connection.State != ConnectionState.Closed) cn_connection.Close();
         }
     }
