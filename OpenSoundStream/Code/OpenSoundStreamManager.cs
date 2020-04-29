@@ -28,13 +28,13 @@ namespace OpenSoundStream
 
             //AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
             //AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav.opensound");
-            //AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
+            AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
 
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track1.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track2.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track3.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Party/Bad child.mp3");
-            AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Party", p1);
+            //AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Party", p1);
             //AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Chill", p2);
 
             //Musicplayer.Musicqueue.LoadPlayableContainerInQueue(p1);
