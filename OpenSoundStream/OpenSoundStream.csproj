@@ -192,6 +192,7 @@
     <Compile Include="ViewModel\AlbumViewModel.cs" />
     <Compile Include="ViewModel\ArtistViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\SortList.cs" />
     <Compile Include="ViewModel\TitleViewModel.cs" />
     <Compile Include="ViewModel\TrackMetadata.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

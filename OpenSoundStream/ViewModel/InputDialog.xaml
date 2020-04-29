@@ -18,7 +18,7 @@
         <materialDesign:PackIcon Kind="User" Width="22" Height="18" Margin="20,0,0,0" />
 
         <TextBox Name="txtUser" Grid.Column="1">User:</TextBox>
-        <TextBox Name="txtPW" Grid.Column="1" Grid.Row="1" MinWidth="250">Answer</TextBox>
+        <TextBox Name="txtPW" Grid.Column="1" Grid.Row="1" MinWidth="250">Password:</TextBox>
 
         <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0">
             <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="60" Margin="0,0,10,0">_Ok</Button>
