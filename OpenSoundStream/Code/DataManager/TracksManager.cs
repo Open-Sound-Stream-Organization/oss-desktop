@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,17 +18,16 @@ namespace OpenSoundStream.Code.DataManager
             track.audio = track.audio.Replace("'", "''");
             //</ correct>
 
+            Track dbRecord = null;
             //< find record >
-            DataTable tbl = new DataTable();
             if (track.id != null)
             {
-                tbl = db_Get_Record(track.id);
+                dbRecord = db_Get_Record(track.id);
             }
             //</ find record >
 
-            string[] splitAlbumPath = track.album.Split('/');
-            track.album = splitAlbumPath[splitAlbumPath.Length - 1];
-            if (tbl.Rows.Count == 0)
+       
+            if (dbRecord == null)
             {
                 string sql_Add = "INSERT INTO Tracks ([id], [title], [resource_uri], [albumId], [audio], [mbid]) VALUES('" + track.id + "','" + track.title + "','" + track.resource_uri + "','" + track.album + "','" + track.audio + "','" + track.mbid + "')";
                 DatabaseHandler.Execute_SQL(sql_Add);
@@ -39,12 +39,62 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
-        public static DataTable db_Get_Record(int? id)
+        public static List<Track> db_GetAllTracks()
+        {
+            string sSQL = "SELECT * FROM Tracks";
+            DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
+
+            if (tbl.Rows.Count > 0)
+            {
+                List<Track> tracks = new List<Track>();
+                foreach (DataRow row in tbl.Rows)
+                {
+                    Track track = new Track(row["title"].ToString(), new Uri(@"file:///" + row["audio"].ToString()));
+                    track.id = Convert.ToInt32(row["id"].ToString());
+                    track.mbid = Convert.ToInt32(row["mbid"].ToString());
+                    track.audio = row["audio"].ToString();
+                    track.album = row["albumId"].ToString();
+                    track.resource_uri = row["resource_uri"].ToString();
+                    tracks.Add(track);
+                }
+
+                List<Track> Tracks = new List<Track>();
+                foreach (Track Track in tracks)
+                {
+                    if (File.Exists(Track.audio))
+                    {
+                        Tracks.Add(Track);
+                    }
+                }
+
+                return Tracks;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Track db_Get_Record(int? id)
         {
             string sSQL = "SELECT TOP 1 * FROM Tracks WHERE [Id] Like '" + id + "'";
             DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
 
-            return tbl;
+            if (tbl.Rows.Count == 1)
+            {
+                DataRow row = tbl.Rows[0];
+                Track track = new Track(row["title"].ToString(), new Uri(@"file:///" + row["audio"].ToString()));
+                track.id = Convert.ToInt32(row["id"].ToString());
+                track.mbid = Convert.ToInt32(row["mbid"].ToString());
+                track.audio = row["audio"].ToString();
+                track.album = row["albumId"].ToString();
+                track.resource_uri = row["resource_uri"].ToString();
+                return track;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static void db_Delete_Record(int id)

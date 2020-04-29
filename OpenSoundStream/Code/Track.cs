@@ -12,12 +12,9 @@ namespace OpenSoundStream
             this.title = title;
             Filepath = filepath;
             Metadata = new Metadata();
-
-            Tracks.Add(this);
         }
 
         public Album Album { get; set; }
-        public static List<Track> Tracks { get; set; }
 
         public int? id { get; set; }
 

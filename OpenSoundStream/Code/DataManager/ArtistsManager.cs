@@ -30,14 +30,14 @@ namespace OpenSoundStream.Code.DataManager
             //</ correct>
 
             //< find record >
-            DataTable tbl = new DataTable();
+            Artist dbRecord = null;
             if(artist.id != null) 
             {
-                tbl = db_Get_Record(artist.id);
+                dbRecord = db_Get_Record(artist.id);
             }
             //</ find record >
 
-            if (tbl.Rows.Count == 0)
+            if (dbRecord == null)
             {
                 string sql_Add = "INSERT INTO Artists ([id], [name], [begin], [end], [mbid], [resource_uri], [type]) VALUES('" + artist.id + "','" + artist.name + "','" + sqlFormattedDateBegin + "','" + sqlFormattedDateEnd + "','" + artist.mbid + "','" + artist.resource_uri + "','" + artist.type + "')";
                 DatabaseHandler.Execute_SQL(sql_Add);
@@ -49,12 +49,55 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
-        public static DataTable db_Get_Record(int? id)
+        public static List<Artist> db_GetAllArtists()
+        {
+            string sSQL = "SELECT * FROM Artists";
+            DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
+
+            if (tbl.Rows.Count > 0)
+            {
+                List<Artist> artists = new List<Artist>();
+                foreach (DataRow row in tbl.Rows)
+                {
+                    Artist artist = new Artist(row["name"].ToString());
+                    artist.id = Convert.ToInt32(row["id"].ToString());
+                    artist.mbid = Convert.ToInt32(row["mbid"].ToString());
+                    artist.begin = Convert.ToDateTime(row["begin"].ToString());
+                    artist.end = Convert.ToDateTime(row["end"].ToString());
+                    artist.resource_uri = row["resource_uri"].ToString();
+                    artist.type = row["type"].ToString();
+                    artists.Add(artist);
+                }
+
+                return artists;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Artist db_Get_Record(int? id)
         {
             string sSQL = "SELECT TOP 1 * FROM Artists WHERE [Id] Like '" + id + "'";
             DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
 
-            return tbl;
+            if (tbl.Rows.Count == 1)
+            {
+                DataRow row = tbl.Rows[0];
+                Artist artist = new Artist(row["name"].ToString());
+                artist.id = Convert.ToInt32(row["id"].ToString());
+                artist.mbid = Convert.ToInt32(row["mbid"].ToString());
+                artist.begin =  Convert.ToDateTime(row["begin"].ToString());
+                artist.end = Convert.ToDateTime(row["end"].ToString());
+                artist.resource_uri = row["resource_uri"].ToString();
+                artist.type = row["type"].ToString();
+                return artist;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static void db_Delete_Record(int id)

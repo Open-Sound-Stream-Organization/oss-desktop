@@ -171,7 +171,6 @@
     <Compile Include="Code\DataManager\MetadataManager.cs" />
     <Compile Include="Code\DataManager\PlaylistsManager.cs" />
     <Compile Include="Code\DataManager\TrackFromArtistManager.cs" />
-    <Compile Include="Code\DataManager\TrackInAlbumManager.cs" />
     <Compile Include="Code\DataManager\TrackInPlaylistManager.cs" />
     <Compile Include="Code\DataManager\TracksManager.cs" />
     <Compile Include="Code\Musicplayer.cs" />

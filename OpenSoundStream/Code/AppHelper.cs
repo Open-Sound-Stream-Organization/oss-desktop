@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenSoundStream.Code.DataManager;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace OpenSoundStream
 {
     public static class AppHelper
     {
+        public static List<Track> Tracks = TracksManager.db_GetAllTracks();
         public static string ProgramPath
         {
             get => Assembly.GetExecutingAssembly().CodeBase;
@@ -34,7 +36,7 @@ namespace OpenSoundStream
             if (File.Exists(destFile))
             {
                 //TODO Hash abgleich
-                if (Track.Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
+                if (Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
                 {
                     new Track(fileName.Split('.')[0], new Uri(@"file:///" + destFile));
                 }
@@ -43,7 +45,7 @@ namespace OpenSoundStream
             {
                 try
                 {
-                    if(Track.Tracks.Find(e => e.title == fileName.Split('.')[0] ) == null)
+                    if(Tracks.Find(e => e.title == fileName.Split('.')[0] ) == null)
                     {
                         File.Copy(sourcePath, destFile, true);
                         new Track(fileName.Split('.')[0], new Uri(@"file:///" + destFile));
@@ -75,13 +77,13 @@ namespace OpenSoundStream
                     string destFile = System.IO.Path.Combine(path, fileName);
                     System.IO.File.Copy(s, destFile, true);
 
-                    if (Track.Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
+                    if (Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
                     {
                         pl.AddTrack(new Track(fileName.Split('.')[0], new Uri(destFile)));
                     }
                     else
                     {
-                        pl.AddTrack(Track.Tracks.Find(e => e.title == fileName.Split('.')[0]));
+                        pl.AddTrack(Tracks.Find(e => e.title == fileName.Split('.')[0]));
                     }
                 }
 

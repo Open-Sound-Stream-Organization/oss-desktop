@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
+using OpenSoundStream.Code.DataManager;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -19,6 +20,8 @@ namespace OpenSoundStream.ViewModel
 		public static ObservableCollection<TrackMetadata> Tracks { get { return _tracks; } }
 
 		private static MainViewModel mainViewModel = MainViewModel.mainViewModel;
+
+		public List<Track> DbTracks = TracksManager.db_GetAllTracks();
 
 		public RelayCommand<TrackMetadata> ListViewCommand { get; private set; }
 
@@ -33,7 +36,7 @@ namespace OpenSoundStream.ViewModel
 		/// <param name="selectedTrack"></param>
 		private void playSelectedTrack(TrackMetadata selectedTrack)
 		{
-			MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.title == selectedTrack.Title));
+			MainViewModel.musicplayer.SetActiveTrack(DbTracks.Find(x => x.title == selectedTrack.Title));
 			mainViewModel.playMusic();
 		}
 

@@ -14,16 +14,12 @@ namespace OpenSoundStream
         {
             name = Name ?? throw new ArgumentNullException(nameof(Name));
             Tracks = new LinkedList<Track>();
-
-            Playlists.Add(this);
         }
 
         //~Playlist()
         //{
         //    throw new System.NotImplementedException();
         //}
-
-        public static List<Playlist> Playlists { get; set; }
 
         public void AddTrack(Track track)
         {
@@ -43,7 +39,7 @@ namespace OpenSoundStream
 
         public void Delete()
         {
-            Playlists.Remove(this);
+            //Playlists.Remove(this);
         }
     }
 }

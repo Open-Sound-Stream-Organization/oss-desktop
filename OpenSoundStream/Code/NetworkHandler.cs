@@ -82,10 +82,6 @@ namespace OpenSoundStream
                 {
                     AlbumFromArtistManager.db_Add_Update_Record((int)album.id, Convert.ToInt32(artistId));
                 }
-                foreach(string trackId in album.songs)
-                {
-                    TrackInAlbumManager.db_Add_Update_Record(Convert.ToInt32(trackId), (int)album.id);
-                }
             }
 
             foreach(Artist artist in artists)

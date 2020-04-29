@@ -11,6 +11,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using OpenSoundStream.Views;
+using OpenSoundStream.Code.DataManager;
+using System.IO;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -22,6 +24,7 @@ namespace OpenSoundStream.ViewModel
 		public static Musicplayer musicplayer { get; private set; } = OpenSoundStreamManager.Musicplayer;
 		public static BigPlayerView bigPlayerWindow;
 		private bool SelectAllTracks { get; set; }
+		public List<Track> DbTracks = TracksManager.db_GetAllTracks();
 
         #region Binding Variables
 
@@ -191,7 +194,7 @@ namespace OpenSoundStream.ViewModel
 			// Set inital values
 			_volumn = musicplayer.Mediaplayer.Volume;
 
-			foreach (Playlist playlist in Playlist.Playlists)
+			foreach (Playlist playlist in PlaylistsManager.db_GetAllPlaylists())
 			{
 				Playlists.Add(playlist.name);
 			}
@@ -222,12 +225,12 @@ namespace OpenSoundStream.ViewModel
 		{
 			if (SelectAllTracks != true)
 			{
-				musicplayer.SetActiveTrackInPlayableContainer(Track.Tracks.Find(x => x.title == selectedTrack.Title));
+				musicplayer.SetActiveTrackInPlayableContainer(DbTracks.Find(x => x.title == selectedTrack.Title));
 				playMusic();
 			}
 			else
 			{
-				musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.title == selectedTrack.Title));
+				musicplayer.SetActiveTrack(DbTracks.Find(x => x.title == selectedTrack.Title));
 				playMusic();
 				SelectAllTracks = false;
 			}
@@ -240,7 +243,7 @@ namespace OpenSoundStream.ViewModel
 		/// <param name="selectedPlaylist"></param>
 		private void playSelectedPlaylist(string selectedPlaylist)
 		{
-			Playlist currentPlaylist = Playlist.Playlists.Find(x => x.name == selectedPlaylist);
+			Playlist currentPlaylist = PlaylistsManager.db_GetAllPlaylists().Find(x => x.name == selectedPlaylist);
 			musicplayer.Musicqueue.LoadPlayableContainerInQueue(currentPlaylist);
 			//To decide between all Tracks and a PLaylist
 			SelectAllTracks = false;
@@ -372,7 +375,7 @@ namespace OpenSoundStream.ViewModel
 		{
 			TitleViewModel.Tracks.Clear();
 
-			foreach (Track track in Track.Tracks)
+			foreach (Track track in DbTracks)
 			{
 				TitleViewModel.Tracks.Add(new TrackMetadata { Title = track.title, Genre = track.Metadata.Genre });
 			}

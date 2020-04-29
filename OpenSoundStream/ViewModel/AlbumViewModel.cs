@@ -10,6 +10,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
+using OpenSoundStream.Code.DataManager;
+using System.IO;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -20,7 +22,7 @@ namespace OpenSoundStream.ViewModel
 
         public RelayCommand<string> AlbumCommand { get; private set; }
         public RelayCommand<TrackMetadata> TitleCommand { get; private set; }
-
+        public List<Track> Tracks = TracksManager.db_GetAllTracks();
 
         private string _albumCover;
         private ObservableCollection<string> _albumNames;
@@ -79,6 +81,7 @@ namespace OpenSoundStream.ViewModel
         {
             this.AlbumCommand = new RelayCommand<string>((item) => this.showSelectedAlbum(item));
             this.TitleCommand = new RelayCommand<TrackMetadata>((item) => this.playSelectedTitle(item));
+            this.AlbumNames = new ObservableCollection<string>();
 
             showAlbumList();
         }
@@ -86,7 +89,7 @@ namespace OpenSoundStream.ViewModel
 
         private void showSelectedAlbum(string albumName)
         {
-            Album currentAlbum = Album.Albums.Find(x => x.name == albumName);
+            Album currentAlbum = AlbumsManager.db_GetAllAlbums().Find(x => x.name == albumName);
 
             AlbumName = currentAlbum.name;
 
@@ -100,7 +103,7 @@ namespace OpenSoundStream.ViewModel
 
         private void showAlbumList()
         {
-            foreach (Album album in Album.Albums)
+            foreach (Album album in AlbumsManager.db_GetAllAlbums())
             {
                 AlbumNames.Add(album.name);
             }
@@ -108,7 +111,7 @@ namespace OpenSoundStream.ViewModel
 
         private void playSelectedTitle(TrackMetadata track)
         {
-            MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.title == track.Title));
+            MainViewModel.musicplayer.SetActiveTrack(Tracks.Find(x => x.title == track.Title));
             mainViewModel.playMusic();
         }
 

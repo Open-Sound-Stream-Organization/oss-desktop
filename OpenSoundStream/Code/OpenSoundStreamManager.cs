@@ -15,11 +15,6 @@ namespace OpenSoundStream
             NetworkHandler = new NetworkHandler();
             Musicplayer = new Musicplayer();
 
-            Track.Tracks = new List<Track>();
-            Album.Albums = new List<Album>();
-            Playlist.Playlists = new List<Playlist>();
-            Artist.Artists = new List<Artist>();
-
             //DEBUG
             //Playlist p1 = new Playlist("Cello");
 
@@ -68,7 +63,8 @@ namespace OpenSoundStream
             //NetworkHandler.SyncLocalDbWithServerDb();
             //TrackInPlaylistNwManager.GetTrackInPlaylist(7);
 
-            TracksNwManager.GetTrack(274);
+            //TracksNwManager.GetTrack(274);
+            //NetworkHandler.SyncLocalDbWithServerDb();
         }
 
 

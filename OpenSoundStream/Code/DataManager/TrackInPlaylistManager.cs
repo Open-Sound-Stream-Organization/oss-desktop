@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,25 @@ namespace OpenSoundStream.Code.DataManager
                 string sql_Add = "INSERT INTO TrackInPlaylist ([trackId], [playlistId]) VALUES('" + trackId + "','" + playlistId + "')";
                 DatabaseHandler.Execute_SQL(sql_Add);
             }
+        }
+
+        public static LinkedList<Track> GetTracksFromPlaylist(int? playlistId)
+        {
+            string sSQL = "SELECT * FROM TrackInPlaylist WHERE [playlistId] Like '" + playlistId + "'";
+            DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
+
+            LinkedList<Track> Tracks = new LinkedList<Track>();
+            foreach(DataRow row in tbl.Rows)
+            {
+                Track track = TracksManager.db_Get_Record(Convert.ToInt32(row["trackId"].ToString()));
+
+                if (File.Exists(track.audio))
+                {
+                    Tracks.AddLast(track);
+                }
+            }
+
+            return Tracks;
         }
 
         public static DataTable db_Get_Record(int trackId, int playlistId)

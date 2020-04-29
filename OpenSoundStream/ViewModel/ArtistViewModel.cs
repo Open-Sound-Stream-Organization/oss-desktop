@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
+using OpenSoundStream.Code.DataManager;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -21,6 +22,7 @@ namespace OpenSoundStream.ViewModel
         public RelayCommand<string> ArtistCommand { get; private set; }
         public RelayCommand<TrackMetadata> TitleCommand { get; private set; }
 
+        public List<Track> Tracks = TracksManager.db_GetAllTracks();
 
         private string _albumCover;
         private ObservableCollection<string> _artistNames;
@@ -57,13 +59,15 @@ namespace OpenSoundStream.ViewModel
             this.ArtistCommand = new RelayCommand<string>((item) => this.showSelectedArtist(item));
             this.TitleCommand = new RelayCommand<TrackMetadata>((item) => this.playSelectedTitle(item));
 
+            this.ArtistNames = new ObservableCollection<string>();
+
             showArtistList();
         }
 
 
         private void showSelectedArtist(string artistName)
         {
-            Artist currentArtist = Artist.Artists.Find(x => x.name == artistName);
+            Artist currentArtist = ArtistsManager.db_GetAllArtists().Find(x => x.name == artistName);
 
 
             foreach (Album album in currentArtist.Albums)
@@ -79,7 +83,7 @@ namespace OpenSoundStream.ViewModel
 
         private void showArtistList()
         {
-            foreach (Artist artist in Artist.Artists)
+            foreach (Artist artist in ArtistsManager.db_GetAllArtists())
             {
                 ArtistNames.Add(artist.name);
             }
@@ -87,7 +91,7 @@ namespace OpenSoundStream.ViewModel
 
         private void playSelectedTitle(TrackMetadata track)
         {
-            MainViewModel.musicplayer.SetActiveTrack(Track.Tracks.Find(x => x.title == track.Title));
+            MainViewModel.musicplayer.SetActiveTrack(Tracks.Find(x => x.title == track.Title));
             mainViewModel.playMusic();
         }
 
