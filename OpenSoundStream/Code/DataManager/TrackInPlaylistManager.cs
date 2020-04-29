@@ -10,7 +10,7 @@ namespace OpenSoundStream.Code.DataManager
 {
     public class TrackInPlaylistManager
     {
-        public static void db_Add_Update_Record(int trackId, int playlistId)
+        public static void db_Add_Update_Record(int? trackId, int? playlistId)
         {
             //< find record >
             DataTable tbl = new DataTable();
@@ -43,7 +43,7 @@ namespace OpenSoundStream.Code.DataManager
             return Tracks;
         }
 
-        public static DataTable db_Get_Record(int trackId, int playlistId)
+        public static DataTable db_Get_Record(int? trackId, int? playlistId)
         {
             string sSQL = "SELECT TOP 1 * FROM TrackInPlaylist WHERE [trackId] Like '" + trackId + "' AND [playlistId] Like '" + playlistId + "'";
             DataTable tbl = DatabaseHandler.Get_DataTable(sSQL);
@@ -51,7 +51,7 @@ namespace OpenSoundStream.Code.DataManager
             return tbl;
         }
 
-        public static void db_Delete_Record(int trackId, int playlistId)
+        public static void db_Delete_Record(int? trackId, int? playlistId)
         {
             string sSQL = "Delete FROM TrackInPlaylist WHERE [trackId] Like '" + trackId + "' AND [playlistId] Like '" + playlistId + "'";
             DatabaseHandler.Execute_SQL(sSQL);

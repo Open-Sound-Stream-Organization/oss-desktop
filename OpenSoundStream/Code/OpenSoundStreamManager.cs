@@ -19,13 +19,20 @@ namespace OpenSoundStream
             //Playlist p1 = new Playlist("Cello");
 
             Playlist p1 = new Playlist("Good Vibes");
+            p1 = PlaylistsManager.db_GetAllPlaylists().Find(e => e.name == p1.name);
             //Playlist p2 = new Playlist("Chill");
 
             //AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
             //AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav.opensound");
-            AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
+            //AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
 
-            //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track1.mp3");
+            NetworkHandler.SyncLocalDbWithServerDb();
+
+            Track track = new Track("Supalonely", new Uri(@"file:///C:/Users/cpfro/Music/Track3.mp3"));
+            track.album = "/api/v1/album/576/";
+            track.artists = new string[] { "/api/v1/artist/600/" };
+
+            AppHelper.LocalImportTrack(track, @"C:/Users/cpfro/Music/Track1.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track2.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track3.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Party/Bad child.mp3");
@@ -42,9 +49,7 @@ namespace OpenSoundStream
             //Musicplayer.Musicqueue.AddTrackToQueueLastPos(a);
             //Musicplayer.Musicqueue.AddTrackToQueueLastPos(b);
 
-            //Track track = new Track("Superlonely", new Uri(@"file:///C:/Users/cpfro/Music/Track3.mp3"));
-            //track.album = "/api/v1/album/1/";
-            //track.artists = new string[] {"/api/v1/artist/2/" };
+
             //track.id = 17;
 
             //TracksNwManager.GetTrack(15);
@@ -64,7 +69,6 @@ namespace OpenSoundStream
             //TrackInPlaylistNwManager.GetTrackInPlaylist(7);
 
             //TracksNwManager.GetTrack(274);
-            //NetworkHandler.SyncLocalDbWithServerDb();
         }
 
 

@@ -33,6 +33,9 @@ namespace OpenSoundStream
 
             adapter.Fill(table);
 
+
+            Close_DB_Connection(cn_connection);
+
             //</ get Table >
             return table;
         }

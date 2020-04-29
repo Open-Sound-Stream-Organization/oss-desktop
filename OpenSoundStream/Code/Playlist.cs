@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenSoundStream.Code.DataManager;
+using OpenSoundStream.Code.NetworkManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,10 @@ namespace OpenSoundStream
         {
             name = Name ?? throw new ArgumentNullException(nameof(Name));
             Tracks = new LinkedList<Track>();
+
+            //PlaylistsNwManager.PostPlaylist(this);
+            //PlaylistsManager.db_Add_Update_Record(PlaylistsNwManager.GetPlaylists().Find(e => e.name == this.name));
+            //this = PlaylistsManager.db_GetAllPlaylists().Find(e => e.name == this.name);
         }
 
         //~Playlist()

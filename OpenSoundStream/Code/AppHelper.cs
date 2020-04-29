@@ -1,4 +1,5 @@
 ﻿using OpenSoundStream.Code.DataManager;
+using OpenSoundStream.Code.NetworkManager;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +28,7 @@ namespace OpenSoundStream
             Directory.CreateDirectory(DataPath);
         }
 
-        public static void LocalImportTrack(string sourcePath)
+        public static void LocalImportTrack(Track track, string sourcePath)
         {
             Directory.CreateDirectory(DataPath + "\\Tracks");
 
@@ -38,7 +39,13 @@ namespace OpenSoundStream
                 //TODO Hash abgleich
                 if (Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
                 {
-                    new Track(fileName.Split('.')[0], new Uri(@"file:///" + destFile));
+                    track.title = fileName.Split('.')[0];
+                    track.Filepath = new Uri(@"file:///" + destFile);
+                    TracksNwManager.PostTrack(track);
+                    track = TracksNwManager.GetTracks().Find(e => e.title == track.title);
+                    track.audio = destFile;
+                    TracksManager.db_Add_Update_Record(track);
+                    TracksNwManager.PutAudio(track);
                 }
             }
             else
@@ -48,7 +55,13 @@ namespace OpenSoundStream
                     if(Tracks.Find(e => e.title == fileName.Split('.')[0] ) == null)
                     {
                         File.Copy(sourcePath, destFile, true);
-                        new Track(fileName.Split('.')[0], new Uri(@"file:///" + destFile));
+                        track.title = fileName.Split('.')[0];
+                        track.Filepath = new Uri(@"file:///" + destFile);
+                        TracksNwManager.PostTrack(track);
+                        track = TracksNwManager.GetTracks().Find(e => e.title == track.title);
+                        track.audio = destFile;
+                        TracksManager.db_Add_Update_Record(track);
+                        TracksNwManager.PutAudio(track);
                     }
                 }
                 catch (Exception ex)
@@ -79,7 +92,13 @@ namespace OpenSoundStream
 
                     if (Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
                     {
-                        pl.AddTrack(new Track(fileName.Split('.')[0], new Uri(destFile)));
+                        Track track = new Track(fileName.Split('.')[0], new Uri(destFile));
+                        track.audio = destFile;
+                        TracksNwManager.PostTrack(track);
+                        TracksManager.db_Add_Update_Record(TracksNwManager.GetTracks().Find(e => e.title == track.title));
+                        track.id = TracksManager.db_GetAllTracks().Find(e => e.title == track.title).id;
+                        TrackInPlaylistManager.db_Add_Update_Record(track.id, pl.id);
+                        pl.AddTrack(track);
                     }
                     else
                     {

@@ -25,11 +25,12 @@ namespace OpenSoundStream
 
         public NetworkHandler()
         {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-        "Basic", Convert.ToBase64String(
-            System.Text.ASCIIEncoding.ASCII.GetBytes(
-               $"{"testuser"}:{"testuser"}")));
+        //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+        //"Basic", Convert.ToBase64String(
+        //    System.Text.ASCIIEncoding.ASCII.GetBytes(
+        //       $"{"testuser"}:{"testuser"}")));
             client.BaseAddress = new Uri(baseUrl);
+            client.DefaultRequestHeaders.Add("Authorization", "Test-API-Key");
 
             DownloadClient.DefaultRequestHeaders.Add("Authorization", "Test-API-Key");
             DownloadClient.BaseAddress = new Uri(dlBaseUrl);

@@ -144,5 +144,19 @@ namespace OpenSoundStream.Code.NetworkManager
             {
             }
         }
+
+        public static void PutAudio (Track track)
+        {
+            var content1 = new MultipartFormDataContent();
+            content1.Add(new StreamContent(File.Open(track.audio, FileMode.Open)), "audio", track.title);
+
+            var httpResponseMessage = client.PutAsync("song/" + track.id + "/", content1);
+            httpResponseMessage.Wait();
+
+            var resp = httpResponseMessage.Result;
+            if (resp.IsSuccessStatusCode)
+            {
+            }
+        }
     }
 }
