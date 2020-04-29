@@ -57,6 +57,7 @@ namespace OpenSoundStream.ViewModel
 		public RelayCommand AlbumsCommand { get; private set; }
 		public RelayCommand TracksCommand { get; private set; }
 		public RelayCommand ChangeViewCommand { get; private set; }
+		public RelayCommand LoginCommand { get; private set; }
 		public RelayCommand<TrackMetadata> ListViewCommand { get; private set; }
 		public RelayCommand<string> PlaylistCommand { get; private set; }
 		public ObservableCollection<TrackMetadata> Tracks { get { return _tracks; } }
@@ -187,6 +188,8 @@ namespace OpenSoundStream.ViewModel
 			this.ListViewCommand = new RelayCommand<TrackMetadata>((item) => this.playSelectedTrack(item));
 			this.PlaylistCommand = new RelayCommand<string>((item) => this.playSelectedPlaylist(item));
 			this.ChangeViewCommand = new RelayCommand(this.changeView);
+			this.LoginCommand = new RelayCommand(this.logInDialog);
+
 
 			// Set inital values
 			_volumn = musicplayer.Mediaplayer.Volume;
@@ -206,11 +209,19 @@ namespace OpenSoundStream.ViewModel
 
         #region Methods
 
+		private void logInDialog()
+		{
+			CostumInputDialog inputDialog = new CostumInputDialog("", "");
+
+			inputDialog.ShowDialog();
+
+		}
+
 		/// <summary>
 		/// Plays a selected track from ListView
 		/// </summary>
 		/// <param name="selectedTrack"></param>
-        private void playSelectedTrack(TrackMetadata selectedTrack)
+		private void playSelectedTrack(TrackMetadata selectedTrack)
 		{
 			if (SelectAllTracks != true)
 			{

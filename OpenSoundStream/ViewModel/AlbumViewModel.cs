@@ -95,7 +95,7 @@ namespace OpenSoundStream.ViewModel
 
             foreach (Track track in currentAlbum.Tracks)
             {
-                TrackList.Add(new TrackMetadata { Title = track.title });
+                TrackList.Add(new TrackMetadata { Title = track.title, Number = track.id, Length = track.Metadata.Length.ToString("hh:mm:ss")  });
             }
             ListVisi = Visibility.Visible;
 

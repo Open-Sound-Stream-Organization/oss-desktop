@@ -202,3 +202,17 @@ C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\AlbumView.baml
 C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\ArtistView.baml
 C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\BigPlayerView.baml
 C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\TitleView.baml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\ViewModel\InputDialog.baml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\ViewModel\InputDialog.g.cs
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\_Data\localdb_OSS.mdf
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\_Data\localdb_OSS_log.ldf
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\Newtonsoft.Json.dll
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Json.dll
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\Newtonsoft.Json.xml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Json.xml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\AlbumView.baml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\ArtistView.baml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\BigPlayerView.baml
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\TitleView.baml

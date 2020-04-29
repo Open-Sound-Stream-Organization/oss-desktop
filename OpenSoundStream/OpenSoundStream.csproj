@@ -192,12 +192,20 @@
     <Compile Include="ViewModel\AlbumViewModel.cs" />
     <Compile Include="ViewModel\ArtistViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\SortList.cs" />
     <Compile Include="ViewModel\TitleViewModel.cs" />
     <Compile Include="ViewModel\TrackMetadata.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TitleView.xaml.cs">
       <DependentUpon>TitleView.xaml</DependentUpon>
     </Compile>
+    <Page Include="ViewModel\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AlbumView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

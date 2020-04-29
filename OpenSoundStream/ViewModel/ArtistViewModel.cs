@@ -74,7 +74,7 @@ namespace OpenSoundStream.ViewModel
             {
                 foreach (Track track in album.Tracks)
                 {
-                    TrackList.Add(new TrackMetadata { Title = track.title, Album = track.Album.name, Genre = track.Metadata.Genre, Year = (track.Metadata.Year).ToString() });
+                    TrackList.Add(new TrackMetadata { Title = track.title, Album = track.Album.name, Genre = track.Metadata.Genre, Year = (track.Metadata.Year).ToString(), Length = track.Metadata.Length.ToString("hh:mm:ss") }); ;
                 }
             }
             ListVisi = Visibility.Visible;
