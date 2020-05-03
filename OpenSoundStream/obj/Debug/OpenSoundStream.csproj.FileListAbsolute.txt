@@ -221,3 +221,6 @@ C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\ViewModel\InputDialog.g.cs
 C:\Studium\SWE\Projekt\OpenSoundStream\bin\Debug\policy.2.0.taglib-sharp.dll
 C:\Studium\SWE\Projekt\OpenSoundStream\bin\Debug\taglib-sharp.dll
 C:\Studium\SWE\Projekt\OpenSoundStream\bin\Debug\policy.2.0.taglib-sharp.config
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\policy.2.0.taglib-sharp.dll
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\taglib-sharp.dll
+C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\bin\Debug\policy.2.0.taglib-sharp.config

@@ -6,9 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace OpenSoundStream
 {
@@ -136,6 +137,19 @@ namespace OpenSoundStream
 			Musicqueue.ActiveNode = Musicqueue.Queue.Find(track);
 			Musicqueue.ActiveTrack = track;
 			Mediaplayer.Open(track.Filepath);
+		}
+
+		public void SetSleepTimer(int intervall)
+		{
+			Timer timer = new Timer();
+			timer.Interval = intervall;
+			timer.AutoReset = false;
+			timer.Elapsed += new ElapsedEventHandler(timer_Tick);
+			timer.Start();
+		}
+		private void timer_Tick(object sender, EventArgs e)
+		{
+			Stop();
 		}
 
 	}
