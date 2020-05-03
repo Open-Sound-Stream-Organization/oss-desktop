@@ -13,7 +13,6 @@ namespace OpenSoundStream
             Filepath = filepath;
             Metadata = new Metadata();
         }
-
         public Album Album { get; set; }
 
         public int? id { get; set; }

@@ -1,4 +1,5 @@
-﻿using OpenSoundStream.Code.DataManager;
+﻿using OpenSoundStream.Code;
+using OpenSoundStream.Code.DataManager;
 using OpenSoundStream.Code.NetworkManager;
 using System;
 using System.Collections.Generic;
@@ -12,32 +13,37 @@ namespace OpenSoundStream
         public OpenSoundStreamManager()
         {
             DatabaseHandler = new DatabaseHandler();
-            NetworkHandler = new NetworkHandler();
             Musicplayer = new Musicplayer();
 
+            NetworkHandler.Login("egal", "egal");
+
+            NetworkHandler.SyncLocalDbWithServerDb();
             //DEBUG
             //Playlist p1 = new Playlist("Cello");
 
             Playlist p1 = new Playlist("Good Vibes");
-            p1 = PlaylistsManager.db_GetAllPlaylists().Find(e => e.name == p1.name);
+            p1.initializePlaylist();
             //Playlist p2 = new Playlist("Chill");
 
             //AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
             //AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav.opensound");
             //AppHelper.LocalImportPlaylist(@"C:/Users/menac/Desktop/Cello/Spielbuch", p1);
 
-            NetworkHandler.SyncLocalDbWithServerDb();
 
-            Track track = new Track("Supalonely", new Uri(@"file:///C:/Users/cpfro/Music/Track3.mp3"));
-            track.album = "/api/v1/album/576/";
-            track.artists = new string[] { "/api/v1/artist/600/" };
+            Track track = new Track("Supalonely", new Uri("C:/Users/cpfro/Music/Track2.mp3"));
+            //track.album = "/api/v1/album/576/";
+            //track.artists = new string[] { "/api/v1/artist/600/" };
 
-            AppHelper.LocalImportTrack(track, @"C:/Users/cpfro/Music/Track1.mp3");
+            //AppHelper.LocalImportTrack(track, @"C:/Users/cpfro/Music/Track1.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track2.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Track3.mp3");
             //AppHelper.LocalImportTrack(@"C:/Users/cpfro/Music/Party/Bad child.mp3");
             //AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Party", p1);
-            //AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Chill", p2);
+            //AppHelper.LocalImportPlaylist(@"C:/Users/cpfro/Music/Chill", p1);
+            //Album album = new Album("Silence");
+            //album.initializeAlbum();
+
+            //AppHelper.LocalImportAlbum(@"C:/Users/cpfro/Music/Silence", album);
 
             //Musicplayer.Musicqueue.LoadPlayableContainerInQueue(p1);
             //Musicplayer.Musicqueue.AddTrackToQueueFirstPos(a);
@@ -68,13 +74,10 @@ namespace OpenSoundStream
             //NetworkHandler.SyncLocalDbWithServerDb();
             //TrackInPlaylistNwManager.GetTrackInPlaylist(7);
 
-            //TracksNwManager.GetTrack(274);
         }
 
 
         public static DatabaseHandler DatabaseHandler { get; set; }
-
-        public static NetworkHandler NetworkHandler { get; set; }
 
         public static Musicplayer Musicplayer { get; set; }
 

@@ -14,7 +14,7 @@ namespace OpenSoundStream.Code.NetworkManager
         // Geht noch nicht wegen Server
         public static TrackInPlaylist GetTrackInPlaylist(int id)
         {
-            var responseTask = client.GetAsync("songinplaylist/" + id + "/");
+            var responseTask = client.GetAsync("trackinplaylist/" + id + "/");
             responseTask.Wait();
 
             var result = responseTask.Result;

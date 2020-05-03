@@ -76,6 +76,9 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
+      <HintPath>packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="ReactiveUI, Version=11.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ReactiveUI.11.3.1\lib\net461\ReactiveUI.dll</HintPath>
     </Reference>
@@ -152,6 +155,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="taglib-sharp, Version=2.1.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
+      <HintPath>packages\taglib.2.1.0.0\lib\taglib-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -161,6 +167,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Code\ApiKey.cs" />
     <Compile Include="Code\AppHelper.cs" />
     <Compile Include="Code\Album.cs" />
     <Compile Include="Code\Artist.cs" />
@@ -168,14 +175,15 @@
     <Compile Include="Code\DataManager\AlbumFromArtistManager.cs" />
     <Compile Include="Code\DataManager\AlbumsManager.cs" />
     <Compile Include="Code\DataManager\ArtistsManager.cs" />
-    <Compile Include="Code\DataManager\MetadataManager.cs" />
     <Compile Include="Code\DataManager\PlaylistsManager.cs" />
     <Compile Include="Code\DataManager\TrackFromArtistManager.cs" />
     <Compile Include="Code\DataManager\TrackInPlaylistManager.cs" />
     <Compile Include="Code\DataManager\TracksManager.cs" />
+    <Compile Include="Code\MetadataEditor.cs" />
     <Compile Include="Code\Musicplayer.cs" />
     <Compile Include="Code\NetworkHandler.cs" />
     <Compile Include="Code\NetworkManager\AlbumsNwManager.cs" />
+    <Compile Include="Code\NetworkManager\ApiKeyManager.cs" />
     <Compile Include="Code\NetworkManager\ArtistsNwManager.cs" />
     <Compile Include="Code\NetworkManager\PlaylistsNwManager.cs" />
     <Compile Include="Code\NetworkManager\TrackInPlaylistNwManager.cs" />

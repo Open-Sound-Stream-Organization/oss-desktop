@@ -13,7 +13,7 @@ using OpenSoundStream.Code.DataManager;
 
 namespace OpenSoundStream
 {
-    public class NetworkHandler
+    static public class NetworkHandler
     {
         static HttpClient client = new HttpClient();
 
@@ -23,20 +23,7 @@ namespace OpenSoundStream
 
         private static String dlBaseUrl = "https://oss.anjomro.de/repertoire/";
 
-        public NetworkHandler()
-        {
-        //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-        //"Basic", Convert.ToBase64String(
-        //    System.Text.ASCIIEncoding.ASCII.GetBytes(
-        //       $"{"testuser"}:{"testuser"}")));
-            client.BaseAddress = new Uri(baseUrl);
-            client.DefaultRequestHeaders.Add("Authorization", "Test-API-Key");
-
-            DownloadClient.DefaultRequestHeaders.Add("Authorization", "Test-API-Key");
-            DownloadClient.BaseAddress = new Uri(dlBaseUrl);
-            DownloadClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-        }
+        private static string ApiKey = "";
 
         public static HttpClient GetClient()
         {
@@ -51,6 +38,37 @@ namespace OpenSoundStream
         public static string GetBaseUrl()
         {
             return baseUrl;
+        }
+
+        public static void Login(string username, string password)
+        {
+            username = "testuser";
+            password = "testuser";
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(username +":"+password);
+            string encoded = System.Convert.ToBase64String(plainTextBytes);
+
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + encoded);
+            client.BaseAddress = new Uri(baseUrl);
+            ApiKey = ApiKeyManager.GetApiKey().key;
+            client.DefaultRequestHeaders.Remove("Authorization");
+
+            initializeNetworkHandler();
+        }
+
+        public static void Logout()
+        {
+            client.DefaultRequestHeaders.Remove("Authorization");
+            DownloadClient.DefaultRequestHeaders.Remove("Authorization");
+        }
+
+        public static void initializeNetworkHandler()
+        {
+
+            client.DefaultRequestHeaders.Add("Authorization", ApiKey);
+
+            DownloadClient.DefaultRequestHeaders.Add("Authorization", ApiKey);
+            DownloadClient.BaseAddress = new Uri(dlBaseUrl);
+            DownloadClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static void SyncLocalDbWithServerDb()
@@ -77,7 +95,7 @@ namespace OpenSoundStream
                 TracksManager.db_Add_Update_Record(item);
             }
 
-            foreach(Album album in albums)
+            foreach (Album album in albums)
             {
                 foreach (string artistId in album.artists)
                 {

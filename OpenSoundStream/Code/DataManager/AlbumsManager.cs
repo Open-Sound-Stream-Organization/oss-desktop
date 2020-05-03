@@ -107,7 +107,10 @@ namespace OpenSoundStream.Code.DataManager
                 Album album = new Album(row["name"].ToString());
                 album.id = Convert.ToInt32(row["id"].ToString());
                 album.mbid = Convert.ToInt32(row["mbid"].ToString());
-                album.release = Convert.ToDateTime(row["release"].ToString());
+                if(row["release"].ToString() != "")
+                {
+                    album.release = Convert.ToDateTime(row["release"].ToString());
+                }
                 album.resource_uri = row["resource_uri"].ToString();
                 album.cover_file = row["cover_file"].ToString();
                 album.cover_url = row["cover_url"].ToString();

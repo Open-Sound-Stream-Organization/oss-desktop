@@ -1,4 +1,5 @@
-﻿using OpenSoundStream.Code.DataManager;
+﻿using OpenSoundStream.Code;
+using OpenSoundStream.Code.DataManager;
 using OpenSoundStream.Code.NetworkManager;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ namespace OpenSoundStream
 {
     public static class AppHelper
     {
-        public static List<Track> Tracks = TracksManager.db_GetAllTracks();
         public static string ProgramPath
         {
             get => Assembly.GetExecutingAssembly().CodeBase;
@@ -30,54 +30,110 @@ namespace OpenSoundStream
 
         public static void LocalImportTrack(Track track, string sourcePath)
         {
+            string album = MetadataEditor.GetAlbum(sourcePath);
+
+            if (AlbumsManager.db_GetAllAlbums().Find(e => e.name == album) != null)
+            {
+                track.album = "/api/v1/album/" + AlbumsManager.db_GetAllAlbums().Find(e => e.name == album).id.ToString() + "/";
+            }
+            else
+            {
+                if (album != null)
+                {
+                    Album newAlbum = new Album(album);
+                    AlbumsNwManager.PostAlbum(newAlbum);
+                    newAlbum = AlbumsNwManager.GetAlbums().Find(e => e.name == newAlbum.name);
+                    AlbumsManager.db_Add_Update_Record(newAlbum);
+                    track.album = "/api/v1/album/" + newAlbum.id.ToString() + "/";
+                }
+                else
+                {
+                    Album newAlbum = null;
+                    if (AlbumsManager.db_GetAllAlbums().Find(e => e.name == "unknown") == null)
+                    {
+                        newAlbum = new Album("unknown");
+                        AlbumsNwManager.PostAlbum(newAlbum);
+                        newAlbum = AlbumsNwManager.GetAlbums().Find(e => e.name == newAlbum.name);
+                        AlbumsManager.db_Add_Update_Record(newAlbum);
+                    }
+                    else
+                    {
+                        newAlbum = AlbumsManager.db_GetAllAlbums().Find(e => e.name == "unknown");
+                    }
+                    track.album = "/api/v1/album/" + newAlbum.id.ToString() + "/";
+                }
+            }
+
+            string[] artists = MetadataEditor.GetArtists(sourcePath);
+
+            List<Artist> dbArtists = ArtistsManager.db_GetAllArtists();
+
+            List<string> artistsNwPath = new List<string>();
+
+            foreach (string artistName in artists)
+            {
+                if (dbArtists.Find(e => e.name == artistName) != null)
+                {
+                    artistsNwPath.Add("/api/v1/artist/" + dbArtists.Find(e => e.name == artistName).id.ToString() + "/");
+                }
+                else
+                {
+                    if (artistName != null)
+                    {
+                        Artist newArtist = new Artist(artistName);
+                        ArtistsNwManager.PostArtist(newArtist);
+                        newArtist = ArtistsNwManager.GetArtists().FindLast(e => e.name == newArtist.name);
+                        ArtistsManager.db_Add_Update_Record(newArtist);
+                        artistsNwPath.Add("/api/v1/artist/" + newArtist.id.ToString() + "/");
+                    }
+                }
+            }
+            track.artists = artistsNwPath.ToArray();
+
+            if(track.artists.Count() == 0)
+            {
+                Artist newArtist = null;
+                if(ArtistsManager.db_GetAllArtists().Find(e => e.name == "unknown") == null)
+                {
+                    newArtist = new Artist("unknown");
+                    ArtistsNwManager.PostArtist(newArtist);
+                    newArtist = ArtistsNwManager.GetArtists().FindLast(e => e.name == newArtist.name);
+                    ArtistsManager.db_Add_Update_Record(newArtist);
+                }
+                else
+                {
+                    newArtist = ArtistsManager.db_GetAllArtists().Find(e => e.name == "unknown");
+                }
+                
+                track.artists = new string[] { "/api/v1/artist/" + newArtist.id.ToString() + "/" };
+            }
+
             Directory.CreateDirectory(DataPath + "\\Tracks");
 
             string fileName = Path.GetFileName(sourcePath);
             string destFile = Path.Combine(DataPath + "\\Tracks", fileName);
-            if (File.Exists(destFile))
+
+            if (File.Exists(destFile) == false)
             {
-                //TODO Hash abgleich
-                if (Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
-                {
-                    track.title = fileName.Split('.')[0];
-                    track.Filepath = new Uri(@"file:///" + destFile);
-                    TracksNwManager.PostTrack(track);
-                    track = TracksNwManager.GetTracks().Find(e => e.title == track.title);
-                    track.audio = destFile;
-                    TracksManager.db_Add_Update_Record(track);
-                    TracksNwManager.PutAudio(track);
-                }
+                File.Copy(sourcePath, destFile, true);
             }
-            else
+
+            if (TracksManager.db_GetAllTracks().Find(e => e.title == fileName.Split('.')[0]) == null)
             {
-                try
-                {
-                    if(Tracks.Find(e => e.title == fileName.Split('.')[0] ) == null)
-                    {
-                        File.Copy(sourcePath, destFile, true);
-                        track.title = fileName.Split('.')[0];
-                        track.Filepath = new Uri(@"file:///" + destFile);
-                        TracksNwManager.PostTrack(track);
-                        track = TracksNwManager.GetTracks().Find(e => e.title == track.title);
-                        track.audio = destFile;
-                        TracksManager.db_Add_Update_Record(track);
-                        TracksNwManager.PutAudio(track);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //TODO Fehlermanagement
-                    throw ex;
-                }
+                track.title = fileName.Split('.')[0];
+                track.Filepath = new Uri(@"file:///" + destFile);
+                TracksNwManager.PostTrack(track);
+                track = TracksNwManager.GetTracks().FindLast(e => e.title == track.title);
+                track.audio = destFile;
+                TracksManager.db_Add_Update_Record(track);
+                //TracksNwManager.PutAudio(track);
             }
         }
 
         public static void LocalImportPlaylist(string sourcePath, Playlist pl)
         {
-            Directory.CreateDirectory(DataPath + "\\Playlists");
-            string path = DataPath + "\\Playlists" + "\\" + Path.GetFileName(sourcePath);
             string[] files = System.IO.Directory.GetFiles(sourcePath);
-            Directory.CreateDirectory(path);
+            Directory.CreateDirectory(DataPath + "\\Tracks");
 
             // Copy the files and overwrite destination files if they already exist.
             foreach (string s in files)
@@ -87,23 +143,10 @@ namespace OpenSoundStream
                 string format = fileName.Split('.')[fileName.Split('.').Length - 1];
                 if (format == "mp3" || format == "wav")
                 {
-                    string destFile = System.IO.Path.Combine(path, fileName);
-                    System.IO.File.Copy(s, destFile, true);
-
-                    if (Tracks.Find(e => e.title == fileName.Split('.')[0]) == null)
-                    {
-                        Track track = new Track(fileName.Split('.')[0], new Uri(destFile));
-                        track.audio = destFile;
-                        TracksNwManager.PostTrack(track);
-                        TracksManager.db_Add_Update_Record(TracksNwManager.GetTracks().Find(e => e.title == track.title));
-                        track.id = TracksManager.db_GetAllTracks().Find(e => e.title == track.title).id;
-                        TrackInPlaylistManager.db_Add_Update_Record(track.id, pl.id);
-                        pl.AddTrack(track);
-                    }
-                    else
-                    {
-                        pl.AddTrack(Tracks.Find(e => e.title == fileName.Split('.')[0]));
-                    }
+                    LocalImportTrack(new Track(fileName.Split('.')[0], new Uri(@"file:///" + s)), s);
+                    Track track = TracksManager.db_GetAllTracks().FindLast(e => e.title == fileName.Split('.')[0]);
+                    TrackInPlaylistManager.db_Add_Update_Record(track.id, pl.id);
+                    pl.Tracks.AddLast(track);
                 }
 
             }
@@ -111,11 +154,8 @@ namespace OpenSoundStream
 
         public static void LocalImportAlbum(string sourcePath, Album album)
         {
-            Directory.CreateDirectory(DataPath + "\\Albums");
-            string path = DataPath + "\\Albums" + "\\" + Path.GetFileName(sourcePath);
             string[] files = System.IO.Directory.GetFiles(sourcePath);
-
-            Directory.CreateDirectory(path);
+            Directory.CreateDirectory(DataPath + "\\Tracks");
 
             foreach (string s in files)
             {
@@ -124,8 +164,11 @@ namespace OpenSoundStream
                 string format = fileName.Split('.')[fileName.Split('.').Length - 1];
                 if (format == "mp3" || format == "wav")
                 {
-                    string destFile = System.IO.Path.Combine(path, fileName);
-                    System.IO.File.Copy(s, destFile, true);
+                    Track track = new Track(fileName.Split('.')[0], new Uri(@"file:///" + s));
+                    MetadataEditor.AddAlbum(s, album.name);
+                    LocalImportTrack(track, s);
+                    track = TracksManager.db_GetAllTracks().FindLast(e => e.title == fileName.Split('.')[0]);
+                    album.Tracks.AddLast(track);
                 }
             }
         }

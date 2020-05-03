@@ -21,8 +21,6 @@ namespace OpenSoundStream.ViewModel
 
 		private static MainViewModel mainViewModel = MainViewModel.mainViewModel;
 
-		public List<Track> DbTracks = TracksManager.db_GetAllTracks();
-
 		public RelayCommand<TrackMetadata> ListViewCommand { get; private set; }
 
 		public TitleViewModel()
@@ -36,7 +34,7 @@ namespace OpenSoundStream.ViewModel
 		/// <param name="selectedTrack"></param>
 		private void playSelectedTrack(TrackMetadata selectedTrack)
 		{
-			MainViewModel.musicplayer.SetActiveTrack(DbTracks.Find(x => x.title == selectedTrack.Title));
+			MainViewModel.musicplayer.SetActiveTrack(TracksManager.db_GetAllTracks().Find(x => x.title == selectedTrack.Title));
 			mainViewModel.playMusic();
 		}
 

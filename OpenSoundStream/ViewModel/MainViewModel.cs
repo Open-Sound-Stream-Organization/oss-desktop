@@ -24,7 +24,7 @@ namespace OpenSoundStream.ViewModel
 		public static Musicplayer musicplayer { get; private set; } = OpenSoundStreamManager.Musicplayer;
 		public static BigPlayerView bigPlayerWindow;
 		private bool SelectAllTracks { get; set; }
-		public List<Track> DbTracks = TracksManager.db_GetAllTracks();
+		
 
         #region Binding Variables
 
@@ -225,12 +225,12 @@ namespace OpenSoundStream.ViewModel
 		{
 			if (SelectAllTracks != true)
 			{
-				musicplayer.SetActiveTrackInPlayableContainer(DbTracks.Find(x => x.title == selectedTrack.Title));
+				musicplayer.SetActiveTrackInPlayableContainer(TracksManager.db_GetAllTracks().Find(x => x.title == selectedTrack.Title));
 				playMusic();
 			}
 			else
 			{
-				musicplayer.SetActiveTrack(DbTracks.Find(x => x.title == selectedTrack.Title));
+				musicplayer.SetActiveTrack(TracksManager.db_GetAllTracks().Find(x => x.title == selectedTrack.Title));
 				playMusic();
 				SelectAllTracks = false;
 			}
@@ -375,7 +375,7 @@ namespace OpenSoundStream.ViewModel
 		{
 			TitleViewModel.Tracks.Clear();
 
-			foreach (Track track in DbTracks)
+			foreach (Track track in TracksManager.db_GetAllTracks())
 			{
 				TitleViewModel.Tracks.Add(new TrackMetadata { Title = track.title, Genre = track.Metadata.Genre });
 			}

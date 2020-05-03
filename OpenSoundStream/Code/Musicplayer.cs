@@ -20,8 +20,6 @@ namespace OpenSoundStream
 
 		public PlayerState State { get; set; }
 
-		public List<Track> Tracks = TracksManager.db_GetAllTracks();
-
 		public Musicplayer()
 		{
 			Musicqueue = new MusicQueue();
@@ -129,7 +127,7 @@ namespace OpenSoundStream
 		public void SetActiveTrack(Track track)
 		{
 			PlayableContainer tracks = new Playlist("All Tracks");
-			foreach (Track item in Tracks)
+			foreach (Track item in TracksManager.db_GetAllTracks())
 			{
 				tracks.Tracks.AddLast(item);
 			}

@@ -22,8 +22,6 @@ namespace OpenSoundStream.ViewModel
         public RelayCommand<string> ArtistCommand { get; private set; }
         public RelayCommand<TrackMetadata> TitleCommand { get; private set; }
 
-        public List<Track> Tracks = TracksManager.db_GetAllTracks();
-
         private string _albumCover;
         private ObservableCollection<string> _artistNames;
         private ObservableCollection<TrackMetadata> _trackList;
@@ -91,7 +89,7 @@ namespace OpenSoundStream.ViewModel
 
         private void playSelectedTitle(TrackMetadata track)
         {
-            MainViewModel.musicplayer.SetActiveTrack(Tracks.Find(x => x.title == track.Title));
+            MainViewModel.musicplayer.SetActiveTrack(TracksManager.db_GetAllTracks().Find(x => x.title == track.Title));
             mainViewModel.playMusic();
         }
 

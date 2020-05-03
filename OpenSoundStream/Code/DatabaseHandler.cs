@@ -14,6 +14,10 @@ namespace OpenSoundStream
         public static SqlConnection Get_DB_Connection()
         {
             string cn_String = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "\\_Data" + "\\localdb_OSS.mdf;Integrated Security=True";
+            string toReplace = @"\bin\Debug";
+            cn_String = cn_String.Replace(toReplace, "");
+
+
             SqlConnection cn_connection = new SqlConnection(cn_String);
             if (cn_connection.State != ConnectionState.Open) cn_connection.Open();
 
