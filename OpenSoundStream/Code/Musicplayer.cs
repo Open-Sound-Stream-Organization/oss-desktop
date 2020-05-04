@@ -15,6 +15,8 @@ namespace OpenSoundStream
 {
 	public class Musicplayer : ReactiveObject
 	{
+		private Timer timer;
+
 		public MusicQueue Musicqueue { get; set; }
 
 		public System.Windows.Media.MediaPlayer Mediaplayer { get; set; }
@@ -139,14 +141,20 @@ namespace OpenSoundStream
 			Mediaplayer.Open(track.Filepath);
 		}
 
-		public void SetSleepTimer(int intervall)
+		public void SetSleepTimer()
 		{
-			Timer timer = new Timer();
-			timer.Interval = intervall;
+			timer = new Timer();
+			timer.Interval = 900000;
 			timer.AutoReset = false;
 			timer.Elapsed += new ElapsedEventHandler(timer_Tick);
 			timer.Start();
 		}
+
+		public void StopSleepTimer()
+		{
+			timer.Stop();
+		}
+
 		private void timer_Tick(object sender, EventArgs e)
 		{
 			Stop();

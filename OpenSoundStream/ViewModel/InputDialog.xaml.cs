@@ -19,16 +19,25 @@ namespace OpenSoundStream.Views
     /// </summary>
     public partial class CostumInputDialog : Window
     {
-			public CostumInputDialog(string question, string defaultAnswer = "")
+			public CostumInputDialog(string defaultUser = "", string defaultPW = "")
 			{
 				InitializeComponent();
-				txtUser.Text = question;
-				txtPW.Text = defaultAnswer;
+				txtUser.Text = defaultUser;
+				txtPW.Text = defaultPW;
 			}
 
 			private void btnDialogOk_Click(object sender, RoutedEventArgs e)
 			{
-				this.DialogResult = true;
+				try
+				{
+					NetworkHandler.Login(User, PW);
+				}
+				catch ( Exception)
+				{
+					//Do Nothing
+				}
+                this.DialogResult = true;
+				
 			}
 
 			private void Window_ContentRendered(object sender, EventArgs e)
@@ -37,9 +46,14 @@ namespace OpenSoundStream.Views
 				txtPW.Focus();
 			}
 
-		public string Answer
+		public string PW
 		{
 			get { return txtPW.Text; }
+		}
+
+		public string User
+		{
+			get { return txtUser.Text; }
 		}
 	
     }

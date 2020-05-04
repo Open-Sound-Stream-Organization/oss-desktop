@@ -24,6 +24,7 @@ namespace OpenSoundStream.ViewModel
 		public static Musicplayer musicplayer { get; private set; } = OpenSoundStreamManager.Musicplayer;
 		public static BigPlayerView bigPlayerWindow;
 		private bool SelectAllTracks { get; set; }
+		private bool sleepTimerOn = false;
 		
 
         #region Binding Variables
@@ -58,6 +59,9 @@ namespace OpenSoundStream.ViewModel
 		public RelayCommand TracksCommand { get; private set; }
 		public RelayCommand ChangeViewCommand { get; private set; }
 		public RelayCommand LoginCommand { get; private set; }
+		public RelayCommand SleepCommand { get; private set; }
+		public RelayCommand UploadCommand { get; private set; }
+		public RelayCommand DownloadCommand { get; private set; }
 		public RelayCommand<TrackMetadata> ListViewCommand { get; private set; }
 		public RelayCommand<string> PlaylistCommand { get; private set; }
 		public ObservableCollection<TrackMetadata> Tracks { get { return _tracks; } }
@@ -189,6 +193,9 @@ namespace OpenSoundStream.ViewModel
 			this.PlaylistCommand = new RelayCommand<string>((item) => this.playSelectedPlaylist(item));
 			this.ChangeViewCommand = new RelayCommand(this.changeView);
 			this.LoginCommand = new RelayCommand(this.logInDialog);
+			this.SleepCommand = new RelayCommand(this.startSleepTimer);
+			this.UploadCommand = new RelayCommand(this.uploadFiles);
+			this.DownloadCommand = new RelayCommand(this.downloadFiles);
 
 
 			// Set inital values
@@ -209,11 +216,36 @@ namespace OpenSoundStream.ViewModel
 
         #region Methods
 
+		private void downloadFiles()
+		{
+			NetworkHandler.SyncLocalDbWithServerDb();
+		}
+
+		private void uploadFiles()
+		{
+			//TODO
+		}
+
 		private void logInDialog()
 		{
 			CostumInputDialog inputDialog = new CostumInputDialog("", "");
 
 			inputDialog.ShowDialog();
+
+		}
+
+		private void startSleepTimer()
+		{
+			if (sleepTimerOn)
+			{
+				musicplayer.StopSleepTimer();
+				sleepTimerOn = false;
+			}
+			else
+			{
+				musicplayer.SetSleepTimer();
+				sleepTimerOn = true;
+			}
 
 		}
 

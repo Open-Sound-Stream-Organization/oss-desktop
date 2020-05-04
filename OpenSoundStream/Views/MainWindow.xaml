@@ -135,6 +135,9 @@
             <Grid Grid.Row="1">
                 <Frame Source="{Binding CurrentFrame}" NavigationUIVisibility="Hidden"/>
                 <Button Content="{materialDesign:PackIcon Kind=LoginVariant}"  Foreground="White" Command="{Binding LoginCommand}"  Style="{StaticResource MaterialDesignIconButton}" HorizontalAlignment="Left" Margin="678,-79,0,0" VerticalAlignment="Top" Width="25" Height="20"/>
+                <Button Content="{materialDesign:PackIcon Kind=MoonWaningCrescent}"  Foreground="White" Command="{Binding SleepCommand}"  Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Left" Margin="653,-79,0,0" VerticalAlignment="Top" Width="25" Height="20"/>
+                <Button Content="{materialDesign:PackIcon Kind=UploadMultiple}"  Foreground="White" Command="{Binding UploadCommand}"  Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Left" Margin="623,-79,0,0" VerticalAlignment="Top" Width="25" Height="20"/>
+                <Button Content="{materialDesign:PackIcon Kind=DownloadMultiple}"  Foreground="White" Command="{Binding DownloadCommand}"  Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Left" Margin="598,-79,0,0" VerticalAlignment="Top" Width="25" Height="20"/>
             </Grid>
 
             <!--Song View-->
