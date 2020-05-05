@@ -13,6 +13,7 @@ using MaterialDesignThemes.Wpf;
 using OpenSoundStream.Views;
 using OpenSoundStream.Code.DataManager;
 using System.IO;
+using System.Windows.Forms;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -223,7 +224,24 @@ namespace OpenSoundStream.ViewModel
 
 		private void uploadFiles()
 		{
-			//TODO
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			string filePath;
+
+
+			openFileDialog.InitialDirectory = "c:\\";
+			openFileDialog.Filter = "mp3 files (*.mp3)|*.mp3";
+			openFileDialog.FilterIndex = 2;
+			openFileDialog.RestoreDirectory = true;
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				//Get the path of specified file
+				filePath = openFileDialog.FileName;
+
+				//Read the contents of the file into a stream
+				var fileStream = openFileDialog.OpenFile();
+
+			}
 		}
 
 		private void logInDialog()
