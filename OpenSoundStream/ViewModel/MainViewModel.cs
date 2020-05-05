@@ -238,6 +238,9 @@ namespace OpenSoundStream.ViewModel
 				//Get the path of specified file
 				filePath = openFileDialog.FileName;
 
+				Track track = new Track(Path.GetFileName(filePath), new Uri(filePath));
+				AppHelper.LocalImportTrack(track, filePath);
+
 				//Read the contents of the file into a stream
 				var fileStream = openFileDialog.OpenFile();
 
