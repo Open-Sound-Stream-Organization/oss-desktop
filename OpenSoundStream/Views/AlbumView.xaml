@@ -9,76 +9,63 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AlbumView">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="3*"/>
+		</Grid.ColumnDefinitions>
 
-        <ListView x:Name="AlbumList" Grid.Column="0" ItemsSource="{Binding AlbumNames}" HorizontalAlignment="Left" Height="450" Margin="0,0,-101,0" VerticalAlignment="Top" Width="158" Style="{StaticResource MaterialDesignListView}" Background="Transparent">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Albums" DisplayMemberBinding="{Binding}" />
-                </GridView>
-            </ListView.View>
+		<ListView x:Name="AlbumList" Grid.Column="0" ItemsSource="{Binding AlbumNames}" Style="{StaticResource MaterialDesignListView}" Background="Transparent" Margin="0">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Albums" DisplayMemberBinding="{Binding}" />
+				</GridView>
+			</ListView.View>
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding AlbumCommand}" CommandParameter="{Binding SelectedItem, ElementName=AlbumList}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ListView>
-
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Image Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="128.5,0,-149,0" VerticalAlignment="Top" Width="100" Source="{Binding AlbumCover}"/>
-
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Label Content="{Binding AlbumYear}" Grid.Row="0" HorizontalAlignment="Left" Margin="260,16,-213.5,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.481,-0.112" Visibility="{Binding ListVisi}"/>
-                    <Label Content="{Binding AlbumName}" Grid.Row="1" HorizontalAlignment="Left" Margin="260,4.5,-253.5,51.5" Foreground="White" FontSize="20" FontWeight="Bold"/>
-
-                </Grid>
-
-            </Grid>
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="MouseDoubleClick">
+					<i:InvokeCommandAction Command="{Binding AlbumCommand}" CommandParameter="{Binding SelectedItem, ElementName=AlbumList}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</ListView>
 
 
 
-        </Grid>
-        <ListView x:Name="TitleView" ItemsSource="{Binding TrackList}" HorizontalAlignment="Left" Height="330" Margin="114.5,110,-649,0" VerticalAlignment="Top" Width="618" Grid.Column="1" Background="Transparent" Style="{StaticResource MaterialDesignListView}" Visibility="{Binding ListVisi}">
-
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding TitleCommand}" CommandParameter="{Binding SelectedItem, ElementName=TitleView}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="#" Width="120" DisplayMemberBinding="{Binding Number}" />
-                    <GridViewColumn Header="Title" Width="50" DisplayMemberBinding="{Binding Title}" />
-                    <GridViewColumn Header="Length" Width="120" DisplayMemberBinding="{Binding Length}" />
-                </GridView>
-            </ListView.View>
-            
-        </ListView>
 
 
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition Height="4*"/>
+			</Grid.RowDefinitions>
+			<Label Content="{Binding AlbumYear}" Grid.Row="0" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.481,-0.112" Visibility="{Binding ListVisi}" MinWidth="200" MinHeight="20"/>
+			<Label Content="{Binding AlbumName}" Margin="0" Foreground="White" FontSize="20" FontWeight="Bold" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="200" MinHeight="20"/>
+			<Image Width="90" Source="{Binding AlbumCover}" HorizontalAlignment="Right"/>
+			<ListView x:Name="TitleView" ItemsSource="{Binding TrackList}" Margin="10" Background="Transparent" Style="{StaticResource MaterialDesignListView}" Visibility="{Binding ListVisi}" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Stretch" ClipToBounds="True" VerticalContentAlignment="Stretch" Grid.Row="1">
 
-    </Grid>
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="MouseDoubleClick">
+						<i:InvokeCommandAction Command="{Binding TitleCommand}" CommandParameter="{Binding SelectedItem, ElementName=TitleView}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+
+				<ListView.View>
+					<GridView>
+						<GridViewColumn Header="#" DisplayMemberBinding="{Binding Number}" />
+						<GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+						<GridViewColumn Header="Length" DisplayMemberBinding="{Binding Length}" />
+					</GridView>
+				</ListView.View>
+
+			</ListView>
+
+
+
+
+
+		</Grid>
+
+
+
+	</Grid>
 </Page>

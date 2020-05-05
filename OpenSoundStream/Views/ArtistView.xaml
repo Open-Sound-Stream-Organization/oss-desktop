@@ -10,42 +10,42 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ArtistView">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="160.5"/>
-            <ColumnDefinition Width="Auto" MinWidth="250.5"/>
-        </Grid.ColumnDefinitions>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition MinWidth="160.5"/>
+			<ColumnDefinition Width="3*"/>
+		</Grid.ColumnDefinitions>
 
-        <ListView x:Name="ArtistList" Grid.Column="0" ItemsSource="{Binding ArtistNames}" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="158" Style="{StaticResource MaterialDesignListView}" Background="Transparent">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Artists" DisplayMemberBinding="{Binding}" />
-                </GridView>
-            </ListView.View>
+		<ListView x:Name="ArtistList" Grid.Column="0" ItemsSource="{Binding ArtistNames}" Style="{StaticResource MaterialDesignListView}" Background="Transparent">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Artists" DisplayMemberBinding="{Binding}" />
+				</GridView>
+			</ListView.View>
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding ArtistCommand}" CommandParameter="{Binding SelectedItem, ElementName=ArtistList}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ListView>
-        <ListView ItemsSource="{Binding TrackList}" HorizontalAlignment="Left" Height="450" Margin="158,0,-388,0" VerticalAlignment="Top" Width="642" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignListView}" Visibility="{Binding ListVisi}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding TitleCommand}" CommandParameter="{Binding SelectedItem, ElementName=TitleView}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="MouseDoubleClick">
+					<i:InvokeCommandAction Command="{Binding ArtistCommand}" CommandParameter="{Binding SelectedItem, ElementName=ArtistList}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</ListView>
+		<ListView ItemsSource="{Binding TrackList}" Height="450" Margin="0" Style="{StaticResource MaterialDesignListView}" Visibility="{Binding ListVisi}" Grid.Column="1" ClipToBounds="True" IsSynchronizedWithCurrentItem="True">
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="MouseDoubleClick">
+					<i:InvokeCommandAction Command="{Binding TitleCommand}" CommandParameter="{Binding SelectedItem, ElementName=TitleView}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
 
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Title" Width="50" DisplayMemberBinding="{Binding Title}" />
-                    <GridViewColumn Header="Album" Width="120" DisplayMemberBinding="{Binding Album}" />
-                    <GridViewColumn Header="Length" Width="120" DisplayMemberBinding="{Binding Length}" />
-                    <GridViewColumn Header="Genre" Width="50" DisplayMemberBinding="{Binding Genre}" />
-                    <GridViewColumn Header="Year" Width="50" DisplayMemberBinding="{Binding Year}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-    </Grid>
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+					<GridViewColumn Header="Album" DisplayMemberBinding="{Binding Album}" />
+					<GridViewColumn Header="Length" DisplayMemberBinding="{Binding Length}" />
+					<GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}" />
+					<GridViewColumn Header="Year" DisplayMemberBinding="{Binding Year}" />
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
 
 </Page>

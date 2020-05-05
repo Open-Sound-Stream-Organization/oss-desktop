@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\
+C:\Users\kaiuw\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\
 OpenSoundStream
 none
 false
 DEBUG;TRACE
-C:\Studium\SWE\Projekt\OpenSoundStream\App.xaml
+C:\Users\kaiuw\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\App.xaml
 6733687786
 2-760925019
 471428853942
-139673916396
+139-783628965
 ViewModel\InputDialog.xaml;Views\AlbumView.xaml;Views\ArtistView.xaml;Views\BigPlayerView.xaml;Views\MainWindow.xaml;Views\TitleView.xaml;
 
 False
