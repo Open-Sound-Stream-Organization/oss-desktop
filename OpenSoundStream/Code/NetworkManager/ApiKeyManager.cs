@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -31,6 +32,38 @@ namespace OpenSoundStream.Code.NetworkManager
             }
 
             return apiKey;
+        }
+
+        public static List<ApiKey> GetApiKeys()
+        {
+            var responseTask = client.GetAsync("apikey");
+            responseTask.Wait();
+
+            var result = responseTask.Result;
+            IDictionary<string, dynamic> json = null;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<IDictionary<string, dynamic>>();
+                readTask.Wait();
+                json = readTask.Result;
+            }
+            List<ApiKey> apiKeys = JsonConvert.DeserializeObject<List<Playlist>>(json["objects"].ToString());
+
+            return apiKeys;
+        }
+
+        public static void DeleteApiKey(int id)
+        {
+            //Http Delete
+            var deleteTask = client.DeleteAsync("apikey/" + id + "/");
+            deleteTask.Wait();
+
+            var result = deleteTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+            }
+
         }
     }
 }

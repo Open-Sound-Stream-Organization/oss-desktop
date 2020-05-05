@@ -56,5 +56,11 @@ namespace OpenSoundStream.Code.DataManager
             string sSQL = "Delete FROM TrackInPlaylist WHERE [trackId] Like '" + trackId + "' AND [playlistId] Like '" + playlistId + "'";
             DatabaseHandler.Execute_SQL(sSQL);
         }
+
+        public static void db_Delete_All()
+        {
+            string Ssql = "Delete FROM TrackInPlaylist";
+            DatabaseHandler.Execute_SQL(Ssql);
+        }
     }
 }

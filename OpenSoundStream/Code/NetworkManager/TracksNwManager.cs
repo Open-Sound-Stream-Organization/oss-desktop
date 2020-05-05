@@ -40,24 +40,24 @@ namespace OpenSoundStream.Code.NetworkManager
                 string[] splitAlbumPath = track.album.Split('/');
                 track.album = splitAlbumPath[splitAlbumPath.Length - 1];
 
-                //var httpResponseMessage = dlClient.GetAsync("song_file/" + track.id + "/");
-                //httpResponseMessage.Wait();
+                var httpResponseMessage = dlClient.GetAsync("song_file/" + track.id + "/");
+                httpResponseMessage.Wait();
 
-                //var resp = httpResponseMessage.Result;
-                //if (resp.IsSuccessStatusCode)
-                //{
-                //    System.Net.Http.HttpContent content = resp.Content;
-                //    Stream contentStream = content.ReadAsStreamAsync().Result; // get the actual content stream
+                var resp = httpResponseMessage.Result;
+                if (resp.IsSuccessStatusCode)
+                {
+                    System.Net.Http.HttpContent content = resp.Content;
+                    Stream contentStream = content.ReadAsStreamAsync().Result; // get the actual content stream
 
-                //    string path = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "/Data/Tracks/" + track.title + ".mp3";
+                    string path = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "/Data/Tracks/" + track.title + ".mp3";
 
-                //    using (FileStream fileStream = File.Create(path))
-                //    {
-                //        contentStream.Seek(0, SeekOrigin.Begin);
-                //        contentStream.CopyTo(fileStream);
-                //        track.audio = path;
-                //    }
-                //}
+                    using (FileStream fileStream = File.Create(path))
+                    {
+                        contentStream.Seek(0, SeekOrigin.Begin);
+                        contentStream.CopyTo(fileStream);
+                        track.audio = path;
+                    }
+                }
             }
             return tracks;
         }

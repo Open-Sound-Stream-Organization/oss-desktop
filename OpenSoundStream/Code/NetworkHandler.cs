@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Json;
 using OpenSoundStream.Code.NetworkManager;
 using OpenSoundStream.Code.DataManager;
+using OpenSoundStream.Code;
 
 namespace OpenSoundStream
 {
@@ -23,7 +24,7 @@ namespace OpenSoundStream
 
         private static String dlBaseUrl = "https://oss.anjomro.de/repertoire/";
 
-        private static string ApiKey = "";
+        private static ApiKey ApiKey = null;
 
         public static HttpClient GetClient()
         {
@@ -39,17 +40,20 @@ namespace OpenSoundStream
         {
             return baseUrl;
         }
+        
+        public static ApiKey GetApiKey()
+        {
+            return ApiKey;
+        }
 
         public static void Login(string username, string password)
         {
-            username = "testuser";
-            password = "testuser";
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(username +":"+password);
-            string encoded = System.Convert.ToBase64String(plainTextBytes);
+            var plainTextBytes = Encoding.UTF8.GetBytes(username +":"+password);
+            string encoded = Convert.ToBase64String(plainTextBytes);
 
             client.DefaultRequestHeaders.Add("Authorization", "Basic " + encoded);
             client.BaseAddress = new Uri(baseUrl);
-            ApiKey = ApiKeyManager.GetApiKey().key;
+            ApiKey = ApiKeyManager.GetApiKey();
             client.DefaultRequestHeaders.Remove("Authorization");
 
             initializeNetworkHandler();
@@ -57,22 +61,28 @@ namespace OpenSoundStream
 
         public static void Logout()
         {
+            ApiKeyManager.DeleteApiKey(ApiKey.id);
             client.DefaultRequestHeaders.Remove("Authorization");
             DownloadClient.DefaultRequestHeaders.Remove("Authorization");
+
         }
 
         public static void initializeNetworkHandler()
         {
 
-            client.DefaultRequestHeaders.Add("Authorization", ApiKey);
+            client.DefaultRequestHeaders.Add("Authorization", ApiKey.key);
 
-            DownloadClient.DefaultRequestHeaders.Add("Authorization", ApiKey);
+            DownloadClient.DefaultRequestHeaders.Add("Authorization", ApiKey.key);
             DownloadClient.BaseAddress = new Uri(dlBaseUrl);
             DownloadClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static void SyncLocalDbWithServerDb()
         {
+            AlbumsManager.db_Delete_All();
+            ArtistsManager.db_Delete_All();
+            PlaylistsManager.db_Delete_All();
+
             List<Album> albums = AlbumsNwManager.GetAlbums();
             List<Artist> artists = ArtistsNwManager.GetArtists();
             List<Playlist> playlists = PlaylistsNwManager.GetPlaylists();

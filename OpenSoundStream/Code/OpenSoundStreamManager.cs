@@ -15,14 +15,13 @@ namespace OpenSoundStream
             DatabaseHandler = new DatabaseHandler();
             Musicplayer = new Musicplayer();
 
-            NetworkHandler.Login("egal", "egal");
-
+            NetworkHandler.Login("testuser", "testuser");
             NetworkHandler.SyncLocalDbWithServerDb();
             //DEBUG
             //Playlist p1 = new Playlist("Cello");
 
-            Playlist p1 = new Playlist("Good Vibes");
-            p1.initializePlaylist();
+            //Playlist p1 = new Playlist("Good Vibes");
+            //p1.initializePlaylist();
             //Playlist p2 = new Playlist("Chill");
 
             //AppHelper.LocalImportTrack(@"C:/Users/menac/Music/Test1.wav");
@@ -74,6 +73,9 @@ namespace OpenSoundStream
             //NetworkHandler.SyncLocalDbWithServerDb();
             //TrackInPlaylistNwManager.GetTrackInPlaylist(7);
 
+            //Track Track = TracksNwManager.GetTrack(317);
+            //Track.audio = @"C:/Users/cpfro/Music/Party/Drink.mp3";
+            //TracksNwManager.PutAudio(Track);
         }
 
 

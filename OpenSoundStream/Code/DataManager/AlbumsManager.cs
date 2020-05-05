@@ -127,5 +127,11 @@ namespace OpenSoundStream.Code.DataManager
             string sSQL = "Delete FROM Albums WHERE [Id] Like '" + id + "'";
             DatabaseHandler.Execute_SQL(sSQL);
         }
+
+        public static void db_Delete_All()
+        {
+            string Ssql = "Delete FROM Albums";
+            DatabaseHandler.Execute_SQL(Ssql);
+        }
     }
 }
