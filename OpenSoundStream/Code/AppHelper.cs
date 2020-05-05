@@ -32,6 +32,8 @@ namespace OpenSoundStream
         {
             string album = MetadataEditor.GetAlbum(sourcePath);
 
+            Album newAlbum = null;
+
             if (AlbumsManager.db_GetAllAlbums().Find(e => e.name == album) != null)
             {
                 track.album = "/api/v1/album/" + AlbumsManager.db_GetAllAlbums().Find(e => e.name == album).id.ToString() + "/";
@@ -40,7 +42,7 @@ namespace OpenSoundStream
             {
                 if (album != null)
                 {
-                    Album newAlbum = new Album(album);
+                    newAlbum = new Album(album);
                     AlbumsNwManager.PostAlbum(newAlbum);
                     newAlbum = AlbumsNwManager.GetAlbums().Find(e => e.name == newAlbum.name);
                     AlbumsManager.db_Add_Update_Record(newAlbum);
@@ -48,7 +50,6 @@ namespace OpenSoundStream
                 }
                 else
                 {
-                    Album newAlbum = null;
                     if (AlbumsManager.db_GetAllAlbums().Find(e => e.name == "unknown") == null)
                     {
                         newAlbum = new Album("unknown");
@@ -104,7 +105,7 @@ namespace OpenSoundStream
                 {
                     newArtist = ArtistsManager.db_GetAllArtists().Find(e => e.name == "unknown");
                 }
-                
+                artists = new string[] { newArtist.name };
                 track.artists = new string[] { "/api/v1/artist/" + newArtist.id.ToString() + "/" };
             }
 
@@ -116,6 +117,8 @@ namespace OpenSoundStream
             if (File.Exists(destFile) == false)
             {
                 File.Copy(sourcePath, destFile, true);
+                MetadataEditor.AddAlbum(destFile, newAlbum.name);
+                MetadataEditor.AddArtist(destFile, artists);
             }
 
             if (TracksManager.db_GetAllTracks().Find(e => e.title == fileName.Split('.')[0]) == null)
@@ -126,7 +129,7 @@ namespace OpenSoundStream
                 track = TracksNwManager.GetTracks().FindLast(e => e.title == track.title);
                 track.audio = destFile;
                 TracksManager.db_Add_Update_Record(track);
-                //TracksNwManager.PutAudio(track);
+                TracksNwManager.PutAudio(track);
             }
         }
 
