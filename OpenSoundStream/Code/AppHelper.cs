@@ -37,6 +37,7 @@ namespace OpenSoundStream
             if (AlbumsManager.db_GetAllAlbums().Find(e => e.name == album) != null)
             {
                 track.album = "/api/v1/album/" + AlbumsManager.db_GetAllAlbums().Find(e => e.name == album).id.ToString() + "/";
+                newAlbum = AlbumsManager.db_GetAllAlbums().Find(e => e.name == album);
             }
             else
             {

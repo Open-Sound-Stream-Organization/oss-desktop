@@ -64,7 +64,6 @@ namespace OpenSoundStream
             ApiKeyManager.DeleteApiKey(ApiKey.id);
             client.DefaultRequestHeaders.Remove("Authorization");
             DownloadClient.DefaultRequestHeaders.Remove("Authorization");
-
         }
 
         public static void initializeNetworkHandler()

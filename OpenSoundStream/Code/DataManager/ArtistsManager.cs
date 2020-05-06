@@ -73,7 +73,7 @@ namespace OpenSoundStream.Code.DataManager
             }
             else
             {
-                return null;
+                return new List<Artist>();
             }
         }
 

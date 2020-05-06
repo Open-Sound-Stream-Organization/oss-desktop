@@ -15,8 +15,9 @@ namespace OpenSoundStream
             DatabaseHandler = new DatabaseHandler();
             Musicplayer = new Musicplayer();
 
-            NetworkHandler.Login("testuser", "testuser");
-            NetworkHandler.SyncLocalDbWithServerDb();
+            //NetworkHandler.Login("testuser", "testuser");
+            //NetworkHandler.Logout();
+            //NetworkHandler.SyncLocalDbWithServerDb();
             //DEBUG
             //Playlist p1 = new Playlist("Cello");
 

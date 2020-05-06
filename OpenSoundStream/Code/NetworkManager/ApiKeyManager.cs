@@ -14,10 +14,10 @@ namespace OpenSoundStream.Code.NetworkManager
 
         public static ApiKey GetApiKey()
         {
-            ApiKey api = new ApiKey();
-            api.purpose = "Desktop Session, " + DateTime.Now.ToString();
+            Dictionary<string, string> purpose = new Dictionary<string, string>();
+            purpose.Add("purpose", "Desktop Session, " + DateTime.Now.ToString());
 
-            var responseTask = client.PostAsJsonAsync("apikey", api);
+            var responseTask = client.PostAsJsonAsync("apikey/", purpose);
             responseTask.Wait();
 
             var result = responseTask.Result;
@@ -32,25 +32,6 @@ namespace OpenSoundStream.Code.NetworkManager
             }
 
             return apiKey;
-        }
-
-        public static List<ApiKey> GetApiKeys()
-        {
-            var responseTask = client.GetAsync("apikey");
-            responseTask.Wait();
-
-            var result = responseTask.Result;
-            IDictionary<string, dynamic> json = null;
-
-            if (result.IsSuccessStatusCode)
-            {
-                var readTask = result.Content.ReadAsAsync<IDictionary<string, dynamic>>();
-                readTask.Wait();
-                json = readTask.Result;
-            }
-            List<ApiKey> apiKeys = JsonConvert.DeserializeObject<List<Playlist>>(json["objects"].ToString());
-
-            return apiKeys;
         }
 
         public static void DeleteApiKey(int id)

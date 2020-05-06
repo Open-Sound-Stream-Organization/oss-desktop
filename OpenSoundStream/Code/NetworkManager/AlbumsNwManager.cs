@@ -30,7 +30,11 @@ namespace OpenSoundStream.Code.NetworkManager
                 readTask.Wait();
                 json = readTask.Result;
             }
-            List<Album> albums = JsonConvert.DeserializeObject<List<Album>>(json["objects"].ToString());
+            List<Album> albums = new List<Album>();
+            if (json != null)
+            {
+                albums = JsonConvert.DeserializeObject<List<Album>>(json["objects"].ToString());
+            }
 
             foreach (var album in albums)
             {

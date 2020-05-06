@@ -220,6 +220,11 @@ namespace OpenSoundStream.ViewModel
 		private void downloadFiles()
 		{
 			NetworkHandler.SyncLocalDbWithServerDb();
+
+			foreach (Playlist playlist in PlaylistsManager.db_GetAllPlaylists())
+			{
+				Playlists.Add(playlist.name);
+			}
 		}
 
 		private void uploadFiles()
