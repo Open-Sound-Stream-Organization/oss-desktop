@@ -13,13 +13,15 @@ namespace OpenSoundStream
     {
         public static SqlConnection Get_DB_Connection()
         {
+            //Db connection string
             string cn_String = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "\\_Data" + "\\localdb_OSS.mdf;Integrated Security=True";
             string toReplace = @"\bin\Debug";
             cn_String = cn_String.Replace(toReplace, "");
 
-
+            //< open connection >
             SqlConnection cn_connection = new SqlConnection(cn_String);
             if (cn_connection.State != ConnectionState.Open) cn_connection.Open();
+            //</ open connection >
 
             return cn_connection;
         }
@@ -30,17 +32,13 @@ namespace OpenSoundStream
             SqlConnection cn_connection = Get_DB_Connection();
 
             //< get Table >
-
             DataTable table = new DataTable();
-
             SqlDataAdapter adapter = new SqlDataAdapter(SQL_Text, cn_connection);
-
             adapter.Fill(table);
-
+            //</ get Table >
 
             Close_DB_Connection(cn_connection);
 
-            //</ get Table >
             return table;
         }
 
@@ -50,13 +48,10 @@ namespace OpenSoundStream
         {
             SqlConnection cn_connection = Get_DB_Connection();
 
-            //< get Table >
-
+            //< execute >
             SqlCommand cmd_Command = new SqlCommand(SQL_Text, cn_connection);
-
             cmd_Command.ExecuteNonQuery();
-
-            //</ get Table >
+            //</ execute >
 
             Close_DB_Connection(cn_connection);
         }

@@ -13,152 +13,147 @@ using System.Windows.Threading;
 
 namespace OpenSoundStream
 {
-	public class Musicplayer : ReactiveObject
-	{
-		private Timer timer;
+    public class Musicplayer : ReactiveObject
+    {
+        private Timer timer;
 
-		public MusicQueue Musicqueue { get; set; }
+        public MusicQueue Musicqueue { get; set; }
 
-		public System.Windows.Media.MediaPlayer Mediaplayer { get; set; }
+        public System.Windows.Media.MediaPlayer Mediaplayer { get; set; }
 
-		public PlayerState State { get; set; }
+        public PlayerState State { get; set; }
 
-		public Musicplayer()
-		{
-			Musicqueue = new MusicQueue();
-			Mediaplayer = new System.Windows.Media.MediaPlayer();
-			State = PlayerState.Stop;
+        public Musicplayer()
+        {
+            Musicqueue = new MusicQueue();
+            Mediaplayer = new System.Windows.Media.MediaPlayer();
+            State = PlayerState.Stop;
 
-			Mediaplayer.MediaEnded += NextTrack;
-		}
+            Mediaplayer.MediaEnded += NextTrack;
+        }
 
-		public void SetVolume(double volume)
-		{
-			if (volume < 0.0 || volume > 1.0)
-				throw new ArgumentOutOfRangeException();
+        public void SetVolume(double volume)
+        {
+            if (volume < 0.0 || volume > 1.0)
+                throw new ArgumentOutOfRangeException();
 
-			Mediaplayer.Volume = volume;
-		}
+            Mediaplayer.Volume = volume;
+        }
 
-		public void NextTrack(object sender = null, EventArgs e = null)
-		{
-			Musicqueue.NextTrack();
+        public void NextTrack(object sender = null, EventArgs e = null)
+        {
+            Musicqueue.NextTrack(this);
 
-			if (Musicqueue.ActiveTrack != null)
-			{
-				Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
-				if(State == PlayerState.Play)
-					Play();
-			}
-			else if (Musicqueue.RepeatQueue && Musicqueue.ActiveNode == Musicqueue.Queue.Last)
-			{
-				Musicqueue.ActiveNode = Musicqueue.Queue.First;
-				NextTrack();
-			}
-			else if(Musicqueue.RepeatTrack && Musicqueue.ActiveNode != null)
-			{
-				Musicqueue.ActiveNode = Musicqueue.ActiveNode.Previous;
-				NextTrack();
-			}
-			else
-			{
-				Stop();
-			}
-		}
+            if (Musicqueue.RepeatTrack && Musicqueue.ActiveNode != null)
+            {
+                Musicqueue.ActiveNode = Musicqueue.ActiveNode.Previous;
+            }
+            else if (Musicqueue.RepeatQueue && Musicqueue.ActiveNode == Musicqueue.Queue.Last)
+            {
+                Musicqueue.ActiveNode = Musicqueue.Queue.First;
+                Musicqueue.ActiveTrack = Musicqueue.ActiveNode.Value;
+                NextTrack();
+            }
 
-		public void PrevTrack()
-		{
-			Musicqueue.PrevTrack();
-			if (Musicqueue.ActiveTrack != null)
-			{
-				Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
-				if (State == PlayerState.Play)
-					Play();
-			}
-			else
-			{
-				Stop();
-			}
-		}
+            Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
+            if (State == PlayerState.Play)
+                Play();
+        }
 
-		public void Stop()
-		{
-			if (State != PlayerState.Stop)
-			{
-				Mediaplayer.Stop();
-				State = PlayerState.Stop;
-			}
-		}
+        public void PrevTrack()
+        {
+            Musicqueue.PrevTrack();
+            if (Musicqueue.ActiveTrack != null)
+            {
+                Mediaplayer.Open(Musicqueue.ActiveTrack.Filepath);
+                if (State == PlayerState.Play)
+                    Play();
+            }
+            else
+            {
+                Stop();
+            }
+        }
 
-		public void Pause()
-		{
-			if (State != PlayerState.Pause)
-			{
-				Mediaplayer.Pause();
-				State = PlayerState.Pause;
-			}
-		}
+        public void Stop()
+        {
+            if (State != PlayerState.Stop)
+            {
+                Mediaplayer.Stop();
+                State = PlayerState.Stop;
+            }
+        }
 
-		public void Play()
-		{
-			if (Musicqueue.ActiveTrack == null)
-			{
-				NextTrack();
+        public void Pause()
+        {
+            if (State != PlayerState.Pause)
+            {
+                Mediaplayer.Pause();
+                State = PlayerState.Pause;
+            }
+        }
 
-				if (Musicqueue.ActiveTrack == null)
-					Stop();
-			}
+        public void Play()
+        {
+            if (Musicqueue.ActiveTrack == null)
+            {
+                NextTrack();
 
-			Mediaplayer.Play();
-			State = PlayerState.Play;
-		}
+                if (Musicqueue.ActiveTrack == null)
+                    Stop();
+            }
 
-		public void PlayTrack(Track track)
-		{
-			Musicqueue.AddTrackToQueueFirstPos(track);
-			Musicqueue.NextTrack();
-			Play();
-		}
+            Mediaplayer.Play();
+            State = PlayerState.Play;
+        }
 
-		public void SetActiveTrackInPlayableContainer(Track track)
-		{
-			Musicqueue.ActiveNode = Musicqueue.Queue.Find(track);
-			Musicqueue.ActiveTrack = track;
-			Mediaplayer.Open(track.Filepath);
-		}
+        public void PlayTrack(Track track)
+        {
+            Musicqueue.AddTrackToQueueFirstPos(track);
+            Musicqueue.NextTrack(this);
+            Play();
+        }
 
-		public void SetActiveTrack(Track track)
-		{
-			PlayableContainer tracks = new Playlist("All Tracks");
-			foreach (Track item in TracksManager.db_GetAllTracks())
-			{
-				tracks.Tracks.AddLast(item);
-			}
-			Musicqueue.LoadPlayableContainerInQueue(tracks);
+        public void SetActiveTrackInPlayableContainer(Track track)
+        {
 
-			Musicqueue.ActiveNode = Musicqueue.Queue.Find(track);
-			Musicqueue.ActiveTrack = track;
-			Mediaplayer.Open(track.Filepath);
-		}
+            Musicqueue.FindActiveNode(track);
+            Musicqueue.ActiveTrack = track;
+            Mediaplayer.Open(new Uri(@"file:///" + track.audio));
+        }
 
-		public void SetSleepTimer()
-		{
-			timer = new Timer();
-			timer.Interval = 900000;
-			timer.AutoReset = false;
-			timer.Elapsed += new ElapsedEventHandler(timer_Tick);
-			timer.Start();
-		}
+        public void SetActiveTrack(Track track)
+        {
+            PlayableContainer tracks = new Playlist("All Tracks");
+            foreach (Track item in TracksManager.db_GetAllTracks())
+            {
+                tracks.Tracks.AddLast(item);
+            }
+            Musicqueue.LoadPlayableContainerInQueue(tracks);
 
-		public void StopSleepTimer()
-		{
-			timer.Stop();
-		}
+            LinkedListNode<Track> test = Musicqueue.Queue.Find(track);
 
-		private void timer_Tick(object sender, EventArgs e)
-		{
-			Stop();
-		}
+            SetActiveTrackInPlayableContainer(track);
+        }
 
-	}
+        public void SetSleepTimer()
+        {
+            timer = new Timer();
+            timer.Interval = 900000;
+            timer.AutoReset = false;
+            timer.Elapsed += new ElapsedEventHandler(timer_Tick);
+            timer.Start();
+        }
+
+        public void StopSleepTimer()
+        {
+            timer.Stop();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            Stop();
+        }
+
+    }
 }

@@ -35,7 +35,7 @@ namespace OpenSoundStream
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public void NextTrack()
+		public void NextTrack(Musicplayer mp)
 		{
 			LinkedListNode<Track> currentTrack = ActiveNode;
 			LinkedListNode<Track> nextTrack = null;
@@ -58,8 +58,10 @@ namespace OpenSoundStream
 				}
 				else
 				{
-					ActiveNode = null;
-					ActiveTrack = null;
+					mp.Stop();
+					mp.State = PlayerState.Stop;
+					ActiveNode = Queue.First;
+					ActiveTrack = Queue.First.Value;
 				}
 			}
 			else
@@ -110,7 +112,8 @@ namespace OpenSoundStream
 			{
 				Queue.AddLast(track);
 			}
-			ActiveNode = null;
+			ActiveTrack = Queue.First.Value;
+			ActiveNode = Queue.First;
 		}
 
 		public void LoadArtistInQueue(Artist artist) 
@@ -174,6 +177,24 @@ namespace OpenSoundStream
 			Queue = ActivePlayableContainer;
 			ActiveNode = Queue.Find(ActiveNode.Value);
 			ActiveTrack = ActiveNode.Value;
+		}
+
+		public void FindActiveNode(Track track)
+		{
+			LinkedListNode<Track> actualNode;
+			for (actualNode = Queue.First; actualNode != Queue.Last; actualNode = actualNode.Next)
+			{
+				if (actualNode.Value.id == track.id)
+				{
+					ActiveNode = actualNode;
+					break;
+				}
+			}
+
+			if(actualNode.Value.id == Queue.Last.Value.id)
+			{
+				ActiveNode = actualNode;
+			}
 		}
 
 		// Create the OnPropertyChanged method to raise the event

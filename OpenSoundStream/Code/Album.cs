@@ -15,6 +15,7 @@ namespace OpenSoundStream
             Tracks = new LinkedList<Track>();
         }
 
+        //to sync a new Album with localDb and serverDb
         public void initializeAlbum()
         {
             AlbumsNwManager.PostAlbum(this);

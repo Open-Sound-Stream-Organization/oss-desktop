@@ -18,6 +18,7 @@ namespace OpenSoundStream
             Tracks = new LinkedList<Track>();
         }
 
+        //to sync a new Playlist with localDb and serverDb
         public void initializePlaylist()
         {
             PlaylistsNwManager.PostPlaylist(this);
@@ -26,10 +27,6 @@ namespace OpenSoundStream
             this.id = temp.id;
             this.resource_uri = temp.resource_uri;
         }
-        //~Playlist()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
 
         public void AddTrack(Track track)
         {
@@ -41,6 +38,7 @@ namespace OpenSoundStream
         {
             LinkedListNode<Track> node = Tracks.Find(existingTrack);
             this.Tracks.AddAfter(node, newTrack);
+            TrackInPlaylistManager.db_Add_Update_Record(newTrack.id, this.id);
 
         }
 
@@ -53,6 +51,7 @@ namespace OpenSoundStream
         public void Delete()
         {
             PlaylistsManager.db_Delete_Record(this.id);
+            PlaylistsNwManager.DeletePlaylist(this.id);
         }
     }
 }

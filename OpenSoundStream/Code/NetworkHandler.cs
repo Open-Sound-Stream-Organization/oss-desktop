@@ -18,6 +18,7 @@ namespace OpenSoundStream
     {
         static HttpClient client = new HttpClient();
 
+        //Audio download is from an other baseUrl -> new client
         static HttpClient DownloadClient = new HttpClient();
 
         private static String baseUrl = "https://de0.win/api/v1/";
@@ -48,29 +49,37 @@ namespace OpenSoundStream
 
         public static void Login(string username, string password)
         {
+            // Encoding to Base64 for server authorization
             var plainTextBytes = Encoding.UTF8.GetBytes(username +":"+password);
             string encoded = Convert.ToBase64String(plainTextBytes);
 
+            // Add basic authorization
             client.DefaultRequestHeaders.Add("Authorization", "Basic " + encoded);
             client.BaseAddress = new Uri(baseUrl);
             ApiKey = ApiKeyManager.GetApiKey();
+
+            // Remove basic authorization
             client.DefaultRequestHeaders.Remove("Authorization");
 
+            // Use authorization with apikey instead of username and password
             initializeNetworkHandler();
         }
 
         public static void Logout()
         {
+            // Remove apikey and authorizations to cut connection with server
             ApiKeyManager.DeleteApiKey(ApiKey.id);
+            ApiKey = null;
             client.DefaultRequestHeaders.Remove("Authorization");
             DownloadClient.DefaultRequestHeaders.Remove("Authorization");
         }
 
         public static void initializeNetworkHandler()
         {
-
+            //Authorization with apikey
             client.DefaultRequestHeaders.Add("Authorization", ApiKey.key);
 
+            //initialize downloadClient
             DownloadClient.DefaultRequestHeaders.Add("Authorization", ApiKey.key);
             DownloadClient.BaseAddress = new Uri(dlBaseUrl);
             DownloadClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -78,15 +87,19 @@ namespace OpenSoundStream
 
         public static void SyncLocalDbWithServerDb()
         {
+            // Delete all local tables
             AlbumsManager.db_Delete_All();
             ArtistsManager.db_Delete_All();
             PlaylistsManager.db_Delete_All();
 
+            //Get all server tables
             List<Album> albums = AlbumsNwManager.GetAlbums();
             List<Artist> artists = ArtistsNwManager.GetArtists();
             List<Playlist> playlists = PlaylistsNwManager.GetPlaylists();
             List<Track> tracks = TracksNwManager.GetTracks();
 
+
+            // < sync local tables with server tables >
             foreach(var item in albums)
             {
                 AlbumsManager.db_Add_Update_Record(item);
@@ -103,7 +116,9 @@ namespace OpenSoundStream
             {
                 TracksManager.db_Add_Update_Record(item);
             }
+            // </ sync local tables with server tables >
 
+            // < Add relations to local db >
             foreach (Album album in albums)
             {
                 foreach (string artistId in album.artists)
@@ -119,8 +134,7 @@ namespace OpenSoundStream
                     TrackFromArtistManager.db_Add_Update_Record(Convert.ToInt32(trackId), (int)artist.id);
                 }
             }
-
-
+            // </ Add relations to local db >
         }
     }
 }

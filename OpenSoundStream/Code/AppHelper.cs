@@ -20,7 +20,6 @@ namespace OpenSoundStream
         public static string DataPath
         {
             get => new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "\\Data";
-            //get => Assembly.GetExecutingAssembly().CodeBase + "/Data";
         }
 
         public static void CheckDataPath()
