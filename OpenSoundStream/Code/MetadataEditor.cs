@@ -1,15 +1,15 @@
 ﻿using OpenSoundStream.Code.NetworkManager;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenSoundStream.Code
 {
     public class MetadataEditor
     {
+        /// <summary>
+        /// Add Artist Information
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="Artists"></param>
         public static void AddArtist(string path, string[] Artists)
         {
             try
@@ -23,6 +23,11 @@ namespace OpenSoundStream.Code
             }
         }
 
+        /// <summary>
+        /// Add Album Information
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="Album"></param>
         public static void AddAlbum(string path, string Album)
         {
             try
@@ -37,6 +42,11 @@ namespace OpenSoundStream.Code
             
         }
 
+        /// <summary>
+        /// Add Year Information
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="date"></param>
         public static void AddYear(string path, DateTime date)
         {
             try
@@ -50,6 +60,11 @@ namespace OpenSoundStream.Code
             }
         }
 
+        /// <summary>
+        /// Add Genre Information
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="genres"></param>
         public static void AddGenre(string path, string[] genres)
         {
             try
@@ -64,6 +79,11 @@ namespace OpenSoundStream.Code
             
         }
 
+        /// <summary>
+        /// Get all Artist 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string[] GetArtists(string path)
         {
             try
@@ -78,6 +98,11 @@ namespace OpenSoundStream.Code
             
         }
         
+        /// <summary>
+        /// Get Album
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string GetAlbum(string path)
         {
             try
@@ -92,6 +117,11 @@ namespace OpenSoundStream.Code
             
         }
 
+        /// <summary>
+        /// Get Year
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static uint? GetYear(string path)
         {
             try
@@ -106,6 +136,11 @@ namespace OpenSoundStream.Code
             
         }
 
+        /// <summary>
+        /// Get all Genres
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string[] GetGenres(string path)
         {
             try
@@ -119,6 +154,10 @@ namespace OpenSoundStream.Code
             }   
         }
 
+        /// <summary>
+        /// Sync edited metadata
+        /// </summary>
+        /// <param name="track"></param>
         public static void SyncNewMetadata(Track track)
         {
             TracksNwManager.PutAudio(track);

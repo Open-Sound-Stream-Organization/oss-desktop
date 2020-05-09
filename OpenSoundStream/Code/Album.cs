@@ -2,20 +2,24 @@
 using OpenSoundStream.Code.NetworkManager;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace OpenSoundStream
 {
     public class Album : PlayableContainer
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="Name"></param>
         public Album(string Name) : base()
         {
             name = Name ?? throw new ArgumentNullException(nameof(Name));
             Tracks = new LinkedList<Track>();
         }
 
-        //to sync a new Album with localDb and serverDb
+        /// <summary>
+        /// Sync a new Album with localDb and serverDb
+        /// </summary>
         public void initializeAlbum()
         {
             AlbumsNwManager.PostAlbum(this);
@@ -25,16 +29,19 @@ namespace OpenSoundStream
             this.resource_uri = temp.resource_uri;
         }
 
-        public Artist[] Artist { get; set; }
+        #region Properties
 
-        public int? id { get; set; }
-        public string[] artists { get; set; }
-        public string cover_file { get; set; }
-        public string cover_url { get; set; }
-        public int? mbid { get; set; }
+        public Artist[] Artist { get; set; }
         public DateTime? release { get; set; }
-        public string resource_uri { get; set; }
+        public int? id { get; set; }
+        public int? mbid { get; set; }
+        public string[] artists { get; set; }
         public string[] songs { get; set; }
         public string[] tags { get; set; }
+        public string cover_file { get; set; }
+        public string cover_url { get; set; }
+        public string resource_uri { get; set; }
+
+        #endregion
     }
 }

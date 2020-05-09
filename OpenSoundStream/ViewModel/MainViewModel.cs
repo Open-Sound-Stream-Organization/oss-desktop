@@ -1,12 +1,10 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
@@ -14,37 +12,42 @@ using OpenSoundStream.Views;
 using OpenSoundStream.Code.DataManager;
 using System.IO;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 namespace OpenSoundStream.ViewModel
 {
 
 	public class MainViewModel : ViewModelBase, INotifyPropertyChanged
 	{
-		public static MainViewModel mainViewModel;
+        #region Locale Variables
+
+        public static MainViewModel mainViewModel;
 		public static MainWindow mainWindow;
 		public static Musicplayer musicplayer { get; private set; } = OpenSoundStreamManager.Musicplayer;
 		public static BigPlayerView bigPlayerWindow;
 		private bool SelectAllTracks { get; set; }
 		private bool sleepTimerOn = false;
-		
 
-        #region Binding Variables
+        #endregion
+
+        #region Local Binding Variables
 
         private PackIcon _pauseOrPlay = new PackIcon { Kind = PackIconKind.Play };
 		private string _currentArtist = "";
 		private string _currentTrack = "";
-		private double _volumn;
-		private double _trackTime;
 		private string _trackTimeField = "0:00";
+		private string _currentFrame;
+		private string _currentPositionText;
 		private bool userIsDraggingSlider = false;
 		private bool shuffle = false;
-		private ObservableCollection<TrackMetadata> _tracks = new ObservableCollection<TrackMetadata>();
-		private ObservableCollection<string> _playlists = new ObservableCollection<string>();
-		private string _currentPositionText;
 		private double _currentPosition;
 		private double _maxLength;
+		private double _volumn;
+		private double _trackTime;
+		private ObservableCollection<TrackMetadata> _tracks = new ObservableCollection<TrackMetadata>();
+		private ObservableCollection<string> _playlists = new ObservableCollection<string>();
 		private PackIcon _playerMode = new PackIcon { Kind = PackIconKind.Repeat };
-		private string _currentFrame;
+		private BitmapImage _albumCover = new BitmapImage(new Uri("https://lh3.googleusercontent.com/proxy/xYtt3U6QqGknFyap8--0oPArycyJwVdee8TPzapJPAMoj8_fljy5Rq4uXmAEYqBZ3RrQ9JE-QwMWimYEQCzq--CsJVOnyjYUFTATjBBhUTsbPHzlqXh4rGgkddfl6lJ4StuSlGEWUg", UriKind.RelativeOrAbsolute));
 
 		#endregion
 
@@ -77,6 +80,35 @@ namespace OpenSoundStream.ViewModel
 
 			}
 		}
+		public BitmapImage AlbumCover
+		{
+			get { return _albumCover; }
+			set
+			{
+				_albumCover = value;
+				RaisePropertyChanged("AlbumCover");
+
+			}
+		}
+		public PackIcon PlayerMode
+		{
+			get { return _playerMode; }
+			set
+			{
+				_playerMode = value;
+				RaisePropertyChanged("PlayerMode");
+
+			}
+		}
+		public string CurrentFrame
+		{
+			get { return _currentFrame; }
+			set
+			{
+				_currentFrame = value;
+				RaisePropertyChanged("CurrentFrame");
+			}
+		}
 		public string CurrentTrack
 		{
 			get { return _currentTrack; }
@@ -93,6 +125,24 @@ namespace OpenSoundStream.ViewModel
 			{
 				_currentArtist = value;
 				RaisePropertyChanged("CurrentArtist");
+			}
+		}
+		public string TrackTimeField
+		{
+			get { return _trackTimeField; }
+			set
+			{
+				_trackTimeField = value;
+				RaisePropertyChanged("TrackTimeField");
+			}
+		}
+		public string CurrentPositionText
+		{
+			get { return _currentPositionText; }
+			set
+			{
+				_currentPositionText = value;
+				RaisePropertyChanged("CurrentPositionText");
 			}
 		}
 		public double Volumn
@@ -115,24 +165,6 @@ namespace OpenSoundStream.ViewModel
 				//PropertyChanged(this, new PropertyChangedEventArgs(nameof(TrackTime)));
 			}
 		}
-		public string TrackTimeField
-		{
-			get { return _trackTimeField; }
-			set
-			{
-				_trackTimeField = value;
-				RaisePropertyChanged("TrackTimeField");
-			}
-		}
-		public string CurrentPositionText
-		{
-			get { return _currentPositionText; }
-			set
-			{
-				_currentPositionText = value;
-				RaisePropertyChanged("CurrentPositionText");
-			}
-		}
 		public double CurrentPosition
 		{
 			get { return _currentPosition; }
@@ -150,26 +182,6 @@ namespace OpenSoundStream.ViewModel
 			{
 				_maxLength = value;
 				RaisePropertyChanged("MaxLength");
-			}
-		}
-		public PackIcon PlayerMode
-		{
-			get { return _playerMode; }
-			set
-			{
-				_playerMode = value;
-				RaisePropertyChanged("PlayerMode");
-
-			}
-		}
-
-		public string CurrentFrame
-		{
-			get { return _currentFrame; }
-			set
-			{
-				_currentFrame = value;
-				RaisePropertyChanged("CurrentFrame");
 			}
 		}
 
@@ -193,10 +205,10 @@ namespace OpenSoundStream.ViewModel
 			this.ListViewCommand = new RelayCommand<TrackMetadata>((item) => this.playSelectedTrack(item));
 			this.PlaylistCommand = new RelayCommand<string>((item) => this.playSelectedPlaylist(item));
 			this.ChangeViewCommand = new RelayCommand(this.changeView);
-			this.LoginCommand = new RelayCommand(this.logInDialog);
-			this.SleepCommand = new RelayCommand(this.startSleepTimer);
+			this.LoginCommand = new RelayCommand(this.openLoginDialog);
+			this.SleepCommand = new RelayCommand(this.controlSleepTimer);
 			this.UploadCommand = new RelayCommand(this.uploadFiles);
-			this.DownloadCommand = new RelayCommand(this.downloadFiles);
+			this.DownloadCommand = new RelayCommand(this.synchronizeDatabase);
 
 
 			// Set inital values
@@ -217,22 +229,30 @@ namespace OpenSoundStream.ViewModel
 
         #region Methods
 
-		private void downloadFiles()
+		/// <summary>
+		/// Synchronize locale Database with Server
+		/// </summary>
+		private void synchronizeDatabase()
 		{
 			NetworkHandler.SyncLocalDbWithServerDb();
 
+			// Synchronize View with local database
 			foreach (Playlist playlist in PlaylistsManager.db_GetAllPlaylists())
 			{
 				Playlists.Add(playlist.name);
 			}
 		}
 
+		/// <summary>
+		/// Upload mp3 files to server
+		/// </summary>
 		private void uploadFiles()
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog();
+
 			string filePath;
 
-
+			// Filedialog Settings
 			openFileDialog.InitialDirectory = "c:\\";
 			openFileDialog.Filter = "mp3 files (*.mp3)|*.mp3";
 			openFileDialog.FilterIndex = 2;
@@ -252,16 +272,23 @@ namespace OpenSoundStream.ViewModel
 			}
 		}
 
-		private void logInDialog()
+		//TODO
+		/// <summary>
+		/// Authentification with server
+		/// </summary>
+		private void openLoginDialog()
 		{
 			CostumInputDialog inputDialog = new CostumInputDialog("", "");
 
 			inputDialog.ShowDialog();
-
 		}
 
-		private void startSleepTimer()
+		/// <summary>
+		/// Activate or Deactive 15min Sleep Timer
+		/// </summary>
+		private void controlSleepTimer()
 		{
+			// Check if sleep timer is already active
 			if (sleepTimerOn)
 			{
 				musicplayer.StopSleepTimer();
@@ -303,7 +330,8 @@ namespace OpenSoundStream.ViewModel
 		{
 			Playlist currentPlaylist = PlaylistsManager.db_GetAllPlaylists().Find(x => x.name == selectedPlaylist);
 			musicplayer.Musicqueue.LoadPlayableContainerInQueue(currentPlaylist);
-			//To decide between all Tracks and a PLaylist
+
+			//To decide between all Tracks and a Playlist
 			SelectAllTracks = false;
 			musicplayer.NextTrack();
 			playMusic();
@@ -362,7 +390,7 @@ namespace OpenSoundStream.ViewModel
 				return;
 
 			Artist artist = new Artist("muss geändert werden");
-			//Artist artist = activeTrack.artists;
+			//Artist artist = activeTrack.artists; TODO
 			CurrentTrack = activeTrack.title;
 			CurrentArtist = artist != null ? artist.name : "Unknown Artist";
 
@@ -407,27 +435,35 @@ namespace OpenSoundStream.ViewModel
 
 		}
 
+		/// <summary>
+		/// Opens BigPlayerView
+		/// </summary>
 		private void createBigPlayerView()
 		{
 			mainWindow.Hide();
 
 			BigPlayerView bigPlayerViewCreated = new BigPlayerView();
 			bigPlayerViewCreated.ShowDialog();
-			//bigPlayerWindow.Show();
 		}
 
+		/// <summary>
+		/// Opens ArtistView
+		/// </summary>
 		private void createArtistsView()
 		{
 			CurrentFrame = "ArtistView.xaml";
 		}
 
+		/// <summary>
+		/// Opens AlbumView
+		/// </summary>
 		private void createAlbumsView()
 		{
 			CurrentFrame = "AlbumView.xaml";
 		}
 
 		/// <summary>
-		/// Gives data from all tracks to View
+		/// Passes data from all tracks to View
 		/// </summary>
 		private void createTracksView()
 		{
@@ -435,18 +471,22 @@ namespace OpenSoundStream.ViewModel
 
 			foreach (Track track in TracksManager.db_GetAllTracks())
 			{
-				TitleViewModel.Tracks.Add(new TrackMetadata { Title = track.title, Genre = track.Metadata.Genre });
+				TitleViewModel.Tracks.Add(new TrackMetadata { Title = track.title, Genre = track.Metadata.Genre, Artist = track.artists.ToString(), Year = track.Metadata.Year.ToString(), Album = track.album, Length = track.Metadata.Length.ToString(), });
 			}
 
 			SelectAllTracks = true;
 			CurrentFrame = "TitleView.xaml";
 		}
 
+		/// <summary>
+		/// Hides MainView and opens BigPlayerView
+		/// </summary>
 		public void changeView()
 		{
 			bigPlayerWindow.Hide();
 			mainWindow.ShowDialog();
 		}
+
 		#endregion
 
 		#region EventHandler
@@ -461,6 +501,7 @@ namespace OpenSoundStream.ViewModel
 			try
 			{
 				CurrentTrack = musicplayer.Musicqueue.ActiveTrack.title;
+				AlbumCover = new BitmapImage(new Uri(musicplayer.Musicqueue.ActiveTrack.Metadata.CoverFile, UriKind.RelativeOrAbsolute));
 			}
 			catch (Exception)
 			{
@@ -499,17 +540,32 @@ namespace OpenSoundStream.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Notifies ViewModel if SliderDrag started
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public void sliProgress_DragStarted(object sender, DragStartedEventArgs e)
 		{
 			userIsDraggingSlider = true;
 		}
 
+		/// <summary>
+		/// Notifies ViewModel if SliderDrag ended
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>	
 		public void sliProgress_DragCompleted(object sender, DragCompletedEventArgs e)
 		{
 			userIsDraggingSlider = false;
 			musicplayer.Mediaplayer.Position = TimeSpan.FromSeconds(CurrentPosition);
 		}
-
+		
+		/// <summary>
+		/// Notifies ViewModel if SliderProgess changed
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public void sliProgress_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
 			CurrentPositionText = TimeSpan.FromSeconds(CurrentPosition).ToString(@"hh\:mm\:ss");

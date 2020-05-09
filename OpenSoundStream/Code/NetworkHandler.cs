@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Text;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Json;
 using OpenSoundStream.Code.NetworkManager;
 using OpenSoundStream.Code.DataManager;
 using OpenSoundStream.Code;
@@ -16,9 +10,10 @@ namespace OpenSoundStream
 {
     static public class NetworkHandler
     {
+        #region Variables
+
         static HttpClient client = new HttpClient();
 
-        //Audio download is from an other baseUrl -> new client
         static HttpClient DownloadClient = new HttpClient();
 
         private static String baseUrl = "https://de0.win/api/v1/";
@@ -26,6 +21,10 @@ namespace OpenSoundStream
         private static String dlBaseUrl = "https://oss.anjomro.de/repertoire/";
 
         private static ApiKey ApiKey = null;
+
+        #endregion
+
+        #region Properties
 
         public static HttpClient GetClient()
         {
@@ -47,6 +46,15 @@ namespace OpenSoundStream
             return ApiKey;
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Login to Server 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public static void Login(string username, string password)
         {
             // Encoding to Base64 for server authorization
@@ -65,6 +73,9 @@ namespace OpenSoundStream
             initializeNetworkHandler();
         }
 
+        /// <summary>
+        /// Logout from Server
+        /// </summary>
         public static void Logout()
         {
             // Remove apikey and authorizations to cut connection with server
@@ -74,6 +85,9 @@ namespace OpenSoundStream
             DownloadClient.DefaultRequestHeaders.Remove("Authorization");
         }
 
+        /// <summary>
+        /// Get NetworkHandler
+        /// </summary>
         public static void initializeNetworkHandler()
         {
             //Authorization with apikey
@@ -85,6 +99,9 @@ namespace OpenSoundStream
             DownloadClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        /// <summary>
+        /// Sync Local DB with Server DB
+        /// </summary>
         public static void SyncLocalDbWithServerDb()
         {
             // Delete all local tables
@@ -136,5 +153,7 @@ namespace OpenSoundStream
             }
             // </ Add relations to local db >
         }
+
+        #endregion
     }
 }

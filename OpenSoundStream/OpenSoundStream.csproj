@@ -193,7 +193,6 @@
     <Compile Include="Code\OpenSoundStreamManager.cs" />
     <Compile Include="Code\Playlist.cs" />
     <Compile Include="Code\Queue.cs" />
-    <Compile Include="Code\QueueHandler.cs" />
     <Compile Include="Code\Track.cs" />
     <Compile Include="Code\Metadata.cs" />
     <Compile Include="Code\PlayerState.cs" />
@@ -206,13 +205,13 @@
     <Compile Include="ViewModel\TitleViewModel.cs" />
     <Compile Include="ViewModel\TrackMetadata.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="ViewModel\InputDialog.xaml.cs">
+    <Compile Include="Views\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TitleView.xaml.cs">
       <DependentUpon>TitleView.xaml</DependentUpon>
     </Compile>
-    <Page Include="ViewModel\InputDialog.xaml">
+    <Page Include="Views\InputDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

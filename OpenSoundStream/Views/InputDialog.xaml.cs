@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 
 namespace OpenSoundStream.Views
 {
+	//TODO
+
     /// <summary>
     /// Interaktionslogik für Window1.xaml
     /// </summary>

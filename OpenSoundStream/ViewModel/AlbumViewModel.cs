@@ -1,17 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Threading;
-using MaterialDesignThemes.Wpf;
 using OpenSoundStream.Code.DataManager;
-using System.IO;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -19,17 +11,24 @@ namespace OpenSoundStream.ViewModel
     {
         private MainViewModel mainViewModel = MainViewModel.mainViewModel;
 
+        #region Local Binding Variabkes
 
-        public RelayCommand<string> AlbumCommand { get; private set; }
-        public RelayCommand<TrackMetadata> TitleCommand { get; private set; }
-
+        //TODO
         private string _albumCover;
-        private ObservableCollection<string> _albumNames;
-        private ObservableCollection<TrackMetadata> _trackList;
         private string _albumName;
         private int _albumYear;
         private Visibility _listVisi = Visibility.Hidden;
+        private ObservableCollection<string> _albumNames;
+        private ObservableCollection<TrackMetadata> _trackList;
 
+        #endregion
+
+        #region Binding Properties
+
+        public RelayCommand<string> AlbumCommand { get; private set; }
+        public RelayCommand<TrackMetadata> TitleCommand { get; private set; }
+        public ObservableCollection<string> AlbumNames { get; private set; }
+        public ObservableCollection<TrackMetadata> TrackList { get; private set; }
         public string AlbumCover 
         {
             get { return _albumCover; }
@@ -39,10 +38,6 @@ namespace OpenSoundStream.ViewModel
                 RaisePropertyChanged("AlbumCover");
             } 
         }
-
-        public ObservableCollection<string> AlbumNames { get; private set; }
-
-
         public string AlbumName
         {
             get { return _albumName; }
@@ -52,7 +47,6 @@ namespace OpenSoundStream.ViewModel
                 RaisePropertyChanged("AlbumName");
             }
         }
-
         public int AlbumYear
         {
             get { return _albumYear; }
@@ -62,9 +56,6 @@ namespace OpenSoundStream.ViewModel
                 RaisePropertyChanged("AlbumYear");
             }
         }
-
-        public ObservableCollection<TrackMetadata> TrackList { get; private set; }
-
         public Visibility ListVisi
         {
             get { return _listVisi; }
@@ -75,7 +66,11 @@ namespace OpenSoundStream.ViewModel
             }
         }
 
+        #endregion
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public AlbumViewModel()
         {
             this.AlbumCommand = new RelayCommand<string>((item) => this.showSelectedAlbum(item));
@@ -85,21 +80,31 @@ namespace OpenSoundStream.ViewModel
             showAlbumList();
         }
 
+        #region Methods
 
+        /// <summary>
+        /// Display all tracks from a selected album
+        /// </summary>
+        /// <param name="albumName"></param>
         private void showSelectedAlbum(string albumName)
         {
+            // Find selected album in database
             Album currentAlbum = AlbumsManager.db_GetAllAlbums().Find(x => x.name == albumName);
 
             AlbumName = currentAlbum.name;
 
+            // Display all tracks from the selected album
             foreach (Track track in currentAlbum.Tracks)
             {
                 TrackList.Add(new TrackMetadata { Title = track.title, Number = track.id, Length = track.Metadata.Length.ToString("hh:mm:ss")  });
             }
-            ListVisi = Visibility.Visible;
 
+            ListVisi = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Display all Albums
+        /// </summary>
         private void showAlbumList()
         {
             foreach (Album album in AlbumsManager.db_GetAllAlbums())
@@ -108,11 +113,16 @@ namespace OpenSoundStream.ViewModel
             }
         }
 
+        /// <summary>
+        /// Play selected tracks
+        /// </summary>
+        /// <param name="track"></param>
         private void playSelectedTitle(TrackMetadata track)
         {
             MainViewModel.musicplayer.SetActiveTrack(TracksManager.db_GetAllTracks().Find(x => x.title == track.Title));
             mainViewModel.playMusic();
         }
 
+        #endregion
     }
 }

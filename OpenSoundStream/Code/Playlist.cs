@@ -2,23 +2,34 @@
 using OpenSoundStream.Code.NetworkManager;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace OpenSoundStream
 {
     public class Playlist : PlayableContainer
     {
+        #region Properties
+
         public int? id { get; set; } 
         public string resource_uri { get; set; }
         public string[] tags { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="Name"></param>
         public Playlist(string Name) : base()
         {
             name = Name ?? throw new ArgumentNullException(nameof(Name));
             Tracks = new LinkedList<Track>();
         }
 
-        //to sync a new Playlist with localDb and serverDb
+        #region Methods
+
+        /// <summary>
+        /// Sync new Playlist with localDb and serverDb
+        /// </summary>
         public void initializePlaylist()
         {
             PlaylistsNwManager.PostPlaylist(this);
@@ -28,12 +39,21 @@ namespace OpenSoundStream
             this.resource_uri = temp.resource_uri;
         }
 
+        /// <summary>
+        /// Add track to playlist
+        /// </summary>
+        /// <param name="track"></param>
         public void AddTrack(Track track)
         {
             this.Tracks.AddLast(track);
             TrackInPlaylistManager.db_Add_Update_Record(track.id, this.id);
         }
 
+        /// <summary>
+        /// Add track at specific position in Playlist
+        /// </summary>
+        /// <param name="newTrack"></param>
+        /// <param name="existingTrack"></param>
         public void AddTrackAfterTrack(Track newTrack, Track existingTrack)
         {
             LinkedListNode<Track> node = Tracks.Find(existingTrack);
@@ -42,16 +62,25 @@ namespace OpenSoundStream
 
         }
 
+        /// <summary>
+        /// Remove track from Playlist
+        /// </summary>
+        /// <param name="track"></param>
         public void RemoveTrack(Track track)
         {
             this.Tracks.Remove(track);
             TrackInPlaylistManager.db_Delete_Record(track.id, this.id);
         }
 
+        /// <summary>
+        /// Delete Playlist from Database
+        /// </summary>
         public void Delete()
         {
             PlaylistsManager.db_Delete_Record(this.id);
             PlaylistsNwManager.DeletePlaylist(this.id);
         }
+
+        #endregion
     }
 }

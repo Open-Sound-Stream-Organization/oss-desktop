@@ -1,29 +1,23 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Timers;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Threading;
-using MaterialDesignThemes.Wpf;
 using OpenSoundStream.Code.DataManager;
 
 namespace OpenSoundStream.ViewModel
 {
     public class TitleViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        #region Variables and Binding Properties
+
+        private static MainViewModel mainViewModel = MainViewModel.mainViewModel;
 		private static ObservableCollection<TrackMetadata> _tracks = new ObservableCollection<TrackMetadata>();
 		public static ObservableCollection<TrackMetadata> Tracks { get { return _tracks; } }
-
-		private static MainViewModel mainViewModel = MainViewModel.mainViewModel;
-
 		public RelayCommand<TrackMetadata> ListViewCommand { get; private set; }
 
-		public TitleViewModel()
+        #endregion
+
+        public TitleViewModel()
 		{
 			this.ListViewCommand = new RelayCommand<TrackMetadata>((item) => this.playSelectedTrack(item));
 		}
@@ -37,7 +31,5 @@ namespace OpenSoundStream.ViewModel
 			MainViewModel.musicplayer.SetActiveTrack(TracksManager.db_GetAllTracks().Find(x => x.title == selectedTrack.Title));
 			mainViewModel.playMusic();
 		}
-
 	}
-
 }
