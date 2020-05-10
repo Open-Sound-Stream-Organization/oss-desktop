@@ -61,7 +61,7 @@ namespace OpenSoundStream.Code.DataManager
                 {
                     Artist artist = new Artist(row["name"].ToString());
                     artist.id = Convert.ToInt32(row["id"].ToString());
-                    artist.mbid = Convert.ToInt32(row["mbid"].ToString());
+                    artist.mbid = row["mbid"].ToString();
                     artist.begin = Convert.ToDateTime(row["begin"].ToString());
                     artist.end = Convert.ToDateTime(row["end"].ToString());
                     artist.resource_uri = row["resource_uri"].ToString();
@@ -87,7 +87,7 @@ namespace OpenSoundStream.Code.DataManager
                 DataRow row = tbl.Rows[0];
                 Artist artist = new Artist(row["name"].ToString());
                 artist.id = Convert.ToInt32(row["id"].ToString());
-                artist.mbid = Convert.ToInt32(row["mbid"].ToString());
+                artist.mbid = row["mbid"].ToString();
                 artist.begin =  Convert.ToDateTime(row["begin"].ToString());
                 artist.end = Convert.ToDateTime(row["end"].ToString());
                 artist.resource_uri = row["resource_uri"].ToString();

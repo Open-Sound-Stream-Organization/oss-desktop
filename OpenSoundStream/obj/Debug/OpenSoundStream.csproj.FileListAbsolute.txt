@@ -214,8 +214,6 @@ C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSound
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\ArtistView.baml
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\BigPlayerView.baml
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\TitleView.baml
-C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\ViewModel\InputDialog.baml
-C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\ViewModel\InputDialog.g.cs
 C:\Studium\SWE\Projekt\OpenSoundStream\bin\Debug\policy.2.0.taglib-sharp.dll
 C:\Studium\SWE\Projekt\OpenSoundStream\bin\Debug\taglib-sharp.dll
 C:\Studium\SWE\Projekt\OpenSoundStream\bin\Debug\policy.2.0.taglib-sharp.config
@@ -251,3 +249,5 @@ C:\Users\kaiuw\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSound
 C:\Users\kaiuw\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\TitleView.baml
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\InputDialog.baml
 C:\Users\menac\source\repos\Open-Sound-Stream-Organization\oss-desktop\OpenSoundStream\obj\Debug\Views\InputDialog.g.cs
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\InputDialog.baml
+C:\Studium\SWE\Projekt\OpenSoundStream\obj\Debug\Views\InputDialog.g.cs

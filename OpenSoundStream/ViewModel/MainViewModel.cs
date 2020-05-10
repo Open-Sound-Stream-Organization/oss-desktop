@@ -13,6 +13,9 @@ using OpenSoundStream.Code.DataManager;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using OpenSoundStream.Code;
+using TagLib.Flac;
+using System.Linq;
 
 namespace OpenSoundStream.ViewModel
 {
@@ -471,7 +474,61 @@ namespace OpenSoundStream.ViewModel
 
 			foreach (Track track in TracksManager.db_GetAllTracks())
 			{
-				TitleViewModel.Tracks.Add(new TrackMetadata { Title = track.title, Genre = track.Metadata.Genre, Artist = track.artists.ToString(), Year = track.Metadata.Year.ToString(), Album = track.album, Length = track.Metadata.Length.ToString(), });
+				TrackMetadata md = new TrackMetadata();
+				if (track.title == null)
+				{
+					md.Title = "unkown";
+					MetadataEditor.AddTitle(track.audio, "unknown");
+				}
+				else
+				{
+					md.Title = track.title;
+					MetadataEditor.AddTitle(track.audio, track.title);
+				}
+				if(MetadataEditor.GetGenres(track.audio).Count() == 0)
+				{
+					md.Genre = "unkown";
+					MetadataEditor.AddGenre(track.audio, new String[] { "unknown" });
+				}
+				else
+				{
+					md.Genre = MetadataEditor.GetGenres(track.audio)[0];
+				}
+				if (MetadataEditor.GetArtists(track.audio).Count() == 0)
+				{
+					md.Artist = "unknown";
+					MetadataEditor.AddArtist(track.audio, new String[] { "unknown" });
+				}
+				else
+				{
+					md.Artist = MetadataEditor.GetArtists(track.audio)[0];
+				}
+				if (MetadataEditor.GetYear(track.audio) == 0)
+				{
+					md.Year = "unknown";
+				}
+				else
+				{
+					md.Year = MetadataEditor.GetYear(track.audio).ToString();
+				}
+				if (MetadataEditor.GetAlbum(track.audio) == null)
+				{
+					md.Album = "unknown";
+					MetadataEditor.AddAlbum(track.audio, "unknown");
+				}
+				else
+				{
+					md.Album = MetadataEditor.GetAlbum(track.audio);
+				}
+				if (MetadataEditor.GetDuration(track.audio).ToString(@"hh\:mm\:ss") == "00:00:00")
+				{
+					md.Length = "unknown";
+				}
+				else
+				{
+					md.Length = MetadataEditor.GetDuration(track.audio).ToString(@"hh\:mm\:ss");
+				}
+				TitleViewModel.Tracks.Add(md);
 			}
 
 			SelectAllTracks = true;

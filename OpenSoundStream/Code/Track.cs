@@ -16,7 +16,7 @@ namespace OpenSoundStream
         public Metadata Metadata { get; set; }
         public Uri Filepath { get; set; }
         public int? id { get; set; }
-        public int? mbid { get; set; }
+        public string mbid { get; set; }
         public string title { get; set; }
         public string resource_uri { get; set; }
         public string album { get; set; }

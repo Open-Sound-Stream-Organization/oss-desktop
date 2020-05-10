@@ -34,7 +34,7 @@ namespace OpenSoundStream
         public Artist[] Artist { get; set; }
         public DateTime? release { get; set; }
         public int? id { get; set; }
-        public int? mbid { get; set; }
+        public string mbid { get; set; }
         public string[] artists { get; set; }
         public string[] songs { get; set; }
         public string[] tags { get; set; }

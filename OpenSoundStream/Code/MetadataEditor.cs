@@ -6,6 +6,24 @@ namespace OpenSoundStream.Code
     public class MetadataEditor
     {
         /// <summary>
+        /// Add Title Information
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="title"></param>
+        public static void AddTitle(string path, string title)
+        {
+            try
+            {
+                TagLib.File f = TagLib.File.Create(path);
+                f.Tag.Title = title;
+                f.Save();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        /// <summary>
         /// Add Artist Information
         /// </summary>
         /// <param name="path"></param>
@@ -152,6 +170,19 @@ namespace OpenSoundStream.Code
             {
                 return null;
             }   
+        }
+
+        public static TimeSpan GetDuration(string path)
+        {
+            try
+            {
+                TagLib.File f = TagLib.File.Create(path);
+                return f.Properties.Duration;
+            }
+            catch (Exception)
+            {
+                return new TimeSpan(0,0,0);
+            }
         }
 
         /// <summary>

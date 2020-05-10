@@ -75,7 +75,7 @@ namespace OpenSoundStream.Code.DataManager
                     album.id = Convert.ToInt32(row["id"].ToString());
                     if(row["mbid"].ToString() != "")
                     {
-                        album.mbid = Convert.ToInt32(row["mbid"].ToString());
+                        album.mbid = row["mbid"].ToString();
                     }
 
                     if (row["release"].ToString() != "")
@@ -106,7 +106,7 @@ namespace OpenSoundStream.Code.DataManager
                 DataRow row = tbl.Rows[0];
                 Album album = new Album(row["name"].ToString());
                 album.id = Convert.ToInt32(row["id"].ToString());
-                album.mbid = Convert.ToInt32(row["mbid"].ToString());
+                album.mbid = row["mbid"].ToString();
                 if(row["release"].ToString() != "")
                 {
                     album.release = Convert.ToDateTime(row["release"].ToString());

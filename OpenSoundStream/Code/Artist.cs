@@ -15,7 +15,7 @@ namespace OpenSoundStream
         public DateTime? begin { get; set; }
         public DateTime? end { get; set; }
         public int? id { get; set; }
-        public int? mbid { get; set; }
+        public string mbid { get; set; }
         public string name { get; set; }
         public string[] albums { get; set; }
         public string resource_uri { get; set; }

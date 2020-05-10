@@ -51,7 +51,7 @@ namespace OpenSoundStream.Code.DataManager
                 {
                     Track track = new Track(row["title"].ToString(), new Uri(@"file:///" + row["audio"].ToString()));
                     track.id = Convert.ToInt32(row["id"].ToString());
-                    track.mbid = Convert.ToInt32(row["mbid"].ToString());
+                    track.mbid = row["mbid"].ToString();
                     track.audio = row["audio"].ToString();
                     track.album = row["albumId"].ToString();
                     track.resource_uri = row["resource_uri"].ToString();
@@ -85,7 +85,7 @@ namespace OpenSoundStream.Code.DataManager
                 DataRow row = tbl.Rows[0];
                 Track track = new Track(row["title"].ToString(), new Uri(@"file:///" + row["audio"].ToString()));
                 track.id = Convert.ToInt32(row["id"].ToString());
-                track.mbid = Convert.ToInt32(row["mbid"].ToString());
+                track.mbid = row["mbid"].ToString();
                 track.audio = row["audio"].ToString();
                 track.album = row["albumId"].ToString();
                 track.resource_uri = row["resource_uri"].ToString();
