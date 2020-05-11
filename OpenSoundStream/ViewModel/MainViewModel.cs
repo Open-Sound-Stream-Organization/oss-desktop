@@ -485,7 +485,7 @@ namespace OpenSoundStream.ViewModel
 					md.Title = track.title;
 					MetadataEditor.AddTitle(track.audio, track.title);
 				}
-				if(MetadataEditor.GetGenres(track.audio).Count() == 0)
+				if(MetadataEditor.GetGenres(track.audio) == null || MetadataEditor.GetGenres(track.audio).Count() == 0)
 				{
 					md.Genre = "unkown";
 					MetadataEditor.AddGenre(track.audio, new String[] { "unknown" });
@@ -494,7 +494,7 @@ namespace OpenSoundStream.ViewModel
 				{
 					md.Genre = MetadataEditor.GetGenres(track.audio)[0];
 				}
-				if (MetadataEditor.GetArtists(track.audio).Count() == 0)
+				if (MetadataEditor.GetArtists(track.audio) == null || MetadataEditor.GetArtists(track.audio).Count() == 0)
 				{
 					md.Artist = "unknown";
 					MetadataEditor.AddArtist(track.audio, new String[] { "unknown" });

@@ -25,7 +25,6 @@ namespace OpenSoundStream.Code.DataManager
             {
                 DateTime dt = artist.begin.Value;
                 sqlFormattedDateEnd = dt.ToString("yyyy - MM - dd HH: mm:ss.fff");
-
             }
             //</ correct>
 
@@ -39,7 +38,23 @@ namespace OpenSoundStream.Code.DataManager
 
             if (dbRecord == null)
             {
-                string sql_Add = "INSERT INTO Artists ([id], [name], [begin], [end], [mbid], [resource_uri], [type]) VALUES('" + artist.id + "','" + artist.name + "','" + sqlFormattedDateBegin + "','" + sqlFormattedDateEnd + "','" + artist.mbid + "','" + artist.resource_uri + "','" + artist.type + "')";
+                string sql_Add;
+                if(sqlFormattedDateBegin == null && sqlFormattedDateEnd == null)
+                {
+                    sql_Add = "INSERT INTO Artists ([id], [name], [mbid], [resource_uri], [type]) VALUES('" + artist.id + "','" + artist.name + "','" + artist.mbid + "','" + artist.resource_uri + "','" + artist.type + "')";
+                }
+                else if (sqlFormattedDateEnd == null)
+                {
+                    sql_Add = "INSERT INTO Artists ([id], [name], [begin], [mbid], [resource_uri], [type]) VALUES('" + artist.id + "','" + artist.name + "','" + sqlFormattedDateBegin + "','" + artist.mbid + "','" + artist.resource_uri + "','" + artist.type + "')";
+                }
+                else if( sqlFormattedDateBegin == null)
+                {
+                    sql_Add = "INSERT INTO Artists ([id], [name], [end], [mbid], [resource_uri], [type]) VALUES('" + artist.id + "','" + artist.name + "','" + sqlFormattedDateEnd + "','" + artist.mbid + "','" + artist.resource_uri + "','" + artist.type + "')";
+                }
+                else
+                {
+                    sql_Add = "INSERT INTO Artists ([id], [name], [begin], [end], [mbid], [resource_uri], [type]) VALUES('" + artist.id + "','" + artist.name + "','" + sqlFormattedDateBegin + "','" + sqlFormattedDateEnd + "','" + artist.mbid + "','" + artist.resource_uri + "','" + artist.type + "')";
+                }
                 DatabaseHandler.Execute_SQL(sql_Add);
             }
             else
@@ -62,8 +77,14 @@ namespace OpenSoundStream.Code.DataManager
                     Artist artist = new Artist(row["name"].ToString());
                     artist.id = Convert.ToInt32(row["id"].ToString());
                     artist.mbid = row["mbid"].ToString();
-                    artist.begin = Convert.ToDateTime(row["begin"].ToString());
-                    artist.end = Convert.ToDateTime(row["end"].ToString());
+                    if (row["begin"].ToString() != "")
+                    {
+                        artist.begin = Convert.ToDateTime(row["begin"].ToString());
+                    }
+                    if (row["end"].ToString() != "")
+                    {
+                        artist.end = Convert.ToDateTime(row["end"].ToString());
+                    }
                     artist.resource_uri = row["resource_uri"].ToString();
                     artist.type = row["type"].ToString();
                     artists.Add(artist);

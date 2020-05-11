@@ -7,9 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Windows.Forms;
 
 namespace OpenSoundStream.Code.NetworkManager
 {
@@ -47,15 +49,21 @@ namespace OpenSoundStream.Code.NetworkManager
                 if (resp.IsSuccessStatusCode)
                 {
                     System.Net.Http.HttpContent content = resp.Content;
-                    Stream contentStream = content.ReadAsStreamAsync().Result; // get the actual content stream
+                    string format = content.Headers.ContentDisposition.FileName.Split('.')[content.Headers.ContentDisposition.FileName.Split('.').Length - 1];
+                    format = format.Replace("\"", "");
 
-                    string path = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "/Data/Tracks/" + track.title + ".mp3";
-
-                    using (FileStream fileStream = File.Create(path))
+                    if( format == "wav"|| format == "mp3")
                     {
-                        contentStream.Seek(0, SeekOrigin.Begin);
-                        contentStream.CopyTo(fileStream);
-                        track.audio = path;
+                        Stream contentStream = content.ReadAsStreamAsync().Result; // get the actual content stream
+
+                        string path = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath + "/Data/Tracks/" + track.title + "." + format;
+
+                        using (FileStream fileStream = File.Create(path))
+                        {
+                            contentStream.Seek(0, SeekOrigin.Begin);
+                            contentStream.CopyTo(fileStream);
+                            track.audio = path;
+                        }
                     }
                 }
             }
@@ -106,8 +114,12 @@ namespace OpenSoundStream.Code.NetworkManager
 
         public static void PostTrack(Track track)
         {
+            Dictionary<string, dynamic> dic = new Dictionary<string, dynamic>();
+            dic.Add("title", track.title);
+            dic.Add("album", track.album);
+            dic.Add("artists", track.artists);
             //HTTP Post
-            var postTask = client.PostAsJsonAsync("track/", track);
+            var postTask = client.PostAsJsonAsync("track/", dic);
             postTask.Wait();
 
             var result = postTask.Result;

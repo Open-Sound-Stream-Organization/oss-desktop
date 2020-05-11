@@ -127,9 +127,12 @@ namespace OpenSoundStream
                 track.Filepath = new Uri(@"file:///" + destFile);
                 TracksNwManager.PostTrack(track);
                 track = TracksNwManager.GetTracks().FindLast(e => e.title == track.title);
-                track.audio = destFile;
-                TracksManager.db_Add_Update_Record(track);
-                TracksNwManager.PutAudio(track);
+                if(track != null)
+                {
+                    track.audio = destFile;
+                    TracksManager.db_Add_Update_Record(track);
+                    TracksNwManager.PutAudio(track);
+                }
             }
         }
 

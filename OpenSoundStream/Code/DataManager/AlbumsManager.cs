@@ -77,7 +77,6 @@ namespace OpenSoundStream.Code.DataManager
                     {
                         album.mbid = row["mbid"].ToString();
                     }
-
                     if (row["release"].ToString() != "")
                     {
                         album.release = Convert.ToDateTime(row["release"].ToString());
