@@ -12,6 +12,10 @@ namespace OpenSoundStream.Code.NetworkManager
     {
         private static HttpClient client = NetworkHandler.GetClient();
 
+        /// <summary>
+        /// Get all playlists from serverDb
+        /// </summary>
+        /// <returns></returns>
         public static List<Playlist> GetPlaylists()
         {
             var responseTask = client.GetAsync("playlist");
@@ -30,6 +34,12 @@ namespace OpenSoundStream.Code.NetworkManager
 
             return playlists;
         }
+
+        /// <summary>
+        /// Get a playlist from serverDb
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Playlist GetPlaylist(int id)
         {
             var responseTask = client.GetAsync("playlist/" + id + "/");
@@ -48,6 +58,10 @@ namespace OpenSoundStream.Code.NetworkManager
             return playlist;
         }
 
+        /// <summary>
+        /// Add new playlist
+        /// </summary>
+        /// <param name="playlist"></param>
         public static void PostPlaylist(Playlist playlist)
         {
             //HTTP Post
@@ -60,6 +74,10 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+        /// <summary>
+        /// Update playlist
+        /// </summary>
+        /// <param name="playlist"></param>
         public static void PutPlaylist(Playlist playlist)
         {
             //HTTP Put
@@ -72,6 +90,10 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+        /// <summary>
+        /// Delete playlist
+        /// </summary>
+        /// <param name="id"></param>
         public static void DeletePlaylist(int? id)
         {
             if (id == null)

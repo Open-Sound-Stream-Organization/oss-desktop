@@ -9,10 +9,26 @@ namespace OpenSoundStream.Code.DataManager
 {
     class ArtistsManager
     {
+        /// <summary>
+        /// Add or Update an artist
+        /// </summary>
+        /// <param name="artist"></param>
         public static void db_Add_Update_Record(Artist artist)
         {
             //< correct>
             artist.name = artist.name.Replace("'", "''");
+            if (artist.mbid != null)
+            {
+                artist.mbid = artist.mbid.Replace("'", "''");
+            }
+            if (artist.type != null)
+            {
+                artist.type = artist.type.Replace("'", "''");
+            }
+            if (artist.resource_uri != null)
+            {
+                artist.resource_uri = artist.resource_uri.Replace("'", "''");
+            }
 
             string sqlFormattedDateBegin = null;
             if (artist.begin != null)
@@ -39,6 +55,7 @@ namespace OpenSoundStream.Code.DataManager
             if (dbRecord == null)
             {
                 string sql_Add;
+                // Different sql statements depent on begin and end dates
                 if(sqlFormattedDateBegin == null && sqlFormattedDateEnd == null)
                 {
                     sql_Add = "INSERT INTO Artists ([id], [name], [mbid], [resource_uri], [type]) VALUES('" + artist.id + "','" + artist.name + "','" + artist.mbid + "','" + artist.resource_uri + "','" + artist.type + "')";
@@ -64,6 +81,10 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Get all records
+        /// </summary>
+        /// <returns></returns>
         public static List<Artist> db_GetAllArtists()
         {
             string sSQL = "SELECT * FROM Artists";
@@ -98,6 +119,11 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// FInd record
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Artist db_Get_Record(int? id)
         {
             string sSQL = "SELECT TOP 1 * FROM Artists WHERE [Id] Like '" + id + "'";
@@ -121,12 +147,19 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Delete record
+        /// </summary>
+        /// <param name="id"></param>
         public static void db_Delete_Record(int id)
         {
             string sSQL = "Delete FROM Artists WHERE [Id] Like '" + id + "'";
             DatabaseHandler.Execute_SQL(sSQL);
         }
 
+        /// <summary>
+        /// Delete all records
+        /// </summary>
         public static void db_Delete_All()
         {
             string Ssql = "Delete FROM Artists";

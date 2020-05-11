@@ -10,6 +10,11 @@ namespace OpenSoundStream.Code.DataManager
 {
     public class TrackInPlaylistManager
     {
+        /// <summary>
+        /// Add a new Relation (track and playlist)
+        /// </summary>
+        /// <param name="trackId"></param>
+        /// <param name="playlistId"></param>
         public static void db_Add_Update_Record(int? trackId, int? playlistId)
         {
             //< find record >
@@ -24,6 +29,11 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Get all records
+        /// </summary>
+        /// <param name="playlistId"></param>
+        /// <returns></returns>
         public static LinkedList<Track> GetTracksFromPlaylist(int? playlistId)
         {
             string sSQL = "SELECT * FROM TrackInPlaylist WHERE [playlistId] Like '" + playlistId + "'";
@@ -43,6 +53,12 @@ namespace OpenSoundStream.Code.DataManager
             return Tracks;
         }
 
+        /// <summary>
+        /// Find record
+        /// </summary>
+        /// <param name="trackId"></param>
+        /// <param name="playlistId"></param>
+        /// <returns></returns>
         public static DataTable db_Get_Record(int? trackId, int? playlistId)
         {
             string sSQL = "SELECT TOP 1 * FROM TrackInPlaylist WHERE [trackId] Like '" + trackId + "' AND [playlistId] Like '" + playlistId + "'";
@@ -51,12 +67,20 @@ namespace OpenSoundStream.Code.DataManager
             return tbl;
         }
 
+        /// <summary>
+        /// Delete record
+        /// </summary>
+        /// <param name="trackId"></param>
+        /// <param name="playlistId"></param>
         public static void db_Delete_Record(int? trackId, int? playlistId)
         {
             string sSQL = "Delete FROM TrackInPlaylist WHERE [trackId] Like '" + trackId + "' AND [playlistId] Like '" + playlistId + "'";
             DatabaseHandler.Execute_SQL(sSQL);
         }
 
+        /// <summary>
+        /// Delete all records
+        /// </summary>
         public static void db_Delete_All()
         {
             string Ssql = "Delete FROM TrackInPlaylist";

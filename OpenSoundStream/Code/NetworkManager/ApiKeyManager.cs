@@ -12,6 +12,10 @@ namespace OpenSoundStream.Code.NetworkManager
     {
         private static HttpClient client = NetworkHandler.GetClient();
 
+        /// <summary>
+        /// Add and Get the new api key
+        /// </summary>
+        /// <returns></returns>
         public static ApiKey GetApiKey()
         {
             Dictionary<string, string> purpose = new Dictionary<string, string>();
@@ -34,6 +38,10 @@ namespace OpenSoundStream.Code.NetworkManager
             return apiKey;
         }
 
+        /// <summary>
+        ///  Delete apikey
+        /// </summary>
+        /// <param name="id"></param>
         public static void DeleteApiKey(int id)
         {
             //Http Delete

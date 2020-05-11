@@ -10,12 +10,21 @@ namespace OpenSoundStream.Code.DataManager
 {
     class TracksManager
     {
+        /// <summary>
+        /// Add or Update a track
+        /// </summary>
+        /// <param name="track"></param>
         public static void db_Add_Update_Record(Track track)
         {
             //< correct>
             track.title = track.title.Replace("'", "''");
             track.resource_uri = track.resource_uri.Replace("'", "''");
             track.audio = track.audio.Replace("'", "''");
+            track.album = track.album.Replace("'", "''");
+            if(track.mbid != null)
+            {
+                track.mbid = track.mbid.Replace("'", "''");
+            }
             //</ correct>
 
             Track dbRecord = null;
@@ -39,6 +48,10 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Only get records with an audio file
+        /// </summary>
+        /// <returns></returns>
         public static List<Track> db_GetAllTracks()
         {
             string sSQL = "SELECT * FROM Tracks";
@@ -75,6 +88,11 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Find record
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Track db_Get_Record(int? id)
         {
             string sSQL = "SELECT TOP 1 * FROM Tracks WHERE [Id] Like '" + id + "'";
@@ -97,12 +115,20 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+
+        /// <summary>
+        /// Delete record
+        /// </summary>
+        /// <param name="id"></param>
         public static void db_Delete_Record(int id)
         {
             string sSQL = "Delete FROM Tracks WHERE [Id] Like '" + id + "'";
             DatabaseHandler.Execute_SQL(sSQL);
         }
 
+        /// <summary>
+        /// Delete all records
+        /// </summary>
         public static void db_Delete_All() 
         {
             string Ssql = "Delete FROM Tracks";

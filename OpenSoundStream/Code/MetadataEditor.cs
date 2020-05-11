@@ -172,6 +172,11 @@ namespace OpenSoundStream.Code
             }   
         }
 
+        /// <summary>
+        /// Get Duration
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static TimeSpan GetDuration(string path)
         {
             try

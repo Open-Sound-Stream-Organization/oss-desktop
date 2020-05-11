@@ -8,21 +8,18 @@ namespace OpenSoundStream
 {
 	public class MusicQueue : INotifyPropertyChanged
 	{
+		#region Variables
 		private Track activeTrack;
 		private LinkedListNode<Track> activeNode;
 
-		public MusicQueue()
-		{
-			Queue = new LinkedList<Track>();
-			PriorityQueue = new LinkedList<Track>();
-			ActivePlayableContainer = new LinkedList<Track>();
-		}
 		public LinkedList<Track> Queue { get; set; }
 		public LinkedList<Track> ActivePlayableContainer { get; set; }
 
 		public LinkedList<Track> PriorityQueue { get; set; }
 
 		public bool Shuffle { get; set; }
+
+		private static Random rng = new Random();
 
 		public bool RepeatQueue { get; set; }
 
@@ -33,8 +30,23 @@ namespace OpenSoundStream
 		public Track ActiveTrack { get => activeTrack; set { activeTrack = value; OnPropertyChanged(); } }
 
 		public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
-		public void NextTrack(Musicplayer mp)
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		public MusicQueue()
+		{
+			Queue = new LinkedList<Track>();
+			PriorityQueue = new LinkedList<Track>();
+			ActivePlayableContainer = new LinkedList<Track>();
+		}
+
+		/// <summary>
+		/// Select next track
+		/// </summary>
+		/// <param name="mp"></param>
+        public void NextTrack(Musicplayer mp)
 		{
 			LinkedListNode<Track> currentTrack = ActiveNode;
 			LinkedListNode<Track> nextTrack = null;
@@ -74,6 +86,9 @@ namespace OpenSoundStream
 			}
 		}
 
+		/// <summary>
+		/// Select previous track
+		/// </summary>
 		public void PrevTrack()
 		{
 			LinkedListNode<Track> currentTrack = ActiveNode;
@@ -89,21 +104,38 @@ namespace OpenSoundStream
 			ActiveTrack = ActiveNode.Value;
 		}
 
+		/// <summary>
+		/// Add track to priorityQueue -> next track
+		/// </summary>
+		/// <param name="track"></param>
 		public void AddTrackToQueueFirstPos(Track track)
 		{
 			PriorityQueue.AddLast(track);
 		}
 
+		/// <summary>
+		/// Add track to queue last position
+		/// </summary>
+		/// <param name="track"></param>
 		public void AddTrackToQueueLastPos(Track track)
 		{
 			Queue.AddLast(track);
 		}
 
+		/// <summary>
+		/// Remove track from queue
+		/// </summary>
+		/// <param name="track"></param>
 		public void RemoveTrackFromQueue(Track track)
 		{
 			Queue.Remove(track);
 		}
 
+
+		/// <summary>
+		/// Load Playlist, Album or all tracks in Queue
+		/// </summary>
+		/// <param name="pc"></param>
 		public void LoadPlayableContainerInQueue(PlayableContainer pc)
 		{
 			Queue = new LinkedList<Track>();
@@ -115,6 +147,10 @@ namespace OpenSoundStream
 			ActiveNode = Queue.First;
 		}
 
+		/// <summary>
+		/// Load all albums from artist in queue
+		/// </summary>
+		/// <param name="artist"></param>
 		public void LoadArtistInQueue(Artist artist) 
 		{
 			Queue = new LinkedList<Track>();
@@ -127,6 +163,11 @@ namespace OpenSoundStream
 			}
 		}
 
+		/// <summary>
+		/// Select track in playlist, album or all tracks
+		/// </summary>
+		/// <param name="track"></param>
+		/// <param name="pc"></param>
 		public void SelectTrackInQueue(Track track, PlayableContainer pc)
 		{
 			Queue = pc.Tracks;
@@ -143,8 +184,10 @@ namespace OpenSoundStream
 			ActiveTrack = ActiveNode.Value;
 		}
 
-		private static Random rng = new Random();
-
+		
+		/// <summary>
+		/// Shuffle playablecontainer
+		/// </summary>
 		public void ShuffleQueue()
 		{
 			if(Queue.Count() == 0)
@@ -167,6 +210,10 @@ namespace OpenSoundStream
 			ActiveNode = Queue.Find(ActiveNode.Value);
 			ActiveTrack = ActiveNode.Value;
 		}
+
+		/// <summary>
+		/// Unshuffle playablecontainer
+		/// </summary>
 		public void UnshuffleQueue()
 		{
 			if(ActivePlayableContainer.Count() == 0)
@@ -178,6 +225,10 @@ namespace OpenSoundStream
 			ActiveTrack = ActiveNode.Value;
 		}
 
+		/// <summary>
+		/// Find active node in queue
+		/// </summary>
+		/// <param name="track"></param>
 		public void FindActiveNode(Track track)
 		{
 			LinkedListNode<Track> actualNode;

@@ -21,6 +21,10 @@ namespace OpenSoundStream.Code.NetworkManager
 
         private static HttpClient dlClient = NetworkHandler.GetDlClient();
 
+        /// <summary>
+        /// Get all tracks from serverDb
+        /// </summary>
+        /// <returns></returns>
         public static List<Track> GetTracks()
         {
             var responseTask = client.GetAsync("track");
@@ -42,6 +46,7 @@ namespace OpenSoundStream.Code.NetworkManager
                 string[] splitAlbumPath = track.album.Split('/');
                 track.album = splitAlbumPath[splitAlbumPath.Length - 1];
 
+                // < Audio download >
                 var httpResponseMessage = dlClient.GetAsync("song_file/" + track.id + "/");
                 httpResponseMessage.Wait();
 
@@ -66,10 +71,16 @@ namespace OpenSoundStream.Code.NetworkManager
                         }
                     }
                 }
+                // </ Audio download >
             }
             return tracks;
         }
 
+        /// <summary>
+        /// Get track from serverDb
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Track GetTrack(int id)
         {
             var responseTask = client.GetAsync("song/" + id + "/");
@@ -90,6 +101,7 @@ namespace OpenSoundStream.Code.NetworkManager
             string[] splitAlbumPath = track.album.Split('/');
             track.album = splitAlbumPath[splitAlbumPath.Length - 1];
 
+            // < audio download >
             var httpResponseMessage = dlClient.GetAsync("song_file/" + id + "/");
             httpResponseMessage.Wait();
 
@@ -108,10 +120,15 @@ namespace OpenSoundStream.Code.NetworkManager
                     track.audio = path;
                 }
             }
+            // </ audio download >
 
             return track;
         }
 
+        /// <summary>
+        /// Add a new track
+        /// </summary>
+        /// <param name="track"></param>
         public static void PostTrack(Track track)
         {
             Dictionary<string, dynamic> dic = new Dictionary<string, dynamic>();
@@ -128,6 +145,10 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+        /// <summary>
+        /// Update track
+        /// </summary>
+        /// <param name="track"></param>
         public static void PutTrack(Track track)
         {
             //HTTP Put
@@ -140,6 +161,11 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+
+        /// <summary>
+        /// Delete track
+        /// </summary>
+        /// <param name="id"></param>
         public static void DeleteTrack(int? id)
         {
             if (id == null)
@@ -157,6 +183,10 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+        /// <summary>
+        /// Add audio to track on serverDb
+        /// </summary>
+        /// <param name="track"></param>
         public static void PutAudio (Track track)
         {
             var content = new MultipartFormDataContent();

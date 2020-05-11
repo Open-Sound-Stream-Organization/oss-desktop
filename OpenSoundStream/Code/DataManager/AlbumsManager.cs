@@ -9,11 +9,19 @@ namespace OpenSoundStream.Code.DataManager
 {
     public static class AlbumsManager
     {
+        /// <summary>
+        /// Add or Update a album
+        /// </summary>
+        /// <param name="album"></param>
         public static void db_Add_Update_Record(Album album)
         {
             //< correct>
             album.name = album.name.Replace("'", "''");
-            if(album.cover_file != null)
+            if (album.mbid != null)
+            {
+                album.mbid = album.mbid.Replace("'", "''");
+            }
+            if (album.cover_file != null)
             {
                 album.cover_file = album.cover_file.Replace("'", "''");
             }
@@ -44,6 +52,7 @@ namespace OpenSoundStream.Code.DataManager
             if (dbRecord == null)
             {
                 string sql_Add = null;
+                // if release date == null -> different sql statement
                 if(sqlFormattedDateRelease == null)
                 {
                     sql_Add = "INSERT INTO Albums ([id], [name], [cover_file], [cover_url], [mbid], [resource_uri]) VALUES('" + album.id + "','" + album.name + "','" + album.cover_file + "','" + album.cover_url + "','" + album.mbid + "','" + album.resource_uri + "')";
@@ -61,6 +70,10 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Get all records
+        /// </summary>
+        /// <returns></returns>
         public static List<Album> db_GetAllAlbums()
         {
             string sSQL = "SELECT * FROM Albums";
@@ -95,6 +108,11 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Find record
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Album db_Get_Record(int? id)
         {
             string sSQL = "SELECT TOP 1 * FROM Albums WHERE [Id] Like '" + id + "'";
@@ -121,12 +139,20 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+
+        /// <summary>
+        /// Delete record
+        /// </summary>
+        /// <param name="id"></param>
         public static void db_Delete_Record(int id)
         {
             string sSQL = "Delete FROM Albums WHERE [Id] Like '" + id + "'";
             DatabaseHandler.Execute_SQL(sSQL);
         }
-
+        
+        /// <summary>
+        /// Delete all records
+        /// </summary>
         public static void db_Delete_All()
         {
             string Ssql = "Delete FROM Albums";

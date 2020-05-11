@@ -9,6 +9,10 @@ namespace OpenSoundStream.Code.DataManager
 {
     public class PlaylistsManager
     {
+        /// <summary>
+        /// Add or Update a playlist
+        /// </summary>
+        /// <param name="pl"></param>
         public static void db_Add_Update_Record(Playlist pl)
         {
             //< correct>
@@ -36,6 +40,10 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Get all records
+        /// </summary>
+        /// <returns></returns>
         public static List<Playlist> db_GetAllPlaylists()
         {
             string sSQL = "SELECT * FROM Playlists";
@@ -62,6 +70,11 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Find record
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Playlist db_Get_Record(int? id)
         {
             string sSQL = "SELECT TOP 1 * FROM Playlists WHERE [Id] Like '" + id + "'";
@@ -81,12 +94,19 @@ namespace OpenSoundStream.Code.DataManager
             }
         }
 
+        /// <summary>
+        /// Delete record
+        /// </summary>
+        /// <param name="id"></param>
         public static void db_Delete_Record(int? id)
         {
             string sSQL = "Delete FROM Playlists WHERE [Id] Like '" + id + "'";
             DatabaseHandler.Execute_SQL(sSQL);
         }
 
+        /// <summary>
+        /// Delete all record
+        /// </summary>
         public static void db_Delete_All()
         {
             string Ssql = "Delete FROM Playlists";

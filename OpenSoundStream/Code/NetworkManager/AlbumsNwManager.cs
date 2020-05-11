@@ -16,6 +16,10 @@ namespace OpenSoundStream.Code.NetworkManager
     {
         private static HttpClient client = NetworkHandler.GetClient();
 
+        /// <summary>
+        /// Get all albums from serverDb
+        /// </summary>
+        /// <returns></returns>
         public static List<Album> GetAlbums()
         {
             var responseTask = client.GetAsync("album");
@@ -36,6 +40,7 @@ namespace OpenSoundStream.Code.NetworkManager
                 albums = JsonConvert.DeserializeObject<List<Album>>(json["objects"].ToString());
             }
 
+            // filter ids from server path
             foreach (var album in albums)
             {
                 for (int i = 0; i < album.songs.Length; i++)
@@ -50,6 +55,12 @@ namespace OpenSoundStream.Code.NetworkManager
 
             return albums;
         }
+
+        /// <summary>
+        /// Find album in serverDb
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Album GetAlbum(int id)
         {
             var responseTask = client.GetAsync("album/" + id + "/");
@@ -74,6 +85,10 @@ namespace OpenSoundStream.Code.NetworkManager
             return album;
         }
 
+        /// <summary>
+        /// Add new album
+        /// </summary>
+        /// <param name="album"></param>
         public static void PostAlbum(Album album)
         {
             //HTTP Post
@@ -86,6 +101,10 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+        /// <summary>
+        /// Update album
+        /// </summary>
+        /// <param name="album"></param>
         public static void PutAlbum(Album album)
         {
             //HTTP Put
@@ -98,6 +117,10 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+        /// <summary>
+        /// Delete album
+        /// </summary>
+        /// <param name="id"></param>
         public static void DeleteAlbum(int? id)
         {
             if (id == null)

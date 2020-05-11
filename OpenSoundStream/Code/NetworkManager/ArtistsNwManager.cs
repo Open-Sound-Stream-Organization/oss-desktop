@@ -9,6 +9,10 @@ namespace OpenSoundStream.Code.NetworkManager
     {
         private static HttpClient client = NetworkHandler.GetClient();
 
+        /// <summary>
+        /// Get all artists from serverDb
+        /// </summary>
+        /// <returns></returns>
         public static List<Artist> GetArtists()
         {
             var responseTask = client.GetAsync("artist");
@@ -25,6 +29,7 @@ namespace OpenSoundStream.Code.NetworkManager
             }
             List<Artist> artists = JsonConvert.DeserializeObject<List<Artist>>(json["objects"].ToString());
 
+            // filter ids from server path
             foreach (var artist in artists)
             {
                 for (int i = 0; i < artist.songs.Length; i++)
@@ -40,6 +45,11 @@ namespace OpenSoundStream.Code.NetworkManager
             return artists;
         }
 
+        /// <summary>
+        /// Get an artist from serverDb
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Artist GetArtist(int id)
         {
             var responseTask = client.GetAsync("artist/" + id + "/");
@@ -64,6 +74,10 @@ namespace OpenSoundStream.Code.NetworkManager
             return artist;
         }
 
+        /// <summary>
+        /// Add new artist
+        /// </summary>
+        /// <param name="artist"></param>
         public static void PostArtist(Artist artist)
         {
             //HTTP Post
@@ -76,6 +90,10 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+        /// <summary>
+        /// Update artist
+        /// </summary>
+        /// <param name="artist"></param>
         public static void PutArtist(Artist artist)
         {
             //HTTP Put
@@ -88,6 +106,10 @@ namespace OpenSoundStream.Code.NetworkManager
             }
         }
 
+        /// <summary>
+        /// Delete artist
+        /// </summary>
+        /// <param name="id"></param>
         public static void DeleteArtist(int? id)
         {
             if (id == null)

@@ -188,7 +188,6 @@
     <Compile Include="Code\NetworkManager\ApiKeyManager.cs" />
     <Compile Include="Code\NetworkManager\ArtistsNwManager.cs" />
     <Compile Include="Code\NetworkManager\PlaylistsNwManager.cs" />
-    <Compile Include="Code\NetworkManager\TrackInPlaylistNwManager.cs" />
     <Compile Include="Code\NetworkManager\TracksNwManager.cs" />
     <Compile Include="Code\OpenSoundStreamManager.cs" />
     <Compile Include="Code\Playlist.cs" />
@@ -196,7 +195,6 @@
     <Compile Include="Code\Track.cs" />
     <Compile Include="Code\Metadata.cs" />
     <Compile Include="Code\PlayerState.cs" />
-    <Compile Include="Code\User.cs" />
     <Compile Include="PlayableContainer.cs" />
     <Compile Include="ViewModel\AlbumViewModel.cs" />
     <Compile Include="ViewModel\ArtistViewModel.cs" />
