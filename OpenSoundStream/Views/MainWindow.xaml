@@ -152,7 +152,8 @@
 						</Grid.ColumnDefinitions>
 						<Button Content="{materialDesign:PackIcon Kind=DownloadMultiple}"  Foreground="White" Command="{Binding DownloadCommand}"  Style="{StaticResource MaterialDesignIconForegroundButton}" Width="Auto" Height="Auto" RenderTransformOrigin="0.505,0.48" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 						<Button Content="{materialDesign:PackIcon Kind=UploadMultiple}"  Foreground="White" Command="{Binding UploadCommand}"  Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Center" Margin="2" VerticalAlignment="Center" Width="25" Height="20" Grid.Column="1"/>
-						<Button Content="{materialDesign:PackIcon Kind=MoonWaningCrescent}"  Foreground="White" Command="{Binding SleepCommand}"  Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Center" Margin="2" VerticalAlignment="Center" Width="25" Height="20" Grid.Column="2"/>
+                        <Button Content="{materialDesign:PackIcon Kind=UploadMultiple}"  Foreground="White" Command="{Binding UploadCommand}"  Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Center" Margin="2" VerticalAlignment="Center" Width="25" Height="20" Grid.Column="1"/>
+                        <Button Content="{materialDesign:PackIcon Kind=MoonWaningCrescent}"  Foreground="White" Command="{Binding SleepCommand}"  Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Center" Margin="2" VerticalAlignment="Center" Width="25" Height="20" Grid.Column="2"/>
 						<Button Content="{materialDesign:PackIcon Kind=LoginVariant}"  Foreground="White" Command="{Binding LoginCommand}"  Style="{StaticResource MaterialDesignIconButton}" Margin="2" Width="Auto" Height="Auto" Grid.Column="3"/>
 					</Grid>
 				</Grid>

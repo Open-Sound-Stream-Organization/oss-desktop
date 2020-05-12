@@ -135,8 +135,9 @@ namespace OpenSoundStream.Code.NetworkManager
             dic.Add("title", track.title);
             dic.Add("album", track.album);
             dic.Add("artists", track.artists);
+
             //HTTP Post
-            var postTask = client.PostAsJsonAsync("track/", dic);
+            var postTask = client.PostAsJsonAsync("song/", dic);
             postTask.Wait();
 
             var result = postTask.Result;
@@ -190,8 +191,7 @@ namespace OpenSoundStream.Code.NetworkManager
         public static void PutAudio (Track track)
         {
             var content = new MultipartFormDataContent();
-            content.Add(new StreamContent(File.Open(track.audio, FileMode.Open)), "audio", track.title);
-
+            content.Add(new StreamContent(File.Open(track.audio, FileMode.Open)), "audio", track.title + "." + track.audio.Split('.')[track.audio.Split('.').Length - 1]);
             var httpResponseMessage = client.PutAsync("song/" + track.id + "/", content);
             httpResponseMessage.Wait();
 

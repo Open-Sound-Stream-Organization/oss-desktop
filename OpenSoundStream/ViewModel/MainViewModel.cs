@@ -257,7 +257,7 @@ namespace OpenSoundStream.ViewModel
 
 			// Filedialog Settings
 			openFileDialog.InitialDirectory = "c:\\";
-			openFileDialog.Filter = "mp3 files (*.mp3)|*.mp3";
+			openFileDialog.Filter = "Audio files (*.mp3;*wav)|*.mp3; *.wav";
 			openFileDialog.FilterIndex = 2;
 			openFileDialog.RestoreDirectory = true;
 
@@ -337,6 +337,7 @@ namespace OpenSoundStream.ViewModel
 			//To decide between all Tracks and a Playlist
 			SelectAllTracks = false;
 			musicplayer.NextTrack();
+			musicplayer.PrevTrack();
 			playMusic();
 
 			Tracks.Clear();

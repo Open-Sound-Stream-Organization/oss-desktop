@@ -1,4 +1,5 @@
-﻿using OpenSoundStream.Code;
+﻿using DynamicData.Annotations;
+using OpenSoundStream.Code;
 using OpenSoundStream.Code.DataManager;
 using OpenSoundStream.Code.NetworkManager;
 using System;
@@ -164,6 +165,7 @@ namespace OpenSoundStream
                 {
                     MetadataEditor.AddArtist(destFile, artists);
                 }
+                
             }
 
             // if track doesn't exist in Db create new
@@ -172,11 +174,13 @@ namespace OpenSoundStream
                 track.title = fileName.Split('.')[0];
                 track.Filepath = new Uri(@"file:///" + destFile);
                 // Post to ServerDb
+                track.audio = destFile;
                 TracksNwManager.PostTrack(track);
                 // Get new Track and add to localDb
                 track = TracksNwManager.GetTracks().FindLast(e => e.title == track.title);
                 if(track != null)
                 {
+                    MetadataEditor.AddTitle(destFile, track.title);
                     track.audio = destFile;
                     TracksManager.db_Add_Update_Record(track);
                     // Add Audio to track
