@@ -1,5 +1,10 @@
 ﻿using OpenSoundStream.Code.NetworkManager;
 using System;
+using System.IO;
+using System.Web.UI.WebControls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using TagLib;
 
 namespace OpenSoundStream.Code
 {
@@ -57,7 +62,7 @@ namespace OpenSoundStream.Code
             catch (Exception)
             {
             }
-            
+
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace OpenSoundStream.Code
                 f.Tag.Year = (uint)date.Year;
                 f.Save();
             }
-            catch(Exception) 
+            catch (Exception)
             {
             }
         }
@@ -94,7 +99,7 @@ namespace OpenSoundStream.Code
             catch (Exception)
             {
             }
-            
+
         }
 
         /// <summary>
@@ -113,9 +118,9 @@ namespace OpenSoundStream.Code
             {
                 return null;
             }
-            
+
         }
-        
+
         /// <summary>
         /// Get Album
         /// </summary>
@@ -132,7 +137,7 @@ namespace OpenSoundStream.Code
             {
                 return null;
             }
-            
+
         }
 
         /// <summary>
@@ -151,7 +156,7 @@ namespace OpenSoundStream.Code
             {
                 return null;
             }
-            
+
         }
 
         /// <summary>
@@ -169,7 +174,7 @@ namespace OpenSoundStream.Code
             catch (Exception)
             {
                 return null;
-            }   
+            }
         }
 
         /// <summary>
@@ -186,7 +191,7 @@ namespace OpenSoundStream.Code
             }
             catch (Exception)
             {
-                return new TimeSpan(0,0,0);
+                return new TimeSpan(0, 0, 0);
             }
         }
 

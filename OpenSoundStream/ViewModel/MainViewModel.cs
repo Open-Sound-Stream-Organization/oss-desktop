@@ -80,7 +80,6 @@ namespace OpenSoundStream.ViewModel
 			{
 				_pauseOrPlay = value;
 				RaisePropertyChanged("PauseOrPlay");
-
 			}
 		}
 		public BitmapImage AlbumCover
@@ -559,7 +558,17 @@ namespace OpenSoundStream.ViewModel
 			try
 			{
 				CurrentTrack = musicplayer.Musicqueue.ActiveTrack.title;
-				AlbumCover = new BitmapImage(new Uri(musicplayer.Musicqueue.ActiveTrack.Metadata.CoverFile, UriKind.RelativeOrAbsolute));
+				int albumid = Convert.ToInt32(musicplayer.Musicqueue.ActiveTrack.album);
+				Album album = AlbumsManager.db_Get_Record(albumid);
+
+				if(album.cover_url == "")
+				{
+					AlbumCover = new BitmapImage(new Uri(AppHelper.DataPath + "/Cover/DefaultCover.png", UriKind.RelativeOrAbsolute));
+				}
+				else
+				{
+					AlbumCover = new BitmapImage(new Uri(album.cover_url, UriKind.RelativeOrAbsolute));
+				}
 			}
 			catch (Exception)
 			{
