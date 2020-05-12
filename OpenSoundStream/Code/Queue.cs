@@ -143,8 +143,11 @@ namespace OpenSoundStream
 			{
 				Queue.AddLast(track);
 			}
-			ActiveTrack = Queue.First.Value;
-			ActiveNode = Queue.First;
+			if(Queue.First != null) 
+			{ 
+				ActiveTrack = Queue.First.Value;
+				ActiveNode = Queue.First;
+			}
 		}
 
 		/// <summary>

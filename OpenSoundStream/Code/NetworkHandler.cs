@@ -22,6 +22,8 @@ namespace OpenSoundStream
 
         private static ApiKey ApiKey = null;
 
+        private static string encodedLogout = "";
+
         #endregion
 
         #region Properties
@@ -60,6 +62,7 @@ namespace OpenSoundStream
             // Encoding to Base64 for server authorization
             var plainTextBytes = Encoding.UTF8.GetBytes(username +":"+password);
             string encoded = Convert.ToBase64String(plainTextBytes);
+            encodedLogout = encoded;
 
             // Add basic authorization
             client.DefaultRequestHeaders.Add("Authorization", "Basic " + encoded);
@@ -79,10 +82,12 @@ namespace OpenSoundStream
         public static void Logout()
         {
             // Remove apikey and authorizations to cut connection with server
-            ApiKeyManager.DeleteApiKey(ApiKey.id);
-            ApiKey = null;
             client.DefaultRequestHeaders.Remove("Authorization");
             DownloadClient.DefaultRequestHeaders.Remove("Authorization");
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + encodedLogout);
+            ApiKeyManager.DeleteApiKey(ApiKey.id);
+            client.DefaultRequestHeaders.Remove("Authorization");
+            ApiKey = null;
         }
 
         /// <summary>

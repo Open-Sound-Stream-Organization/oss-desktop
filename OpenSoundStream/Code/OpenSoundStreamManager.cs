@@ -1,7 +1,4 @@
-﻿using OpenSoundStream.Code.NetworkManager;
-using System;
-
-namespace OpenSoundStream
+﻿namespace OpenSoundStream
 {
     public class OpenSoundStreamManager
     {
