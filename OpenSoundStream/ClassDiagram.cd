@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OpenSoundStream.DatabaseHandler">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\DatabaseHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSoundStream.NetworkHandler">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\NetworkHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSoundStream.Musicplayer">
+    <Position X="5.5" Y="2" Width="2" />
+    <AssociationLine Name="Musicqueue" Type="OpenSoundStream.MusicQueue">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.067" Y="0.195" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgQAAAAAACAAAAIAACIAAAAAAAAACApAAABAAAAAA=</HashCode>
+      <FileName>Code\Musicplayer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Musicqueue" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OpenSoundStream.MusicQueue">
+    <Position X="4.25" Y="6.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ACCAAogAAAAAAAAAKAACAIAAwAAAAAAABAIAAAAAEAA=</HashCode>
+      <FileName>Code\Queue.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Queue" />
+      <Property Name="LastPlayed" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSoundStream.Track">
+    <Position X="8.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAEAAAAAAAAAAAIAAAAAAAAQACAAEAAA=</HashCode>
+      <FileName>Code\Track.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Metadata" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OpenSoundStream.Album">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Code\Album.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSoundStream.Playlist">
+    <Position X="8.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAACAAAACAAAAAAAAFAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\Playlist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSoundStream.Artist">
+    <Position X="13.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAEAACAAAAAA=</HashCode>
+      <FileName>Code\Artist.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Albums" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="OpenSoundStream.OpenSoundStreamManager">
+    <Position X="2.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAIAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\OpenSoundStreamManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DatabaseHandler" />
+      <Property Name="NetworkHandler" />
+      <Property Name="Musicplayer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OpenSoundStream.AppHelper">
+    <Position X="0.5" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAgAAEAAAAQAAAAIAAAEAAAACA=</HashCode>
+      <FileName>Code\AppHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSoundStream.Metadata">
+    <Position X="11" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAIAAAAAAQAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Code\Metadata.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSoundStream.ViewModel.MainViewModel">
+    <Position X="0.5" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ASQcAwEBhVICCACAJCgCAAEJACgIAjngECMQEAgUQRA=</HashCode>
+      <FileName>ViewModel\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSoundStream.ViewModel.TrackClass">
+    <Position X="4" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAEAAAAIAAABAAIAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>ViewModel\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSoundStream.PlayableContainer">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlayableContainer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tracks" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Enum Name="OpenSoundStream.PlayerState">
+    <Position X="5.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAA=</HashCode>
+      <FileName>Code\PlayerState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

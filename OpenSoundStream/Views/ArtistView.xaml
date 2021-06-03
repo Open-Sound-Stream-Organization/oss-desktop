@@ -1,0 +1,51 @@
+﻿<Page x:Class="OpenSoundStream.Views.ArtistView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OpenSoundStream.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ArtistView">
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition MinWidth="160.5"/>
+			<ColumnDefinition Width="3*"/>
+		</Grid.ColumnDefinitions>
+
+		<ListView x:Name="ArtistList" Grid.Column="0" ItemsSource="{Binding ArtistNames}" Style="{StaticResource MaterialDesignListView}" Background="Transparent">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Artists" DisplayMemberBinding="{Binding}" />
+				</GridView>
+			</ListView.View>
+
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="MouseDoubleClick">
+					<i:InvokeCommandAction Command="{Binding ArtistCommand}" CommandParameter="{Binding SelectedItem, ElementName=ArtistList}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</ListView>
+		<ListView ItemsSource="{Binding TrackList}" Height="450" Margin="0" Style="{StaticResource MaterialDesignListView}" Visibility="{Binding ListVisi}" Grid.Column="1" ClipToBounds="True" IsSynchronizedWithCurrentItem="True">
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="MouseDoubleClick">
+					<i:InvokeCommandAction Command="{Binding TitleCommand}" CommandParameter="{Binding SelectedItem, ElementName=TitleView}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+					<GridViewColumn Header="Album" DisplayMemberBinding="{Binding Album}" />
+					<GridViewColumn Header="Length" DisplayMemberBinding="{Binding Length}" />
+					<GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}" />
+					<GridViewColumn Header="Year" DisplayMemberBinding="{Binding Year}" />
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
+
+</Page>
